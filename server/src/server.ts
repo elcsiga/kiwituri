@@ -8,9 +8,7 @@ setupDb()
         const app = express();
         app.use(cors());
 
-        app.get('/', (req, res) => {
-            res.send('hello world')
-        });
+        app.use(express.static(__dirname + "/../../ui/dist"));
 
         const port = process.env.PORT || 3000;
         console.log(`Listening on ${port}`);
