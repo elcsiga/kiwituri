@@ -2,11 +2,11 @@
   "name": "kiwituri",
   "version": "1.0.0",
   "scripts": {
+    "postinstall": "cd server && npm install && npm install --only=dev",
+    "start": "cd server && npm start",
+
     "install-ui": "cd ui && npm install && npm install --only=dev",
-    "install-server": "cd server && npm install && npm install --only=dev",
-    "postinstall": "npm run install-ui && npm run install-server",
-    "prestart": "cd ui && npm run build-prod",
-    "start": "cd server && npm start"
+    "build-ui": "cd ui && npm run build-prod"
   },
   "dependencies": {
     
