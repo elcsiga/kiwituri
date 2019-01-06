@@ -1,0 +1,16 @@
+<div
+  (dragenter)="onDragEnter($event)"
+  (dragleave)="onDragLeave($event)"
+  (drop)="onDrop($event)"
+  (dragover)="onDragOver($event)"
+  (click)="onClick()"
+  [class.dragging]="dragging"
+></div>
+
+<input [hidden]="true"
+  #hiddenInputField
+  type="file"
+  [accept]="getAcceptPattern()"
+  [multiple]="true"
+  (change)="onFilesSelected($event)"
+>

@@ -1,0 +1,9 @@
+div {
+  min-height: 100px;
+  width: 300px;
+  background-color: #eeeeee;
+}
+
+.dragging {
+  background-color: #aaaaaa;
+}

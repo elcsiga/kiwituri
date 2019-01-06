@@ -1,0 +1,19 @@
+<div *ngIf="report | async as r">
+  {{r.filename}} -
+
+  <span *ngIf="r.status === 0">
+    Starting upload...
+  </span>
+
+  <span *ngIf="r.status > 0">
+    {{ r.status | percent:"1.0-0" }}
+  </span>
+
+  <span *ngIf="r.status === 'done'">
+    Upload ok.
+  </span>
+
+  <span *ngIf="r.status === 'error'">
+    Upload failed.
+  </span>
+</div>

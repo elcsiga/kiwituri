@@ -1,0 +1,13 @@
+<h1>
+  Upload files
+</h1>
+
+
+
+<app-file-upload>
+</app-file-upload>
+
+
+<app-upload-indicator *ngFor="let report of (report$ | async)" [report]="report.value$">
+
+</app-upload-indicator>

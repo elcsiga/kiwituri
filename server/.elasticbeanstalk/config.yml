@@ -1,0 +1,18 @@
+branch-defaults:
+  default:
+    environment: kiwituri-env
+    group_suffix: null
+global:
+  application_name: kiwituri
+  branch: null
+  default_ec2_keyname: kiwituri-key
+  default_platform: node.js
+  default_region: eu-central-1
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: eb-cli
+  repository: null
+  sc: null
+  workspace_type: Application
