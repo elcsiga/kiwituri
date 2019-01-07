@@ -2,12 +2,82 @@
   Upload files
 </h1>
 
+<div class="content">
+
+  <div class="row">
+    <mat-form-field class="full-width">
+      <mat-chip-list #chipList>
+        <mat-chip
+          *ngFor="let tag of tags"
+          [selectable]="selectable"
+          [removable]="removable"
+          (removed)="remove(tag)">
+          {{tag}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input
+          placeholder="Kategóriák..."
+          #tagInput
+          [formControl]="tagCtrl"
+          [matAutocomplete]="auto"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+          {{tag}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <div>
+      <span class="tag-link"
+            [class.tag-link-selected]="isTagSelected(tag)"
+            (click) ="addTag(tag)"
+            href='#' *ngFor="let tag of allTags"> {{tag}} </span>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <mat-radio-group class="radio-group" [formControl]="sexControl">
+      <mat-radio-button class="radio-button" *ngFor="let sex of sexes" [value]="sex">
+        {{sex}}
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <div class="row">
+    <mat-form-field class="full-width">
+      <mat-select placeholder="Méret" [formControl]="sizeControl" required>
+        <mat-option *ngFor="let size of sizes" [value]="size">
+          {{size}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="sizeControl.hasError('required')">Válassz egy méretet</mat-error>
+    </mat-form-field>
+    <mat-checkbox [formControl]="sizeEstimatedControl">Becsült méret</mat-checkbox>
+  </div>
+
+  <div class="row">
+    <mat-form-field class="full-width">
+      <textarea matInput placeholder="Részletek" cdkTextareaAutosize></textarea>
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <app-file-upload>
+    </app-file-upload>
+
+    <app-upload-indicator *ngFor="let report of (report$ | async)" [report]="report.value$">
+    </app-upload-indicator>
+  </div>
+
+</div>
 
 
-<app-file-upload>
-</app-file-upload>
 
 
-<app-upload-indicator *ngFor="let report of (report$ | async)" [report]="report.value$">
 
-</app-upload-indicator>
