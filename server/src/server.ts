@@ -5,6 +5,7 @@ import * as multerS3 from 'multer-s3';
 import {db} from "./mysql";
 //import {s3} from "./s3";
 import * as AWS from "aws-sdk";
+import {UploadedFile} from "../../common/interfaces/upload";
 
 const app = express();
 app.use(cors());
@@ -41,12 +42,15 @@ const upload = multer({
 
 app.post('/api/upload', upload.single('uploadedfile'), function (req, res, next) {
     const file = req.file as Express.MulterS3.File;
-    res.json({
+
+    const uploadedFile: UploadedFile = {
         id: file.key,
         size: file.size,
         url: file.location,
         filename: file.originalname,
-    });
+    };
+
+    res.json(uploadedFile);
 });
 
 app.get('/api/test', (req, res) => {

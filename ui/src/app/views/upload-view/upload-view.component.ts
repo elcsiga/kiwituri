@@ -7,6 +7,8 @@ import {FormControl, Validators} from '@angular/forms';
 import {MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete} from '@angular/material';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import {FileUploadDropzoneComponent} from "../../upload/components/file-upload-dropzone/file-upload-dropzone.component";
+import {UploadedFile} from "../../../../../common/interfaces/upload";
 
 @Component({
   selector: 'app-upload-view',
@@ -16,6 +18,8 @@ import {map, startWith} from 'rxjs/operators';
 export class UploadViewComponent implements OnInit {
 
   report$ = this.uploadService.reports.value$;
+
+  uploadedFiles: UploadedFile[] = [];
 
   visible = true;
   selectable = true;
@@ -125,19 +129,12 @@ export class UploadViewComponent implements OnInit {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-
     return this.allTags.filter(zag => zag.toLowerCase().indexOf(filterValue) === 0);
   }
 
-
-
-
-
-
-
-
-
-
-
-
+  onFilesDropped(files: File[]) {
+    this.uploadService.uploadFiles(files).subscribe( uploadedFile => {
+      this.uploadedFiles.push(uploadedFile);
+    });
+  }
 }

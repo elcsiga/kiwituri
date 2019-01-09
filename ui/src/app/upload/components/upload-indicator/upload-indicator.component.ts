@@ -17,4 +17,11 @@ export class UploadIndicatorComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  getProgressValue(status) {
+    if (status === 0) return 0;
+    if (status > 0) return status;
+    if (status === "done") return 100;
+    return 0;
+  }
 }

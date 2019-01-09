@@ -4,9 +4,10 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  MatButtonModule,
   MatChipsModule,
   MatIconModule, MatInputModule,
-  MatListModule, MatRadioModule,
+  MatListModule, MatProgressBarModule, MatRadioModule,
   MatSelectModule,
   MatSidenavModule,
   MatToolbarModule
@@ -45,7 +46,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     MatSelectModule,
     MatCheckboxModule,
     MatRadioModule,
-    MatInputModule
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

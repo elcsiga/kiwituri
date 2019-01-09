@@ -1,20 +1,30 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FileUploadComponent} from "./components/file-upload/file-upload.component";
+import {FileUploadDropzoneComponent} from "./components/file-upload-dropzone/file-upload-dropzone.component";
 import {UploadIndicatorComponent} from "./components/upload-indicator/upload-indicator.component";
 import {UploadService} from "./services/upload.service";
+import {MatButtonModule, MatIconModule, MatProgressBarModule} from "@angular/material";
+import { ThumbnailComponent } from './components/thumbnail/thumbnail.component';
+import { UploadButtonComponent } from './components/upload-button/upload-button.component';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    MatProgressBarModule,
+    MatButtonModule,
+    MatIconModule
   ],
   declarations: [
-    FileUploadComponent,
-    UploadIndicatorComponent
+    FileUploadDropzoneComponent,
+    UploadIndicatorComponent,
+    ThumbnailComponent,
+    UploadButtonComponent
   ],
   exports: [
-    FileUploadComponent,
-    UploadIndicatorComponent
+    FileUploadDropzoneComponent,
+    UploadIndicatorComponent,
+    ThumbnailComponent,
+    UploadButtonComponent
   ],
   providers: [
     UploadService
