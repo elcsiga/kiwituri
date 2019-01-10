@@ -21,6 +21,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import { FormModule } from "./form/form.module";
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     MatListModule,
     AppRoutingModule,
     UploadModule,
+    FormModule,
     MatChipsModule,
     MatFormFieldModule,
     MatAutocompleteModule,

@@ -3,7 +3,7 @@ import {UploadService} from "../../upload/services/upload.service";
 
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {ElementRef, ViewChild} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import {MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete} from '@angular/material';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
@@ -45,7 +45,14 @@ export class UploadViewComponent implements OnInit {
     'Unisex'
   ];
 
-  sizeControl = new FormControl('', [Validators.required]);
+
+  uploadForm = this.fb.group({
+    sex: ['', [Validators.required]],
+    size: ['', [Validators.required]],
+    description: ['']
+  });
+
+  //sizeControl = new FormControl('', [Validators.required]);
   sizes = [
     '0-3 hónap',
     '3-6 hónap',
@@ -68,7 +75,9 @@ export class UploadViewComponent implements OnInit {
   sizeEstimatedControl = new FormControl();
 
   constructor(
-    private uploadService: UploadService) {
+    private uploadService: UploadService,
+    private fb: FormBuilder
+  ) {
 
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
       startWith(null),

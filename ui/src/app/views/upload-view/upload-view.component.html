@@ -1,93 +1,100 @@
-
 <div class="content">
 
   <h1>
     Új ruha
   </h1>
 
-  <div class="row">
-    <app-file-upload (drop)="onFilesDropped($event)">
-      <div class="file-upload-container">
+  <form [formGroup]="uploadForm">
 
-        <div *ngIf="uploadedFiles.length === 0">
-          Húzd ide a képeket!
+    <div class="row">
+      <app-file-upload (drop)="onFilesDropped($event)">
+        <div class="file-upload-container">
+
+          <p *ngIf="uploadedFiles.length === 0">
+            Húzd ide a képeket, <br/>
+            vagy használd a feltöltés gombot.
+          </p>
+
+          <app-thumbnail *ngFor="let uploadedFile of uploadedFiles" [url]="uploadedFile.url"></app-thumbnail>
+
+          <app-upload-button class="upload-button" (selected)="onFilesDropped($event)">
+
+          </app-upload-button>
         </div>
-
-
-        <app-thumbnail  *ngFor="let uploadedFile of uploadedFiles" [url]="uploadedFile.url"></app-thumbnail>
-
-        <app-upload-button class="upload-button" (selected)="onFilesDropped($event)">
-
-        </app-upload-button>
-      </div>
-    </app-file-upload>
-  </div>
-
-  <div class="row">
-    <mat-form-field class="full-width">
-      <mat-chip-list #chipList>
-        <mat-chip
-          *ngFor="let tag of tags"
-          [selectable]="selectable"
-          [removable]="removable"
-          (removed)="remove(tag)">
-          {{tag}}
-          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-        </mat-chip>
-        <input
-          placeholder="Kategóriák..."
-          #tagInput
-          [formControl]="tagCtrl"
-          [matAutocomplete]="auto"
-          [matChipInputFor]="chipList"
-          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-          [matChipInputAddOnBlur]="addOnBlur"
-          (matChipInputTokenEnd)="add($event)">
-      </mat-chip-list>
-      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-        <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
-          {{tag}}
-        </mat-option>
-      </mat-autocomplete>
-      <mat-hint>Válassz egy vagy több kategóriát vagy írj be újat.</mat-hint>
-    </mat-form-field>
-
-    <div class="tag-link-container">
-      <span class="tag-link"
-            [class.tag-link-selected]="isTagSelected(tag)"
-            (click) ="addTag(tag)"
-            href='#' *ngFor="let tag of allTags"> {{tag}} </span>
+      </app-file-upload>
     </div>
 
-  </div>
+    <div class="row">
+      <mat-form-field class="full-width">
+        <mat-chip-list #chipList>
+          <mat-chip
+            *ngFor="let tag of tags"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="remove(tag)">
+            {{tag}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input
+            placeholder="Kategóriák..."
+            #tagInput
+            [formControl]="tagCtrl"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+            {{tag}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-hint>Válassz egy vagy több kategóriát vagy írj be újat.</mat-hint>
+      </mat-form-field>
+
+      <div class="tag-link-container">
+      <span class="tag-link"
+            [class.tag-link-selected]="isTagSelected(tag)"
+            (click)="addTag(tag)"
+            href='#' *ngFor="let tag of allTags"> {{tag}} </span>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <mat-radio-group class="radio-group" formControlName="sex">
+        <mat-radio-button class="radio-button" *ngFor="let sex of sexes" [value]="sex">
+          {{sex}}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="full-width">
+        <mat-select placeholder="Méret" formControlName="size" required>
+          <mat-option *ngFor="let size of sizes" [value]="size">
+            {{size}}
+          </mat-option>
+        </mat-select>
+
+      </mat-form-field>
+      <p>Ha nincs meg az eredeti címke, akkor is tippelj, és jelöld itt, hogy ez becsült méret.</p>
+
+      <mat-checkbox [formControl]="sizeEstimatedControl">Becsült méret</mat-checkbox>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="full-width">
+        <textarea matInput placeholder="Részletek" cdkTextareaAutosize formControlName="description"></textarea>
+        <mat-hint>Bármi, amit még tudni érdemes. Nem kötelező kitölteni,</mat-hint>
+      </mat-form-field>
+    </div>
+
+  </form>
 
   <div class="row">
-    <mat-radio-group class="radio-group" [formControl]="sexControl">
-      <mat-radio-button class="radio-button" *ngFor="let sex of sexes" [value]="sex">
-        {{sex}}
-      </mat-radio-button>
-    </mat-radio-group>
-  </div>
-
-  <div class="row">
-    <mat-form-field class="full-width">
-      <mat-select placeholder="Méret" [formControl]="sizeControl" required>
-        <mat-option *ngFor="let size of sizes" [value]="size">
-          {{size}}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="sizeControl.hasError('required')">Válassz egy méretet</mat-error>
-    </mat-form-field>
-    <p>Ha nincs meg az eredeti címke, akkor is tippelj, és jelöld itt, hogy ez becsült méret.</p>
-
-    <mat-checkbox [formControl]="sizeEstimatedControl">Becsült méret</mat-checkbox>
-  </div>
-
-  <div class="row">
-    <mat-form-field class="full-width">
-      <textarea matInput placeholder="Részletek" cdkTextareaAutosize></textarea>
-      <mat-hint>Bármi, amit még tudni érdemes. Nem kötelező kitölteni,</mat-hint>
-    </mat-form-field>
+    <pre>{{uploadForm.getRawValue() | json}}</pre>
   </div>
 
   <div class="indicator mat-elevation-z4" *ngIf="(report$ | async).length">
