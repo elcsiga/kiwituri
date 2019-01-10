@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  MatButtonModule,
+  MatButtonModule, MatCardModule,
   MatChipsModule,
   MatIconModule, MatInputModule,
   MatListModule, MatProgressBarModule, MatRadioModule,
@@ -22,12 +22,14 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { FormModule } from "./form/form.module";
+import { AboutViewComponent } from './views/about-view/about-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UploadViewComponent,
-    HomeViewComponent
+    HomeViewComponent,
+    AboutViewComponent
   ],
   imports: [
     FormsModule,
@@ -49,7 +51,8 @@ import { FormModule } from "./form/form.module";
     MatCheckboxModule,
     MatRadioModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

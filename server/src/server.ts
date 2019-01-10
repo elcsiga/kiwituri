@@ -5,11 +5,12 @@ import * as multerS3 from 'multer-s3';
 import {db} from "./mysql";
 //import {s3} from "./s3";
 import * as AWS from "aws-sdk";
-import {UploadedFile} from "../../common/interfaces/upload";
+import {UploadedFile} from "./common/interfaces/upload";
 
 const app = express();
 app.use(cors());
 app.use(express.static(__dirname + '/ui'));
+app.use(express.static(__dirname + '/assets'));
 
 const s3 = new AWS.S3({apiVersion: '2006-03-01'});
 const bucketName = 'kiwituri-storage';

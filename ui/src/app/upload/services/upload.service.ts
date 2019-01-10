@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpEvent, HttpEventType, HttpProgressEvent, HttpRequest} from "@angular/common/http";
 import {Store, StoreCollection} from "../../util/Store";
 import {BehaviorSubject, Observable, Subject} from "rxjs";
-import {UploadedFile} from "../../../../../common/interfaces/upload";
+import {UploadedFile} from "../../../../../server/src/common/interfaces/upload";
 
 export interface Report {
   filename: string;

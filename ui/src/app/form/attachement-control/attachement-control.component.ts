@@ -1,5 +1,5 @@
 import { Component, forwardRef, HostBinding, Input } from '@angular/core';
-import { UploadedFile } from "../../../../../common/interfaces/upload";
+import { UploadedFile } from "../../../../../server/src/common/interfaces/upload";
 import { UploadService } from "../../upload/services/upload.service";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { TagControlComponent } from "../tag-control/tag-control.component";
