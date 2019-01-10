@@ -7,59 +7,24 @@
   <form [formGroup]="uploadForm">
 
     <div class="row">
-      <app-file-upload (drop)="onFilesDropped($event)">
-        <div class="file-upload-container">
-
-          <p *ngIf="uploadedFiles.length === 0">
-            Húzd ide a képeket, <br/>
-            vagy használd a feltöltés gombot.
-          </p>
-
-          <app-thumbnail *ngFor="let uploadedFile of uploadedFiles" [url]="uploadedFile.url"></app-thumbnail>
-
-          <app-upload-button class="upload-button" (selected)="onFilesDropped($event)">
-
-          </app-upload-button>
-        </div>
-      </app-file-upload>
+      <app-attachement-control
+        ormControlName="thumbnail"
+      ></app-attachement-control>
     </div>
 
     <div class="row">
-      <mat-form-field class="full-width">
-        <mat-chip-list #chipList>
-          <mat-chip
-            *ngFor="let tag of tags"
-            [selectable]="selectable"
-            [removable]="removable"
-            (removed)="remove(tag)">
-            {{tag}}
-            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-          </mat-chip>
-          <input
-            placeholder="Kategóriák..."
-            #tagInput
-            [formControl]="tagCtrl"
-            [matAutocomplete]="auto"
-            [matChipInputFor]="chipList"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-            [matChipInputAddOnBlur]="addOnBlur"
-            (matChipInputTokenEnd)="add($event)">
-        </mat-chip-list>
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-          <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
-            {{tag}}
-          </mat-option>
-        </mat-autocomplete>
-        <mat-hint>Válassz egy vagy több kategóriát vagy írj be újat.</mat-hint>
-      </mat-form-field>
+      <app-attachement-control
+        formControlName="images"
+      ></app-attachement-control>
+    </div>
 
-      <div class="tag-link-container">
-      <span class="tag-link"
-            [class.tag-link-selected]="isTagSelected(tag)"
-            (click)="addTag(tag)"
-            href='#' *ngFor="let tag of allTags"> {{tag}} </span>
-      </div>
-
+    <div class="row">
+      <app-tag-control
+        formControlName="tags"
+        [placeholder]="'Kategóriák'"
+        [hint]="'Válassz egy vagy több kategóriát vagy írj be újat.'"
+        [allTags]="allTags"
+      ></app-tag-control>
     </div>
 
     <div class="row">
@@ -81,7 +46,7 @@
       </mat-form-field>
       <p>Ha nincs meg az eredeti címke, akkor is tippelj, és jelöld itt, hogy ez becsült méret.</p>
 
-      <mat-checkbox [formControl]="sizeEstimatedControl">Becsült méret</mat-checkbox>
+      <mat-checkbox formControlName="sizeEstimated">Becsült méret</mat-checkbox>
     </div>
 
     <div class="row">
@@ -97,10 +62,7 @@
     <pre>{{uploadForm.getRawValue() | json}}</pre>
   </div>
 
-  <div class="indicator mat-elevation-z4" *ngIf="(report$ | async).length">
-    <app-upload-indicator *ngFor="let report of (report$ | async)" [report]="report.value$">
-    </app-upload-indicator>
-  </div>
+
 </div>
 
 

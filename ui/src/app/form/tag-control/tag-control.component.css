@@ -1,0 +1,17 @@
+.full-width {
+  width: 100%;
+}
+
+.tag-link-container {
+  margin-top: 10px;
+}
+.tag-link {
+  color: dodgerblue;
+  cursor: pointer;
+}
+
+.tag-link-selected {
+  color: #c5cae9;
+  cursor: default;
+  pointer-events: none;
+}
