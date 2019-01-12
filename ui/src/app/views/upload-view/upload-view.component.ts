@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import {HttpClient} from "@angular/common/http";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-upload-view',
   templateUrl: './upload-view.component.html',
   styleUrls: ['./upload-view.component.css']
 })
-export class UploadViewComponent implements OnInit {
+export class UploadViewComponent {
 
   allTags: string[] = [
     'Póló',
@@ -43,9 +45,9 @@ export class UploadViewComponent implements OnInit {
   ];
 
   uploadForm = this.fb.group({
-    thumbnail: [[], [Validators.required]],
+    thumbnail: [null, [Validators.required]],
     images: [[]],
-    tags: [[], [Validators.required]],
+    tags: [[]],
     sex: [undefined, [Validators.required]],
     size: [undefined, [Validators.required]],
     sizeEstimated: [false],
@@ -53,11 +55,26 @@ export class UploadViewComponent implements OnInit {
   });
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private router: Router
   ) {
 
   }
 
-  ngOnInit() {
+  submit() {
+    if (this.uploadForm.valid) {
+      this.http.post('/api/items', this.uploadForm.value)
+        .subscribe( response => {
+          console.log(response);
+          this.router.navigate(['/']);
+        }, error => {
+          alert('NEM SIKERÜLT A FELTÜLTÉS');
+          console.error(error);
+        })
+    } else {
+      console.error('Trying to submit an invalid form...');
+    }
   }
+
 }

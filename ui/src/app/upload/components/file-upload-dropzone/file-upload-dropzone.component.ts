@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-file-upload',
@@ -9,7 +9,8 @@ export class FileUploadDropzoneComponent implements OnInit {
 
   dragging = 0;
 
-  @Output() drop : EventEmitter<File[]> = new EventEmitter<File[]>();
+  @Input() multiple = false;
+  @Output() drop : EventEmitter<File[] | File> = new EventEmitter<File[] | File>();
 
   constructor() {
   }
@@ -35,11 +36,17 @@ export class FileUploadDropzoneComponent implements OnInit {
     this.dragging = 0;
     $event.preventDefault();
 
-    const files = [];
-    for (let i = 0; i < $event.dataTransfer.files.length; i++) {
-      files.push($event.dataTransfer.files[i])
+    if (this.multiple && $event.dataTransfer.files.length > 0) {
+      const files = [];
+      for (let i = 0; i < $event.dataTransfer.files.length; i++) {
+        files.push($event.dataTransfer.files[i])
+      }
+      if (files.length > 0) {
+        this.drop.emit(files);
+      }
     }
-
-    this.drop.emit(files);
+    if (!this.multiple && $event.dataTransfer.files.length === 1) {
+      this.drop.emit($event.dataTransfer.files[0]);
+    }
   }
 }

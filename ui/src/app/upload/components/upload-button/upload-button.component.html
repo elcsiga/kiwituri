@@ -1,4 +1,4 @@
-<button mat-mini-fab color="primary" (click)="selectFiles()">
+<button type="button" mat-mini-fab color="primary" (click)="selectFiles()">
   <mat-icon [color]="'white'" aria-label="Feltöltés">cloud_upload</mat-icon>
 </button>
 
@@ -6,6 +6,6 @@
        #hiddenInputField
        type="file"
        [accept]="getAcceptPattern()"
-       [multiple]="true"
+       [multiple]="multiple"
        (change)="onFilesSelected($event)"
 >

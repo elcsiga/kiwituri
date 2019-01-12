@@ -5,8 +5,9 @@ import { ReactiveFormsModule } from "@angular/forms";
 import {
   MatAutocompleteModule, MatChipsModule, MatIconModule, MatInputModule
 } from "@angular/material";
-import { AttachementControlComponent } from './attachement-control/attachement-control.component';
+import { AttachmentControlComponent } from './attachement-control/attachment-control.component';
 import { UploadModule } from "../upload/upload.module";
+import { MultipleAttachmentControlComponent } from './multiple-attachment-control/multiple-attachment-control.component';
 
 @NgModule({
   imports: [
@@ -20,11 +21,13 @@ import { UploadModule } from "../upload/upload.module";
   ],
   declarations: [
     TagControlComponent,
-    AttachementControlComponent
+    AttachmentControlComponent,
+    MultipleAttachmentControlComponent
   ],
   exports: [
     TagControlComponent,
-    AttachementControlComponent
+    AttachmentControlComponent,
+    MultipleAttachmentControlComponent
   ]
 })
 export class FormModule { }

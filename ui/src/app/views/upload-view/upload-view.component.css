@@ -35,3 +35,10 @@ p {
   color: rgba(0,0,0,.54);
   font-size: 75%;
 }
+
+.buttons {
+  text-align: right;
+}
+.buttons a {
+  margin: 0 20px;
+}

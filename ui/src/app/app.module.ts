@@ -23,13 +23,15 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { FormModule } from "./form/form.module";
 import { AboutViewComponent } from './views/about-view/about-view.component';
+import { ShopViewComponent } from './views/shop-view/shop-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UploadViewComponent,
     HomeViewComponent,
-    AboutViewComponent
+    AboutViewComponent,
+    ShopViewComponent
   ],
   imports: [
     FormsModule,

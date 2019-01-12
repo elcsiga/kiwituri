@@ -1,0 +1,24 @@
+<app-file-upload (drop)="onFilesDropped($event)" [multiple]="true">
+  <div class="file-upload-container">
+
+    <p *ngIf="uploadedFiles.length === 0">
+      Húzd ide a képeket, <br/>
+      vagy használd a feltöltés gombot.
+    </p>
+
+    <app-thumbnail
+      *ngFor="let uploadedFile of uploadedFiles; let i = index"
+      [url]="uploadedFile.url"
+      (onRemove)="removeFile(i)"
+    ></app-thumbnail>
+
+    <app-upload-button class="upload-button" (selected)="onFilesDropped($event)" [multiple]="true">
+
+    </app-upload-button>
+  </div>
+</app-file-upload>
+
+<div class="indicator mat-elevation-z4" *ngIf="(report$ | async).length">
+  <app-upload-indicator *ngFor="let report of (report$ | async)" [report]="report.value$">
+  </app-upload-indicator>
+</div>

@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {UploadService} from "../../services/upload.service";
 
 @Component({
@@ -9,8 +9,8 @@ import {UploadService} from "../../services/upload.service";
 export class UploadButtonComponent implements OnInit {
 
   @ViewChild("hiddenInputField") hiddenInputField: ElementRef;
-
-  @Output() selected: EventEmitter<File[]> = new EventEmitter<File[]>();
+  @Input() multiple = false;
+  @Output() selected: EventEmitter<File[] | File> = new EventEmitter<File[] | File>();
   constructor(private uploadService: UploadService) { }
 
   ngOnInit() {
@@ -23,10 +23,15 @@ export class UploadButtonComponent implements OnInit {
     this.hiddenInputField.nativeElement.click()
   }
   onFilesSelected($event) {
-    const files: File[] = [];
-    for (let i = 0; i < $event.target.files.length; i++) {
-      files.push($event.target.files[i]);
+    if (this.multiple && $event.target.files.length > 0) {
+      const files: File[] = [];
+      for (let i = 0; i < $event.target.files.length; i++) {
+        files.push($event.target.files[i]);
+      }
+      this.selected.emit(files);
     }
-    this.selected.emit(files);
+    if (!this.multiple && $event.target.files.length === 1) {
+      this.selected.emit($event.target.files[0]);
+    }
   }
 }

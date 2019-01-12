@@ -4,20 +4,20 @@
     Új ruha
   </h1>
 
-  <form [formGroup]="uploadForm">
+  <form [formGroup]="uploadForm" (ngSubmit)="submit()">
 
     <div class="row">
-      <app-attachement-control
+      <app-attachment-control
         formControlName="thumbnail"
-      ></app-attachement-control>
+      ></app-attachment-control>
     </div>
 
     <div class="row">
-      <app-attachement-control
+      <app-multiple-attachment-control
         formControlName="images"
-      ></app-attachement-control>
+      ></app-multiple-attachment-control>
     </div>
-
+-
     <div class="row">
       <app-tag-control
         formControlName="tags"
@@ -37,7 +37,7 @@
 
     <div class="row">
       <mat-form-field class="full-width">
-        <mat-select placeholder="Méret" formControlName="size" required>
+        <mat-select placeholder="Méret" formControlName="size">
           <mat-option *ngFor="let size of sizes" [value]="size">
             {{size}}
           </mat-option>
@@ -56,11 +56,18 @@
       </mat-form-field>
     </div>
 
+    <div class="row buttons">
+      <a routerLink="/">Vissza</a>
+      <button mat-raised-button color="primary"
+              [disabled]="!uploadForm.valid"
+              type="submit">FELTÖLTÉS</button>
+    </div>
+
   </form>
 
-  <div class="row">
-    <pre>{{uploadForm.getRawValue() | json}}</pre>
-  </div>
+  <pre>{{uploadForm.value | json}}</pre>
+
+
 </div>
 
 

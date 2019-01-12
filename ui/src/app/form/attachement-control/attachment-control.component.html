@@ -1,14 +1,14 @@
-<app-file-upload (drop)="onFilesDropped($event)">
+<app-file-upload (drop)="onFilesDropped($event)" [multiple]="false">
   <div class="file-upload-container">
 
-    <p *ngIf="uploadedFiles.length === 0">
-      Húzd ide a képeket, <br/>
+    <p *ngIf="!uploadedFile">
+      Húzd ide a képet, <br/>
       vagy használd a feltöltés gombot.
     </p>
 
-    <app-thumbnail *ngFor="let uploadedFile of uploadedFiles" [url]="uploadedFile.url"></app-thumbnail>
+    <app-thumbnail *ngIf="uploadedFile" [url]="uploadedFile.url"></app-thumbnail>
 
-    <app-upload-button class="upload-button" (selected)="onFilesDropped($event)">
+    <app-upload-button class="upload-button" (selected)="onFilesDropped($event)" [multiple]="false" >
 
     </app-upload-button>
   </div>
