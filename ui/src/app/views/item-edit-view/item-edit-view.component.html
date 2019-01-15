@@ -1,0 +1,14 @@
+<div class="kw-content">
+
+  <h1>
+    Módosítás (#{{id$ | async}})
+  </h1>
+
+  <div *ngIf="item$ | async as item">
+    <app-item-form
+      [item] = "item"
+      (submitForm)="onSubmit($event)"
+    ></app-item-form>
+  </div>
+
+</div>

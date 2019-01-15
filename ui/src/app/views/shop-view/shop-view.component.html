@@ -1,5 +1,9 @@
-<div class ="kw-content">
-  <pre>
-    {{ items$ | async | json }}
-  </pre>
+<div class="kw-card-grid kw-content">
+  <app-item-grid [items]="items$ | async">
+
+  </app-item-grid>
 </div>
+
+<button mat-fab class="floating" [routerLink]="'/create'">
+  <mat-icon aria-label="Új cucc">add</mat-icon>
+</button>

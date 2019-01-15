@@ -3,27 +3,4 @@
   padding: 10px;
 }
 
-.cols > mat-card {
-  margin: 20px;
-}
 
-@media screen and (min-width: 800px) {
-  .cols {
-    padding: 10px;
-    display: flex;
-    flex-direction: row;
-    align-items:stretch;
-  }
-  .cols > mat-card {
-    width: 33.33%;
-    box-sizing: border-box;
-    margin: 10px;
-  }
-}
-
-.cols, .header {
-  margin: 0 auto;
-  width: 100%;
-  box-sizing: border-box;
-  max-width: 800px;
-}

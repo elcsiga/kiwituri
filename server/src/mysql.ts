@@ -35,7 +35,10 @@ export class mysqlDb {
         });
     }
 
-    query( queryString: string, values?: any): Promise<any> {
+    query<T>( queryString: string): Promise<T>;
+    query<T,V>( queryString: string, values?: V): Promise<T>;
+
+    query<T,V>( queryString: string, values?: V): Promise<T> {
         return new Promise( (resolve, reject) => {
             const query = this.connection.query( queryString, values, (err, rows) => {
                 if (err) {

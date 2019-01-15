@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {ItemRecord} from "../../../../../server/src/common/interfaces/item";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-shop-view',
@@ -12,7 +14,7 @@ export class ShopViewComponent implements OnInit {
     private http: HttpClient
   ) { }
 
-  items$ = this.http.get('/api/items');
+  items$ = this.http.get<Observable<ItemRecord>>('/api/items');
 
   ngOnInit() {
   }

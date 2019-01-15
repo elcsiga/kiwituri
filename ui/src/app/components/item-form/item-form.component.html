@@ -1,0 +1,62 @@
+<form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <app-attachment-control
+      formControlName="thumbnail"
+    ></app-attachment-control>
+  </div>
+
+  <div class="row">
+    <app-multiple-attachment-control
+      formControlName="images"
+    ></app-multiple-attachment-control>
+  </div>
+
+  <div class="row">
+    <app-tag-control
+      formControlName="tags"
+      [placeholder]="'Kategóriák'"
+      [hint]="'Válassz egy vagy több kategóriát vagy írj be újat.'"
+      [allTags]="allTags"
+    ></app-tag-control>
+  </div>
+
+  <div class="row">
+    <mat-radio-group class="radio-group" formControlName="sex">
+      <mat-radio-button class="radio-button" *ngFor="let sex of sexes" [value]="sex">
+        {{sex}}
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <div class="row">
+    <mat-form-field class="full-width">
+      <mat-select placeholder="Méret" formControlName="size">
+        <mat-option *ngFor="let size of sizes" [value]="size">
+          {{size}}
+        </mat-option>
+      </mat-select>
+
+    </mat-form-field>
+    <p>Ha nincs meg az eredeti címke, akkor is tippelj, és jelöld itt, hogy ez becsült méret.</p>
+
+    <mat-checkbox formControlName="sizeEstimated">Becsült méret</mat-checkbox>
+  </div>
+
+  <div class="row">
+    <mat-form-field class="full-width">
+      <textarea matInput placeholder="Részletek" cdkTextareaAutosize formControlName="description"></textarea>
+      <mat-hint>Bármi, amit még tudni érdemes. Nem kötelező kitölteni,</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div class="row buttons">
+    <a routerLink="/">Vissza</a>
+    <button mat-raised-button color="primary"
+            [disabled]="!uploadForm.valid"
+            type="submit">FELTÖLTÉS
+    </button>
+  </div>
+</form>
+
+
+

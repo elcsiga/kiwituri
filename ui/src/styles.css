@@ -24,3 +24,22 @@ a:hover {
   box-sizing: border-box;
   max-width: 800px;
 }
+
+.kw-card-grid > mat-card {
+  margin: 20px;
+}
+
+@media screen and (min-width: 800px) {
+  .kw-card-grid {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items:stretch;
+  }
+  .kw-card-grid > mat-card {
+    width: 30%;
+    box-sizing: border-box;
+    margin: 10px;
+  }
+}

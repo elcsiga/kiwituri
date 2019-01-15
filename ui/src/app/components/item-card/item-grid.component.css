@@ -1,0 +1,13 @@
+.card-image {
+  height: 160px;
+  object-fit: contain;
+}
+
+.editor {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+.editor button {
+  margin: 2px;
+}

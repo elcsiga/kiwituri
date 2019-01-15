@@ -1,37 +1,47 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {AppComponent} from './app.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  MatButtonModule, MatCardModule,
+  MatButtonModule,
+  MatCardModule,
   MatChipsModule,
-  MatIconModule, MatInputModule,
-  MatListModule, MatProgressBarModule, MatRadioModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatRadioModule,
   MatSelectModule,
   MatSidenavModule,
-  MatToolbarModule
+  MatSnackBarModule,
+  MatToolbarModule,
+  MatFormFieldModule,
+  MatCheckboxModule,
+  MatAutocompleteModule
 } from "@angular/material";
-import { AppRoutingModule } from './app-routing.module';
-import { UploadViewComponent } from './views/upload-view/upload-view.component';
-import { HomeViewComponent } from './views/home-view/home-view.component';
-import { HttpClientModule } from "@angular/common/http";
-import { UploadModule } from "./upload/upload.module";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {AppRoutingModule} from './app-routing.module';
+import {HomeViewComponent} from './views/home-view/home-view.component';
+import {HttpClientModule} from "@angular/common/http";
+import {UploadModule} from "./upload/upload.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatCheckboxModule} from "@angular/material/checkbox";
-import { FormModule } from "./form/form.module";
-import { AboutViewComponent } from './views/about-view/about-view.component';
-import { ShopViewComponent } from './views/shop-view/shop-view.component';
+import {FormModule} from "./form/form.module";
+import {AboutViewComponent} from './views/about-view/about-view.component';
+import {ShopViewComponent} from './views/shop-view/shop-view.component';
+import {ItemGridComponent} from './components/item-card/item-grid.component';
+import {ItemFormComponent} from './components/item-form/item-form.component';
+import {ItemEditViewComponent} from './views/item-edit-view/item-edit-view.component';
+import {ItemCreateViewComponent} from './views/item-create-view/item-create-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UploadViewComponent,
     HomeViewComponent,
     AboutViewComponent,
-    ShopViewComponent
+    ShopViewComponent,
+    ItemGridComponent,
+    ItemFormComponent,
+    ItemEditViewComponent,
+    ItemCreateViewComponent
   ],
   imports: [
     FormsModule,
@@ -54,9 +64,11 @@ import { ShopViewComponent } from './views/shop-view/shop-view.component';
     MatRadioModule,
     MatInputModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -7,13 +7,20 @@ import {db} from "./mysql";
 //import {s3} from "./s3";
 import * as AWS from "aws-sdk";
 import {UploadedFile} from "./common/interfaces/upload";
-import {Item} from "./common/interfaces/item";
+import {DbItemRecord, fromDb, ItemRecord, toDb} from "./common/interfaces/item";
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/ui'));
+
+//logger
+app.use(function (req, res, next) {
+    console.log('_________________________________');
+    console.log('REQUEST:', req.method, req.originalUrl );
+    next();
+});
 
 const s3 = new AWS.S3({apiVersion: '2006-03-01'});
 const bucketName = 'kiwituri-storage';
@@ -57,7 +64,7 @@ app.get('/api/error', (req, res) => {
 
 app.get('/api/db', (req, res) => {
     if (dbReady)
-        res.json({message: 'Db connected'})
+        res.json({message: 'Db connected'});
     else
         sendError(res,401, 'Db NOT connected');
 });
@@ -66,40 +73,22 @@ app.get('/api/db', (req, res) => {
 
 app.get('/api/items', (req, res) => {
 
-    db.query('SELECT * FROM items')
-        .then(dbItems => {
-            const items: Item[] = dbItems.map(dbItem => ({
-                id: dbItem.id,
-                ...JSON.parse(dbItem.data)
+    db.query<DbItemRecord[]>('SELECT * FROM items')
+        .then(dbItemsRecords => {
+            const itemRecords: ItemRecord[] = dbItemsRecords.map(dbItemsRecord => ({
+                id: dbItemsRecord.id,
+                data: fromDb(dbItemsRecord.data)
             }));
-            res.json(items);
+            res.json(itemRecords);
         })
         .catch(err => {
             sendError(res,400, 'Could not retrieve items.', err);
         });
 });
 
-interface DbItem {
-    id: number;
-    data: string;
-}
-
-const toItem: (DbItem) => Promise<Item> = dbItem => {
-
-    try {
-        return {
-            id: dbItem.id,
-            ...JSON.parse(dbItem.data)
-        };
-    } catch (e) {
-        console.log('Parse error', e);
-        return Promise.reject('Parse error');
-    }
-};
-
-const getItem: (number) => Promise<Item> = id => db.query('SELECT * FROM items WHERE id = ?', id)
-    .then(rows => rows.length === 1 ? rows[0] : Promise.reject('Record Not found: #' + id))
-    .then(toItem);
+const getItem: (number) => Promise<ItemRecord> = id => db.query<DbItemRecord[], number>('SELECT * FROM items WHERE id = ?', id)
+    .then(rows => rows.length === 1 ? Promise.resolve(rows[0]) : Promise.reject('Record Not found: #' + id))
+    .then( row => ({ id: row.id, data: fromDb(row.data)}) );
 
 app.get('/api/items/:id', (req, res) => {
 
@@ -115,23 +104,34 @@ app.get('/api/items/:id', (req, res) => {
 
 app.post('/api/items', (req, res) => {
 
-    let dbItem;
-    try {
-        const item: Item = req.body;
-        dbItem = {
-            data: JSON.stringify(item)
-        };
-    } catch (err) {
-        sendError(res,400, 'Invalid item.ts format.', err);
-    }
-
-    if (dbItem) {
-        db.query('INSERT INTO items SET ?', dbItem)
+    const dbItemBody: string = toDb(req.body);
+    if (dbItemBody) {
+        db.query<any, string>('INSERT INTO items SET ?', dbItemBody)
             .then(result => getItem(result.insertId))
             .then(item => res.json(item))
             .catch(err => {
                 sendError(res,400, 'Could not insert item.', err);
             });
+    } else {
+        sendError(res,400, 'Could not insert item.');
+    }
+});
+
+app.put('/api/items/:id', (req, res) => {
+
+    const id: number = +req.params.id;
+    const dbItemBody: string = toDb(req.body);
+
+    if (id && dbItemBody) {
+        db.query<any, [string, number]>('UPDATE items SET ? WHERE id = ?', [dbItemBody, id])
+            .then(result => getItem(result.insertId))
+            .then(item => res.json(item))
+            .catch(err => {
+                sendError(res,400, 'Could not update item.', err);
+            });
+    }
+    else {
+        sendError(res,400, 'Could not update item.', id);
     }
 });
 
