@@ -9,7 +9,7 @@ import { filter } from "rxjs/internal/operators";
 })
 export class AppComponent implements OnInit {
 
-  isHeaderVisible = true;
+  showMainHeader = true;
 
   constructor(
     public router: Router
@@ -18,11 +18,10 @@ export class AppComponent implements OnInit {
     console.log("hello");
     this.router.events.pipe(filter(event => event instanceof NavigationStart))
       .subscribe( event => {
-          this.isHeaderVisible = (event as NavigationStart).url !== '/';
+          this.showMainHeader = (event as NavigationStart).url === '/';
       });
 
   }
-
 
   ngOnInit() {
   }

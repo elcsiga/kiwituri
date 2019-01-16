@@ -2,32 +2,47 @@ h1.example-app-name {
   color: white;
 }
 
-.container {
-  height: 100%;
-  background-image: url("/assets/bg.jpg");
-}
-
 .header {
-
-}
-
-.toolbar-content {
+  padding-top: .4rem;
+  height: 4rem;
+  color: white;
   text-align: center;
-  width: 100%;
-}
 
-.content {
+  background-image: linear-gradient(rgba(63, 81, 181, .7), rgba(0,0,0,0));
+
+  transition: .3s all ease-in-out;
 }
 
 .header img {
-  width: 2.8em;
-  height: 2.8em;
+  width: 3rem;
+  height: 3rem;
   margin: 0 10px;
   vertical-align: middle;
+  transition: .3s all ease-in-out;
 }
-
 .header span {
   color: white;
+  font-size: 1rem;
   font-weight: 300;
   font-family: Montserrat, Robot, "Helvetica Neue", sans-serif;
+  vertical-align: middle;
+  transition: .3s all ease-in-out;
+}
+
+.header-main{
+  height: 12rem;
+  padding-top: 2rem;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.header-main span{
+  font-size: 2rem;
+}
+.header-main img {
+  width: 6rem;
+  height: 6rem;
+}
+.header a{
+  text-decoration: none;
 }

@@ -42,3 +42,9 @@
     width: calc( 12.5% - 15px);
   }
 }
+
+.floating {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+}

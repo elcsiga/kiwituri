@@ -1,14 +1,10 @@
-<div class="container">
-  <div *ngIf="isHeaderVisible" class="header" [style.maxHeight]="">
-    <mat-toolbar color="primary" class="example-toolbar">
-      <div class="toolbar-content">
-        <a [routerLink]="['/']">
-          <span>kiwi</span>
-          <img src="/assets/logo.png" />
-          <span>turi</span>
-        </a>
-      </div>
-    </mat-toolbar>
+<div class="container" [class.container-main]="showMainHeader">
+  <div class="header" [class.header-main]="showMainHeader">
+     <a [routerLink]="['/']">
+       <span>kiwi</span>
+       <img src="/assets/logo.png" />
+       <span>turi</span>
+     </a>
   </div>
   <div class="content">
     <router-outlet>
