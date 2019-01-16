@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {map} from "rxjs/operators";
+import { NavigationStart, Router } from "@angular/router";
+import { filter } from "rxjs/internal/operators";
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,21 @@ import {map} from "rxjs/operators";
 })
 export class AppComponent implements OnInit {
 
-  constructor() { }
+  isHeaderVisible = true;
+
+  constructor(
+    public router: Router
+  ) {
+
+    console.log("hello");
+    this.router.events.pipe(filter(event => event instanceof NavigationStart))
+      .subscribe( event => {
+          this.isHeaderVisible = (event as NavigationStart).url !== '/';
+      });
+
+  }
+
 
   ngOnInit() {
   }
-
 }

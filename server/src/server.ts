@@ -102,11 +102,15 @@ app.get('/api/items/:id', (req, res) => {
         });
 });
 
+interface ItemPayload {
+    data: string;
+}
+
 app.post('/api/items', (req, res) => {
 
     const dbItemBody: string = toDb(req.body);
     if (dbItemBody) {
-        db.query<any, string>('INSERT INTO items SET ?', dbItemBody)
+        db.query<any, ItemPayload>('INSERT INTO items SET ?', {data: dbItemBody})
             .then(result => getItem(result.insertId))
             .then(item => res.json(item))
             .catch(err => {
@@ -123,8 +127,11 @@ app.put('/api/items/:id', (req, res) => {
     const dbItemBody: string = toDb(req.body);
 
     if (id && dbItemBody) {
-        db.query<any, [string, number]>('UPDATE items SET ? WHERE id = ?', [dbItemBody, id])
-            .then(result => getItem(result.insertId))
+        db.query<any, [ItemPayload, number]>('UPDATE items SET ? WHERE id = ?', [{data: dbItemBody}, id])
+            .then(result => {
+                console.log(result);
+                return getItem(id);
+            })
             .then(item => res.json(item))
             .catch(err => {
                 sendError(res,400, 'Could not update item.', err);

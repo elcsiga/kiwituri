@@ -1,6 +1,7 @@
 h1.example-app-name {
   color: white;
 }
+
 .container {
   height: 100%;
   background-image: url("/assets/bg.jpg");
@@ -9,18 +10,28 @@ h1.example-app-name {
   display: flex;
   flex-direction: column;
 }
+
 .header {
   flex: 1 0 auto;
 }
+
+.toolbar-content {
+  text-align: center;
+  width: 100%;
+}
+
 .content {
   flex: 1 1 auto;
   overflow: auto;
 }
+
 .header img {
   width: 2.8em;
   height: 2.8em;
-  margin-right: 10px;
+  margin: 0 10px;
+  vertical-align: middle;
 }
+
 .header span {
   color: white;
   font-weight: 300;

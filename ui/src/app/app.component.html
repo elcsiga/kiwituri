@@ -1,10 +1,13 @@
 <div class="container">
-  <div class="header" [style.maxHeight]="">
+  <div *ngIf="isHeaderVisible" class="header" [style.maxHeight]="">
     <mat-toolbar color="primary" class="example-toolbar">
-      <img src="/assets/logo.png" />
-      <a [routerLink]="['/']">
-        <span>kiwituri</span>
-      </a>
+      <div class="toolbar-content">
+        <a [routerLink]="['/']">
+          <span>kiwi</span>
+          <img src="/assets/logo.png" />
+          <span>turi</span>
+        </a>
+      </div>
     </mat-toolbar>
   </div>
   <div class="content">

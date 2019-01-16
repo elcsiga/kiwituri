@@ -1,16 +1,10 @@
 import {Component} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
-import {map, switchMap, take} from "rxjs/operators";
+import {map, switchMap} from "rxjs/operators";
 import {Observable} from "rxjs";
 import {NotificationService} from "../../services/notification.service";
 import {ItemBody, ItemRecord} from "../../../../../server/src/common/interfaces/item";
-
-function snapshot<T>(value$: Observable<T>): T {
-    let value: T;
-    value$.pipe( take(1) ).subscribe( v => {value = v;});
-    return value;
-}
 
 @Component({
   selector: 'app-item-edit-view',
@@ -37,8 +31,8 @@ export class ItemEditViewComponent {
 
   onSubmit(item: ItemBody) {
 
-    const id: number = snapshot<number>(this.id$);
-    this.http.put<ItemRecord>('/api/items/:id', item)
+    const id: number = +this.activatedRoute.snapshot.paramMap.get('id');
+    this.http.put<ItemRecord>('/api/items/'+id, item)
       .subscribe(response => {
         console.log(response);
         this.notificationService.info('Sikeresen elmentve: #' + response.id);

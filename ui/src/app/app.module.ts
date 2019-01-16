@@ -31,6 +31,7 @@ import {ItemGridComponent} from './components/item-card/item-grid.component';
 import {ItemFormComponent} from './components/item-form/item-form.component';
 import {ItemEditViewComponent} from './views/item-edit-view/item-edit-view.component';
 import {ItemCreateViewComponent} from './views/item-create-view/item-create-view.component';
+import { NgMasonryGridModule } from "ng-masonry-grid";
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import {ItemCreateViewComponent} from './views/item-create-view/item-create-view
     MatInputModule,
     MatButtonModule,
     MatCardModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgMasonryGridModule
   ],
   providers: [],
   bootstrap: [AppComponent]
