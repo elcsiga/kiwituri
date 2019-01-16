@@ -5,14 +5,10 @@ h1.example-app-name {
 .container {
   height: 100%;
   background-image: url("/assets/bg.jpg");
-  overflow: hidden;
-
-  display: flex;
-  flex-direction: column;
 }
 
 .header {
-  flex: 1 0 auto;
+
 }
 
 .toolbar-content {
@@ -21,8 +17,6 @@ h1.example-app-name {
 }
 
 .content {
-  flex: 1 1 auto;
-  overflow: auto;
 }
 
 .header img {

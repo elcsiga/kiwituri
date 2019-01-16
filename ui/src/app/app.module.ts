@@ -27,7 +27,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FormModule} from "./form/form.module";
 import {AboutViewComponent} from './views/about-view/about-view.component';
 import {ShopViewComponent} from './views/shop-view/shop-view.component';
-import {ItemGridComponent} from './components/item-card/item-grid.component';
+import {ItemCardComponent} from './components/item-card/item-card.component';
 import {ItemFormComponent} from './components/item-form/item-form.component';
 import {ItemEditViewComponent} from './views/item-edit-view/item-edit-view.component';
 import {ItemCreateViewComponent} from './views/item-create-view/item-create-view.component';
@@ -39,7 +39,7 @@ import { NgMasonryGridModule } from "ng-masonry-grid";
     HomeViewComponent,
     AboutViewComponent,
     ShopViewComponent,
-    ItemGridComponent,
+    ItemCardComponent,
     ItemFormComponent,
     ItemEditViewComponent,
     ItemCreateViewComponent
