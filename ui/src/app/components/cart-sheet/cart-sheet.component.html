@@ -1,0 +1,21 @@
+<div *ngIf="cartItems$ | async as cart">
+  <div class="container" *ngIf="cart.length">
+    <p>
+      <app-thumbnail *ngFor="let item of cart" [url]="item.data.thumbnail.url" (onRemove)="removeFromCart(item)"></app-thumbnail>
+    </p>
+    <p>
+      <button (click)="close()" mat-stroked-button>Még vásárolok</button>
+      <button (click)="goToCart()" mat-raised-button color="primary">Minden megvan</button>
+    </p>
+  </div>
+  <div class="container" *ngIf="!cart.length">
+    <p>
+      Válassz valamit!
+    </p>
+    <p>
+      <button (click)="close()" mat-stroked-button>Vissza</button>
+    </p>
+  </div>
+</div>
+
+

@@ -4,7 +4,6 @@
 
 }
 
-
 .card {
   width: calc( 100% - 15px);
 }
@@ -43,8 +42,11 @@
   }
 }
 
-.floating {
+.floating-buttons {
   position: fixed;
   bottom: 30px;
   right: 30px;
+  left: 30px;
+  display: flex;
+  justify-content: space-between;;
 }

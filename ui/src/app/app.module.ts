@@ -17,7 +17,8 @@ import {
   MatToolbarModule,
   MatFormFieldModule,
   MatCheckboxModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatMenuModule, MatBottomSheetModule, MatTableModule
 } from "@angular/material";
 import {AppRoutingModule} from './app-routing.module';
 import {HomeViewComponent} from './views/home-view/home-view.component';
@@ -32,6 +33,10 @@ import {ItemFormComponent} from './components/item-form/item-form.component';
 import {ItemEditViewComponent} from './views/item-edit-view/item-edit-view.component';
 import {ItemCreateViewComponent} from './views/item-create-view/item-create-view.component';
 import { NgMasonryGridModule } from "ng-masonry-grid";
+import { CartSheetComponent } from './components/cart-sheet/cart-sheet.component';
+import { SearchSheetComponent } from './components/search-sheet/search-sheet.component';
+import { ShoppingCartViewComponent } from './views/shopping-cart-view/shopping-cart-view.component';
+import { CartItemComponent } from './components/cart-item/cart-item.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +47,11 @@ import { NgMasonryGridModule } from "ng-masonry-grid";
     ItemCardComponent,
     ItemFormComponent,
     ItemEditViewComponent,
-    ItemCreateViewComponent
+    ItemCreateViewComponent,
+    CartSheetComponent,
+    SearchSheetComponent,
+    ShoppingCartViewComponent,
+    CartItemComponent,
   ],
   imports: [
     FormsModule,
@@ -67,10 +76,17 @@ import { NgMasonryGridModule } from "ng-masonry-grid";
     MatButtonModule,
     MatCardModule,
     MatSnackBarModule,
-    NgMasonryGridModule
+    NgMasonryGridModule,
+    MatMenuModule,
+    MatBottomSheetModule,
+    MatTableModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    CartSheetComponent,
+    SearchSheetComponent
+  ]
 })
 export class AppModule {
 }

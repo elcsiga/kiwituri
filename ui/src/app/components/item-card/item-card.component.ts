@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ItemRecord} from "../../../../../server/src/common/interfaces/item";
+import {UserService} from "../../services/user.service";
+import {ShoppingCartService} from "../../services/shopping-cart.service";
 
 @Component({
   selector: 'app-item-card',
@@ -9,9 +11,21 @@ import {ItemRecord} from "../../../../../server/src/common/interfaces/item";
 export class ItemCardComponent implements OnInit {
 
   @Input() item: ItemRecord;
-  constructor() { }
+  constructor(
+    public userService: UserService,
+    private shoppingCartService: ShoppingCartService
+  ) { }
 
   ngOnInit() {
+  }
+
+  isInCart() {
+    return this.shoppingCartService.isInCart(this.item);
+
+  }
+  addToCart() {
+    this.shoppingCartService.addToCart(this.item);
+    this.shoppingCartService.openCartSheet();
   }
 
 }

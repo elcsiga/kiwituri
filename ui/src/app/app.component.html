@@ -1,11 +1,43 @@
 <div class="container" [class.container-main]="showMainHeader">
   <div class="header" [class.header-main]="showMainHeader">
-     <a [routerLink]="['/']">
-       <span>kiwi</span>
-       <img src="/assets/logo.png" />
-       <span>turi</span>
-     </a>
+    <a [routerLink]="['/']">
+      <span>kiwi</span>
+      <img src="/assets/logo.png"/>
+      <span>turi</span>
+    </a>
+
+    <div class="menu">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <a routerLink="/shop">
+          <button mat-menu-item>
+            <mat-icon>search</mat-icon>
+            <span>Bolt</span>
+          </button>
+        </a>
+        <a routerLink="/about">
+          <button mat-menu-item>
+            <mat-icon>people</mat-icon>
+            <span>Rólunk</span>
+          </button>
+        </a>
+        <a routerLink="/cart">
+          <button mat-menu-item>
+            <mat-icon>shopping_cart</mat-icon>
+            <span>Kosár</span>
+          </button>
+        </a>
+        <button mat-menu-item (click)="toggleEditMode()">
+          <mat-icon>edit</mat-icon>
+          <span>Szerkesztés</span>
+        </button>
+      </mat-menu>
+    </div>
   </div>
+
+
   <div class="content">
     <router-outlet>
     </router-outlet>

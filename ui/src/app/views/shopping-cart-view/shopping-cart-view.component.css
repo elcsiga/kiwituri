@@ -1,0 +1,21 @@
+.container {
+  margin: 20px;
+}
+
+.item {
+  margin: 10px auto;
+  width: 100%;
+}
+.card-content {
+  display: flex;
+}
+.card-content > app-thumbnail {
+  flex: 0 0 auto;
+}
+.card-content > div {
+  flex: 1 1 auto;
+}
+
+.buttons {
+  text-align: center;
+}

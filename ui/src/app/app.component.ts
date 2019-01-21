@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationStart, Router } from "@angular/router";
 import { filter } from "rxjs/internal/operators";
+import {UserService} from "./services/user.service";
 
 @Component({
   selector: 'app-root',
@@ -12,10 +13,9 @@ export class AppComponent implements OnInit {
   showMainHeader = true;
 
   constructor(
-    public router: Router
+    public router: Router,
+    private userService: UserService
   ) {
-
-    console.log("hello");
     this.router.events.pipe(filter(event => event instanceof NavigationStart))
       .subscribe( event => {
           this.showMainHeader = (event as NavigationStart).url === '/';
@@ -23,6 +23,9 @@ export class AppComponent implements OnInit {
 
   }
 
+  toggleEditMode() {
+    this.userService.toggleEditMode();
+  }
   ngOnInit() {
   }
 }

@@ -1,0 +1,22 @@
+<mat-card>
+  <div class="container">
+    <div class="image">
+      <app-thumbnail [url]="item.data.thumbnail.url" (onRemove)="removeFromCart(item)"></app-thumbnail>
+    </div>
+    <div class="content">
+      <p>
+        {{item.data.sex}} - {{item.data.size}}
+        <span *ngIf="item.data.sizeEstimated">* <br/><small> * Becsült méret</small></span>
+      </p>
+
+      <p *ngIf="item.data.description">
+        {{item.data.description}}
+      </p>
+    </div>
+    <div class="button">
+      <button mat-icon-button (click)="removeFromCart(item)">
+        <mat-icon aria-label="Kosárba">delete_forever</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-card>

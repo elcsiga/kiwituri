@@ -1,7 +1,7 @@
 <ng-masonry-grid class="grid"
-  [masonryOptions]="{ transitionDuration: '0.3s', gutter: 15 }"
-  [useAnimation]="true"
-  [useImagesLoaded]="true">
+                 [masonryOptions]="{ transitionDuration: '0.3s', gutter: 15 }"
+                 [useAnimation]="true"
+                 [useImagesLoaded]="true">
 
   <ng-masonry-grid-item
     *ngFor="let item of items$ | async"
@@ -12,6 +12,16 @@
   </ng-masonry-grid-item>
 </ng-masonry-grid>
 
-<button mat-fab class="floating" [routerLink]="'/create'">
-  <mat-icon aria-label="Új cucc">add</mat-icon>
-</button>
+<div class="floating-buttons">
+  <button mat-fab color="primary" (click)="openSearchSeet()">
+    <mat-icon aria-label="Új cucc">search</mat-icon>
+  </button>
+
+  <button *ngIf="isAdmin() | async" mat-fab [routerLink]="'/create'">
+    <mat-icon aria-label="Új cucc">add</mat-icon>
+  </button>
+
+  <button mat-fab color="primary" (click)="openCartSheet()">
+    <mat-icon aria-label="Új cucc">shopping_cart</mat-icon>
+  </button>
+</div>

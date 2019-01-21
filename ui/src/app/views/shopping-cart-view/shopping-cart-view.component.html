@@ -1,0 +1,27 @@
+<div *ngIf="cartItems$ | async as cart">
+  <div class="container" *ngIf="cart.length">
+
+    <div class="item" *ngFor="let item of cart">
+      <app-cart-item [item]="item">
+      </app-cart-item>
+    </div>
+
+    <p class="buttons">
+      <a routerLink="/shop">
+        <button mat-stroked-button>Még vásárolok</button>
+      </a>
+      <button (click)="buy()" mat-raised-button color="primary">Meveszem</button>
+    </p>
+  </div>
+  <div class="container buttons" *ngIf="!cart.length">
+    <p>
+      Válassz valamit!
+    </p>
+    <p>
+      <a routerLink="/shop">
+        <button type="button" mat-stroked-button>Vissza</button>
+      </a>
+    </p>
+  </div>
+
+</div>

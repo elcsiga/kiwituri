@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+}
+
+.image {
+  flex: 0 0 auto;
+}
+.content {
+  flex: 1 1 auto;
+}
+.button {
+  flex: 0 0 auto;
+}

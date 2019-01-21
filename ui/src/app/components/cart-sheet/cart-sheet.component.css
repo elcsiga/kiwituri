@@ -1,0 +1,13 @@
+
+.container {
+  margin: 20px;
+  text-align: center;
+}
+.thumbnail {
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+
+  object-fit: cover;
+  margin: 5px;
+}
