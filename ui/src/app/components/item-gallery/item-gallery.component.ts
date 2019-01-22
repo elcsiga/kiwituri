@@ -3,8 +3,7 @@ import {ItemService} from "../../services/item.service";
 import {map} from "rxjs/operators";
 import {combineLatest, Observable} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
-import {ItemRecord} from "../../../../../server/src/common/interfaces/item";
-import {CarouselImage} from "../../carousel/carousel.service";
+import {CarouselImage} from "../../carousel/components/carousel/carousel.component";
 
 @Component({
   selector: 'app-item-gallery',

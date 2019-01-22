@@ -6,7 +6,6 @@ import {UserService} from "../../services/user.service";
 import {SearchService} from "../../services/search.service";
 import {ShoppingCartService} from "../../services/shopping-cart.service";
 import {ItemService} from "../../services/item.service";
-import {CarouselImage} from "../../carousel/carousel.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -42,8 +41,6 @@ export class ShopViewComponent implements OnInit {
   }
 
   openCarousel(id: number) {
-
     this.router.navigate(['/','shop', id,'images']);
-
   }
 }

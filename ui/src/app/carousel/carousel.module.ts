@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CarouselComponent } from "./components/carousel/carousel.component";
-import { CarouselService } from "./carousel.service";
 import { SwiperModule } from "ngx-swiper-wrapper";
 
 @NgModule({
@@ -13,7 +12,6 @@ import { SwiperModule } from "ngx-swiper-wrapper";
     CarouselComponent,
   ],
   providers: [
-    CarouselService
   ],
   exports: [
     CarouselComponent

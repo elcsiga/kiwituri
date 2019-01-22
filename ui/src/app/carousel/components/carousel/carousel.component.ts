@@ -1,8 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { SwiperConfigInterface } from "ngx-swiper-wrapper";
-import { CarouselImage, CarouselService } from "../../carousel.service";
-import { Observable } from "rxjs/index";
 
+export interface CarouselImage {
+  url: string;
+}
 @Component({
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
@@ -18,10 +19,8 @@ export class CarouselComponent implements OnInit {
   index = 0;
 
   @Input() images: CarouselImage[];
-  //images$: Observable<CarouselImage[]> = this.carouselServce.images$;
 
   constructor(
-    private carouselServce: CarouselService
   ) { }
 
   ngOnInit() {

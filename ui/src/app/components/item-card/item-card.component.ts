@@ -2,7 +2,6 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ItemRecord} from "../../../../../server/src/common/interfaces/item";
 import {UserService} from "../../services/user.service";
 import {ShoppingCartService} from "../../services/shopping-cart.service";
-import { CarouselImage, CarouselService } from "../../carousel/carousel.service";
 
 @Component({
   selector: 'app-item-card',
@@ -16,7 +15,6 @@ export class ItemCardComponent implements OnInit {
   constructor(
     public userService: UserService,
     private shoppingCartService: ShoppingCartService,
-    private carouselService: CarouselService
   ) { }
 
   ngOnInit() {
