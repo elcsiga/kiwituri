@@ -2,7 +2,7 @@ import {UploadedFile} from "./upload";
 
 export interface ItemBody {
     thumbnail: UploadedFile;
-    images: URLSearchParams[];
+    images: UploadedFile[];
     tags: string[];
     sex: string;
     size: string;

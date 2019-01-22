@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ItemRecord} from "../../../../../server/src/common/interfaces/item";
 import {UserService} from "../../services/user.service";
 import {ShoppingCartService} from "../../services/shopping-cart.service";
+import { CarouselImage, CarouselService } from "../../carousel/carousel.service";
 
 @Component({
   selector: 'app-item-card',
@@ -13,7 +14,8 @@ export class ItemCardComponent implements OnInit {
   @Input() item: ItemRecord;
   constructor(
     public userService: UserService,
-    private shoppingCartService: ShoppingCartService
+    private shoppingCartService: ShoppingCartService,
+    private carouselService: CarouselService
   ) { }
 
   ngOnInit() {
@@ -28,4 +30,12 @@ export class ItemCardComponent implements OnInit {
     this.shoppingCartService.openCartSheet();
   }
 
+  openCarousel() {
+    const images: CarouselImage[] = [{
+      url: this.item.data.thumbnail.url
+    }];
+    this.item.data.images.forEach(image => images.push ({url: image.url}));
+
+    this.carouselService.open(images);
+  }
 }

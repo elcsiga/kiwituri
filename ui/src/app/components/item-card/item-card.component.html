@@ -1,5 +1,5 @@
 <mat-card>
-  <img mat-card-image class="card-image" [src]="item.data.thumbnail.url">
+  <img mat-card-image class="card-image" [src]="item.data.thumbnail.url" (click)="openCarousel()">
   <mat-card-content>
     <mat-chip-list>
       <mat-chip *ngFor="let tag of item.data.tags">{{tag}}</mat-chip>

@@ -37,6 +37,7 @@ import { CartSheetComponent } from './components/cart-sheet/cart-sheet.component
 import { SearchSheetComponent } from './components/search-sheet/search-sheet.component';
 import { ShoppingCartViewComponent } from './views/shopping-cart-view/shopping-cart-view.component';
 import { CartItemComponent } from './components/cart-item/cart-item.component';
+import { CarouselModule } from "./carousel/carousel.module";
 
 @NgModule({
   declarations: [
@@ -51,7 +52,7 @@ import { CartItemComponent } from './components/cart-item/cart-item.component';
     CartSheetComponent,
     SearchSheetComponent,
     ShoppingCartViewComponent,
-    CartItemComponent,
+    CartItemComponent
   ],
   imports: [
     FormsModule,
@@ -79,7 +80,8 @@ import { CartItemComponent } from './components/cart-item/cart-item.component';
     NgMasonryGridModule,
     MatMenuModule,
     MatBottomSheetModule,
-    MatTableModule
+    MatTableModule,
+    CarouselModule
   ],
   providers: [],
   bootstrap: [AppComponent],
