@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ItemRecord} from "../../../../../server/src/common/interfaces/item";
 import {UserService} from "../../services/user.service";
 import {ShoppingCartService} from "../../services/shopping-cart.service";
@@ -12,6 +12,7 @@ import { CarouselImage, CarouselService } from "../../carousel/carousel.service"
 export class ItemCardComponent implements OnInit {
 
   @Input() item: ItemRecord;
+  @Output() openCarousel = new EventEmitter<number>();
   constructor(
     public userService: UserService,
     private shoppingCartService: ShoppingCartService,
@@ -28,14 +29,5 @@ export class ItemCardComponent implements OnInit {
   addToCart() {
     this.shoppingCartService.addToCart(this.item);
     this.shoppingCartService.openCartSheet();
-  }
-
-  openCarousel() {
-    const images: CarouselImage[] = [{
-      url: this.item.data.thumbnail.url
-    }];
-    this.item.data.images.forEach(image => images.push ({url: image.url}));
-
-    this.carouselService.open(images);
   }
 }

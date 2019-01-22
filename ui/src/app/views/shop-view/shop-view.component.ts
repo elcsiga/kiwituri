@@ -6,6 +6,8 @@ import {UserService} from "../../services/user.service";
 import {SearchService} from "../../services/search.service";
 import {ShoppingCartService} from "../../services/shopping-cart.service";
 import {ItemService} from "../../services/item.service";
+import {CarouselImage} from "../../carousel/carousel.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-shop-view',
@@ -18,7 +20,8 @@ export class ShopViewComponent implements OnInit {
     private itemService: ItemService,
     private userService: UserService,
     private cartService: ShoppingCartService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private router: Router
   ) { }
 
   items$: Observable<ItemRecord[]> = this.itemService.item$;
@@ -36,5 +39,11 @@ export class ShopViewComponent implements OnInit {
 
   isAdmin() {
     return this.userService.isAdmin();
+  }
+
+  openCarousel(id: number) {
+
+    this.router.navigate(['/','shop', id,'images']);
+
   }
 }

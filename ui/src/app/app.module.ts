@@ -38,6 +38,7 @@ import { SearchSheetComponent } from './components/search-sheet/search-sheet.com
 import { ShoppingCartViewComponent } from './views/shopping-cart-view/shopping-cart-view.component';
 import { CartItemComponent } from './components/cart-item/cart-item.component';
 import { CarouselModule } from "./carousel/carousel.module";
+import { ItemGalleryComponent } from './components/item-gallery/item-gallery.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { CarouselModule } from "./carousel/carousel.module";
     CartSheetComponent,
     SearchSheetComponent,
     ShoppingCartViewComponent,
-    CartItemComponent
+    CartItemComponent,
+    ItemGalleryComponent
   ],
   imports: [
     FormsModule,

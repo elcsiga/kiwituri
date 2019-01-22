@@ -8,7 +8,10 @@
     [id]="item.id"
     class="card"
   >
-    <app-item-card [item]="item"></app-item-card>
+    <app-item-card
+      [item]="item"
+      (openCarousel)="openCarousel($event)"
+    ></app-item-card>
   </ng-masonry-grid-item>
 </ng-masonry-grid>
 
@@ -25,3 +28,5 @@
     <mat-icon aria-label="Új cucc">shopping_cart</mat-icon>
   </button>
 </div>
+
+<router-outlet></router-outlet>

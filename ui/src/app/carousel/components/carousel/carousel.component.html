@@ -1,9 +1,7 @@
-<div *ngIf="images$ | async as images">
-  <div class="container" *ngIf="images.length">
+  <div class="container" *ngIf="images?.length">
     <swiper [config]="swiperConfig" [(index)]="index" [useSwiperClass]="true">
       <div class="silde" *ngFor="let image of images">
         <img [src]="image.url">
       </div>
     </swiper>
   </div>
-</div>

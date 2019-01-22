@@ -6,10 +6,14 @@ import {ShopViewComponent} from "./views/shop-view/shop-view.component";
 import {ItemEditViewComponent} from "./views/item-edit-view/item-edit-view.component";
 import {ItemCreateViewComponent} from "./views/item-create-view/item-create-view.component";
 import {ShoppingCartViewComponent} from "./views/shopping-cart-view/shopping-cart-view.component";
+import {ItemGalleryComponent} from "./components/item-gallery/item-gallery.component";
 
 const routes: Routes = [
   {path: '', component: HomeViewComponent, pathMatch: 'full'},
   {path: 'shop', component: ShopViewComponent},
+  {path: 'shop', component: ShopViewComponent, children: [
+      {path: ':id/images',  component: ItemGalleryComponent}
+    ]},
   {path: 'about', component: AboutViewComponent},
   {path: 'edit/:id', component: ItemEditViewComponent},
   {path: 'create', component: ItemCreateViewComponent},
