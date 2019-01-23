@@ -1,2 +1,6 @@
 
-<div></div><app-carousel [images]="(item$ | async)?.data.thumbnail"></app-carousel>
+<app-carousel
+  [images]="images$ | async"
+  [index]="index$ | async"
+  (close)="close()"
+></app-carousel>

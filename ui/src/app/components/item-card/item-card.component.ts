@@ -3,6 +3,10 @@ import {ItemRecord} from "../../../../../server/src/common/interfaces/item";
 import {UserService} from "../../services/user.service";
 import {ShoppingCartService} from "../../services/shopping-cart.service";
 
+export interface CarouselPosition {
+  id: number,
+  index: number
+}
 @Component({
   selector: 'app-item-card',
   templateUrl: './item-card.component.html',
@@ -11,7 +15,7 @@ import {ShoppingCartService} from "../../services/shopping-cart.service";
 export class ItemCardComponent implements OnInit {
 
   @Input() item: ItemRecord;
-  @Output() openCarousel = new EventEmitter<number>();
+  @Output() openCarousel = new EventEmitter<CarouselPosition>();
   constructor(
     public userService: UserService,
     private shoppingCartService: ShoppingCartService,

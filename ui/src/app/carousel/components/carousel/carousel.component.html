@@ -1,7 +1,13 @@
-  <div class="container" *ngIf="images?.length">
-    <swiper [config]="swiperConfig" [(index)]="index" [useSwiperClass]="true">
-      <div class="silde" *ngFor="let image of images">
-        <img [src]="image.url">
-      </div>
-    </swiper>
+<div class="container" *ngIf="images?.length">
+  <swiper [config]="images.length > 1 ? swiperConfigMultiple: swiperConfigSingle" [(index)]="index" [useSwiperClass]="true">
+    <div class="silde" *ngFor="let image of images">
+      <img [src]="image.url">
+    </div>
+  </swiper>
+
+  <div class="button">
+    <button mat-fab color="primary" (click)="onClose()">
+      <mat-icon aria-label="Új cucc">close</mat-icon>
+    </button>
   </div>
+</div>

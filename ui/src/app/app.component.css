@@ -10,7 +10,7 @@ h1.example-app-name {
   color: white;
   text-align: center;
 
-  background-image: linear-gradient(rgba(63, 81, 181, .7), rgba(0,0,0,0));
+  background-image: linear-gradient(rgba(60, 60, 200, .4), rgba(224, 223, 255, 0));
 
   transition: .3s all ease-in-out;
 }

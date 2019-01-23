@@ -1,5 +1,9 @@
 <mat-card>
-  <img mat-card-image class="card-image" [src]="item.data.thumbnail.url" (click)="openCarousel.emit(item.id)">
+  <img mat-card-image
+       alt="{{item.id}}"
+       class="card-image"
+       [src]="item.data.thumbnail.url"
+       (click)="openCarousel.emit({id: item.id, index:0})" />
   <mat-card-content>
     <mat-chip-list>
       <mat-chip *ngFor="let tag of item.data.tags">{{tag}}</mat-chip>
@@ -8,6 +12,14 @@
       {{item.data.sex}} - {{item.data.size}}
       <span *ngIf="item.data.sizeEstimated">* <br/><small> * Becsült méret</small></span>
     </h4>
+
+    <div class="images" *ngIf="item.data.images.length">
+      <img alt="{{item.id}}/{{i}}"
+           *ngFor="let image of item.data.images; let i = index"
+           [src]="image.url"
+           (click)="openCarousel.emit({id: item.id, index:1+i})"
+      />
+    </div>
 
     <p *ngIf="item.data.description">
       {{item.data.description}}

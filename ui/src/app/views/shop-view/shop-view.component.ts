@@ -7,6 +7,7 @@ import {SearchService} from "../../services/search.service";
 import {ShoppingCartService} from "../../services/shopping-cart.service";
 import {ItemService} from "../../services/item.service";
 import {Router} from "@angular/router";
+import {CarouselPosition} from "../../components/item-card/item-card.component";
 
 @Component({
   selector: 'app-shop-view',
@@ -40,7 +41,7 @@ export class ShopViewComponent implements OnInit {
     return this.userService.isAdmin();
   }
 
-  openCarousel(id: number) {
-    this.router.navigate(['/','shop', id,'images']);
+  openCarousel(pos: CarouselPosition) {
+    this.router.navigate(['/','shop', pos.id,'image', pos.index]);
   }
 }

@@ -1,20 +1,23 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { CarouselComponent } from "./components/carousel/carousel.component";
-import { SwiperModule } from "ngx-swiper-wrapper";
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {CarouselComponent} from "./components/carousel/carousel.component";
+import {SwiperModule} from "ngx-swiper-wrapper";
+import {MatButtonModule, MatIconModule} from "@angular/material";
 
 @NgModule({
   imports: [
     CommonModule,
-    SwiperModule
+    SwiperModule,
+    MatIconModule,
+    MatButtonModule
   ],
   declarations: [
     CarouselComponent,
   ],
-  providers: [
-  ],
+  providers: [],
   exports: [
     CarouselComponent
   ]
 })
-export class CarouselModule { }
+export class CarouselModule {
+}

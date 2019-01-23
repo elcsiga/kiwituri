@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { SwiperConfigInterface } from "ngx-swiper-wrapper";
 
 export interface CarouselImage {
@@ -11,19 +11,32 @@ export interface CarouselImage {
 })
 export class CarouselComponent implements OnInit {
 
-  swiperConfig: SwiperConfigInterface  = {
-    direction: 'horizontal',
-    slidesPerView: 'auto'
+  swiperConfigMultiple: SwiperConfigInterface  = {
+    slidesPerView: 1,
+    keyboard: true,
+    mousewheel: true,
+    scrollbar: false,
+    navigation: true,
+    pagination: true,
+    spaceBetween: 10
   };
 
-  index = 0;
+  swiperConfigSingle: SwiperConfigInterface  = {
+    slidesPerView: 1,
+  };
 
   @Input() images: CarouselImage[];
+  @Input() index: number;
+  @Output() close = new EventEmitter<void>();
 
   constructor(
   ) { }
 
   ngOnInit() {
+  }
+
+  onClose() {
+    this.close.emit();
   }
 
 
