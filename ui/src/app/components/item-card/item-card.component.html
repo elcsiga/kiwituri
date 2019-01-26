@@ -9,6 +9,7 @@
       <mat-chip *ngFor="let tag of item.data.tags">{{tag}}</mat-chip>
     </mat-chip-list>
     <h4>
+      <small>#{{item.id}}</small><br/>
       {{item.data.sex}} - {{item.data.size}}
       <span *ngIf="item.data.sizeEstimated">* <br/><small> * Becsült méret</small></span>
     </h4>
@@ -34,7 +35,7 @@
     <button mat-mini-fab color="accent" [routerLink]="'/edit/' + item.id">
       <mat-icon aria-label="Módosít">edit</mat-icon>
     </button>
-    <button mat-mini-fab color="accent" >
+    <button mat-mini-fab color="accent" (click)="deleteItem()">
       <mat-icon aria-label="Töröl">delete</mat-icon>
     </button>
   </div>

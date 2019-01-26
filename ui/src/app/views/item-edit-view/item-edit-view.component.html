@@ -7,6 +7,7 @@
   <div *ngIf="item$ | async as item">
     <app-item-form
       [item] = "item"
+      [submitLabel]="'MÓDOSÍT'"
       (submitForm)="onSubmit($event)"
     ></app-item-form>
   </div>

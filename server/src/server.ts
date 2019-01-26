@@ -142,6 +142,27 @@ app.put('/api/items/:id', (req, res) => {
     }
 });
 
+app.delete('/api/items/:id', (req, res) => {
+
+    const id: number = +req.params.id;
+    if (id) {
+        getItem(id)
+            .then( item => {
+                db.query<any, number>('DELETE FROM items WHERE id = ?', id)
+                    .then(() => res.json(item))
+                    .catch(err => {
+                        sendError(res,400, 'Could not delete item.', err);
+                    });
+            })
+            .catch( err => {
+                sendError(res,400, 'Could not find item to delete.', err);
+            });
+    }
+    else {
+        sendError(res,400, 'Could not delete item.', id);
+    }
+});
+
 //ui
 app.get('/*', (req, res) => {
     res.sendFile(__dirname + '/ui/index.html');

@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {NotificationService} from "../../services/notification.service";
 import {ItemBody, ItemRecord} from "../../../../../server/src/common/interfaces/item";
+import {ItemService} from "../../services/item.service";
 
 
 @Component({
@@ -24,6 +25,7 @@ export class ItemCreateViewComponent {
 
   constructor(
     private http: HttpClient,
+    private itemService: ItemService,
     private router: Router,
     private notificationService: NotificationService
   ) {
@@ -31,9 +33,10 @@ export class ItemCreateViewComponent {
 
   onSubmit(item: ItemBody) {
     this.http.post<ItemRecord>('/api/items', item)
-      .subscribe( response => {
-        console.log(response);
-        this.notificationService.info('Sikeresen elmentve: #'+response.id);
+      .subscribe( createdItem => {
+        console.log(createdItem);
+        this.notificationService.info('Sikeresen elmentve: #'+createdItem.id);
+        this.itemService.add(createdItem);
         this.router.navigate(['/shop']);
       }, error => {
         this.notificationService.info('Nem sikerült a mentés');

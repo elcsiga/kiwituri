@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_BOTTOM_SHEET_DATA} from "@angular/material";
-import {CartItem, CartSheetData, ShoppingCartService} from "../../services/shopping-cart.service";
+import {CartSheetData} from "../../services/shopping-cart.service";
 import {Observable} from "rxjs";
 import {ItemRecord} from "../../../../../server/src/common/interfaces/item";
 import {Router} from "@angular/router";
@@ -14,29 +14,29 @@ export class CartSheetComponent implements OnInit {
 
   cartItems$: Observable<ItemRecord[]>;
 
-  private cartService: ShoppingCartService;
+  //private cartService: ShoppingCartService;
 
   constructor(
     private router: Router,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: CartSheetData
   ) {
-    this.cartService = data.service;
-    this.cartItems$ = this.cartService.cartItems$;
+    //this.cartService = data.service;
+    this.cartItems$ = this.data.service.cartItems$;
   }
 
   ngOnInit() {
   }
 
   close() {
-    this.cartService.closeCartSheet();
+    this.data.service.closeCartSheet();
   }
 
   removeFromCart(item: ItemRecord) {
-    this.cartService.removeFromCart(item);
+    this.data.service.removeFromCart(item);
   }
 
   goToCart() {
-    this.cartService.closeCartSheet();
+    this.data.service.closeCartSheet();
     this.router.navigate(['/cart']);
   }
 }

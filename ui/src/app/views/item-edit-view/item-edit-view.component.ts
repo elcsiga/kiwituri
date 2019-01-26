@@ -5,6 +5,7 @@ import {map, switchMap} from "rxjs/operators";
 import {Observable} from "rxjs";
 import {NotificationService} from "../../services/notification.service";
 import {ItemBody, ItemRecord} from "../../../../../server/src/common/interfaces/item";
+import {ItemService} from "../../services/item.service";
 
 @Component({
   selector: 'app-item-edit-view',
@@ -15,6 +16,7 @@ export class ItemEditViewComponent {
 
   constructor(
     private http: HttpClient,
+    private itemService: ItemService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private notificationService: NotificationService
@@ -28,14 +30,12 @@ export class ItemEditViewComponent {
     map( record => record.data)
   );
 
-
   onSubmit(item: ItemBody) {
-
     const id: number = +this.activatedRoute.snapshot.paramMap.get('id');
     this.http.put<ItemRecord>('/api/items/'+id, item)
-      .subscribe(response => {
-        console.log(response);
-        this.notificationService.info('Sikeresen elmentve: #' + response.id);
+      .subscribe(modifiedItem => {
+        this.itemService.update(modifiedItem);
+        this.notificationService.info('Sikeresen elmentve: #' + modifiedItem.id);
         this.router.navigate(['/shop']);
       }, error => {
         this.notificationService.info('Nem sikerült a mentés');

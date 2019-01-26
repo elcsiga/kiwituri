@@ -21,4 +21,15 @@ export class ItemService {
   ) {
     this.loadItems();
   }
+
+  update(item: ItemRecord): ItemRecord {
+    return this.items.updateById( item );
+  }
+
+  add(item: ItemRecord): void {
+    this.items.append( item );
+  }
+  remove(item: ItemRecord): void {
+    this.items.removeById( item );
+  }
 }

@@ -50,10 +50,10 @@
   </div>
 
   <div class="row buttons">
-    <a routerLink="/">Vissza</a>
+    <a href="#" (click)="navigateBack($event)">Vissza</a>
     <button mat-raised-button color="primary"
             [disabled]="!uploadForm.valid"
-            type="submit">FELTÖLTÉS
+            type="submit">{{submitLabel}}
     </button>
   </div>
 </form>

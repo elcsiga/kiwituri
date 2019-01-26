@@ -17,8 +17,8 @@ export class AppComponent implements OnInit {
     private userService: UserService
   ) {
     this.router.events.pipe(filter(event => event instanceof NavigationStart))
-      .subscribe( event => {
-          this.showMainHeader = (event as NavigationStart).url === '/';
+      .subscribe(event => {
+        this.showMainHeader = (event as NavigationStart).url === '/';
       });
 
   }

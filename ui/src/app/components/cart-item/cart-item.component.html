@@ -5,10 +5,10 @@
     </div>
     <div class="content">
       <p>
+        <small>#{{item.id}}</small><br/>
         {{item.data.sex}} - {{item.data.size}}
         <span *ngIf="item.data.sizeEstimated">* <br/><small> * Becsült méret</small></span>
       </p>
-
       <p *ngIf="item.data.description">
         {{item.data.description}}
       </p>

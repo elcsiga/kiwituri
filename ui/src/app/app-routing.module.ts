@@ -14,24 +14,21 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
   constructor() {
   }
   shouldDetach(route: ActivatedRouteSnapshot): boolean {
-    return false; //true;
+    return false;
   }
   store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle): void {
-    //this.handlers[route.routeConfig.path] = handle;
   }
   shouldAttach(route: ActivatedRouteSnapshot): boolean {
-    return false; //!!route.routeConfig && !!this.handlers[route.routeConfig.path];
+    return false;
   }
   retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle {
     return null;
-    //if (!route.routeConfig) return null;
-    //return this.handlers[route.routeConfig.path];
   }
   shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
     try{
-      const a = future.pathFromRoot[0].firstChild.routeConfig.component.name;
-      const b = curr.pathFromRoot[0].firstChild.routeConfig.component.name;
-      return a === b;
+      const a = future.component;
+      const b = curr.component;
+      return a && b && a === b;
     } catch (e) {
       return false;
     }

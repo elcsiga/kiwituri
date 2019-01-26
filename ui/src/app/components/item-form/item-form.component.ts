@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {allTags, sexes, sizes} from "../../../../../server/src/common/attributes";
 import {ItemBody} from "../../../../../server/src/common/interfaces/item";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-item-form',
@@ -11,6 +12,7 @@ import {ItemBody} from "../../../../../server/src/common/interfaces/item";
 export class ItemFormComponent implements OnInit {
 
   @Input() item: ItemBody;
+  @Input() submitLabel: string;
   @Output() submitForm: EventEmitter<ItemBody> = new EventEmitter();
 
   allTags = allTags;
@@ -21,6 +23,7 @@ export class ItemFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private location: Location
   ) {
 
   }
@@ -43,5 +46,10 @@ export class ItemFormComponent implements OnInit {
     } else {
       console.error('Trying to submit an invalid form...');
     }
+  }
+
+  navigateBack(event) {
+    event.preventDefault();
+    this.location.back();
   }
 }

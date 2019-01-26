@@ -10,9 +10,16 @@ h1.example-app-name {
   color: white;
   text-align: center;
 
-  background-image: linear-gradient(rgba(60, 60, 200, .4), rgba(224, 223, 255, 0));
+  background-image: linear-gradient(rgba(60, 60, 200, .6), rgba(224, 223, 255, 0));
 
   transition: .3s all ease-in-out;
+}
+.footer {
+  height: 4rem;
+  color: white;
+  text-align: center;
+
+  background-image: linear-gradient(rgba(224, 223, 255, 0), rgba(60, 60, 200, .2));
 }
 
 .header img {
