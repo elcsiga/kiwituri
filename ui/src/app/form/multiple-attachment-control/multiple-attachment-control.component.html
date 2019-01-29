@@ -8,7 +8,7 @@
 
     <app-thumbnail
       *ngFor="let uploadedFile of uploadedFiles; let i = index"
-      [url]="uploadedFile.url"
+      [url]="uploadedFile.thumbnail.url"
       (onRemove)="removeFile(i)"
     ></app-thumbnail>
 

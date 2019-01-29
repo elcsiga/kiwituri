@@ -1,7 +1,7 @@
 <div *ngIf="cartItems$ | async as cart">
   <div class="container" *ngIf="cart.length">
     <p>
-      <app-thumbnail *ngFor="let item of cart" [url]="item.data.thumbnail.url" (onRemove)="removeFromCart(item)"></app-thumbnail>
+      <app-thumbnail *ngFor="let item of cart" [url]="item.data.thumbnail.thumbnail.url" (onRemove)="removeFromCart(item)"></app-thumbnail>
     </p>
     <p>
       <button (click)="close()" mat-stroked-button>Még vásárolok</button>

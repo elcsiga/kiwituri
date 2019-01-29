@@ -30,9 +30,9 @@ export class ItemGalleryComponent {
     filter( item => item !== undefined),
     map( item => {
       const images: CarouselImage[] = [{
-        url: item.data.thumbnail.url
+        url: item.data.thumbnail.normal.url
       }];
-      item.data.images.forEach(image => images.push ({url: image.url}));
+      item.data.images.forEach(image => images.push ({url: image.normal.url}));
       return images;
     })
   );

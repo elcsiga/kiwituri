@@ -6,7 +6,7 @@
       vagy használd a feltöltés gombot.
     </p>
 
-    <app-thumbnail *ngIf="uploadedFile" [url]="uploadedFile.url"></app-thumbnail>
+    <app-thumbnail *ngIf="uploadedFile" [url]="uploadedFile.thumbnail.url"></app-thumbnail>
 
     <app-upload-button class="upload-button" (selected)="onFilesDropped($event)" [multiple]="false" >
 

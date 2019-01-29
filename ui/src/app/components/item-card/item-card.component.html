@@ -2,7 +2,7 @@
   <img mat-card-image
        alt="{{item.id}}"
        class="card-image"
-       [src]="item.data.thumbnail.url"
+       [src]="item.data.thumbnail.thumbnail.url"
        (click)="openCarousel.emit({id: item.id, index:0})" />
   <mat-card-content>
     <mat-chip-list>
@@ -17,7 +17,7 @@
     <div class="images" *ngIf="item.data.images.length">
       <img alt="{{item.id}}/{{i}}"
            *ngFor="let image of item.data.images; let i = index"
-           [src]="image.url"
+           [src]="image.thumbnail.url"
            (click)="openCarousel.emit({id: item.id, index:1+i})"
       />
     </div>
