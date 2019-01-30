@@ -56,6 +56,7 @@ const upload = multer({
                     cb(
                         null,
                         sharp()
+                            .rotate()
                             .resize(600, 600)
                             .max()
                     );
@@ -72,6 +73,7 @@ const upload = multer({
                     cb(
                         null,
                         sharp()
+                            .rotate()
                             .resize(1600, 1600, {
                                 withoutEnlargement: true
                             })
@@ -85,7 +87,6 @@ const upload = multer({
 
 app.post('/api/upload', upload.single('uploadedfile'), function (req, res) {
 
-    console.log(req.file);
     const file = req.file as Express.MulterS3.File;
     const thumbnail = (file as any).transforms.find(t => t.id === 'thumbnail');
     const normal = (file as any).transforms.find(t => t.id === 'normal');
