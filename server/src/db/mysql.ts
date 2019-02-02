@@ -1,4 +1,3 @@
-
 import * as mysql from 'mysql';
 import { Connection } from "mysql";
 
