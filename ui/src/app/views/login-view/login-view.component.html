@@ -1,0 +1,33 @@
+<div class="kw-content">
+
+  <h1>
+    Belépés szerkesztőknek
+  </h1>
+
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      Az oldal böngészéséhez, a ruhák kiválasztásához nincs szükség regisztrációra.
+      Regisztrálni és bejelentkezni kizárólag az oldal szerkesztóinek kell.
+    </div>
+
+    <div class="row">
+      <mat-form-field class="full-width">
+        <input matInput type="email" placeholder="E-mail" formControlName="email"/>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input matInput type="password" placeholder="Jelszó" formControlName="password"/>
+      </mat-form-field>
+    </div>
+
+    <div class="row buttons">
+      <a href="#" (click)="navigateBack($event)">Vissza</a>
+      <button mat-raised-button color="primary"
+              [disabled]="!loginForm.valid"
+              type="submit">BELÉPÉS
+      </button>
+    </div>
+
+  </form>
+</div>

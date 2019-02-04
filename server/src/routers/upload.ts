@@ -7,6 +7,7 @@ import * as multerS3 from 'multer-s3-transform';
 import * as sharp from 'sharp';
 import * as uuid from 'uuid/v1';
 import * as AWS from "aws-sdk";
+import {expectLoggedInUser} from "./authentication";
 
 const s3 = new AWS.S3({apiVersion: '2006-03-01'});
 const bucketName = 'kiwituri-storage';
@@ -65,6 +66,8 @@ const upload = multer({
 //accepts one file with name 'uploadedfile' as FromData
 
 uploadRouter.post('/', upload.single('uploadedfile'), function (req, res) {
+
+    expectLoggedInUser(req);
 
     const file = req.file as Express.MulterS3.File;
     const thumbnail = (file as any).transforms.find(t => t.id === 'thumbnail');

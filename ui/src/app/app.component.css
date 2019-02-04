@@ -7,6 +7,7 @@ h1.example-app-name {
   display: flex;
   flex-direction: column;
 }
+
 .header {
   flex: 0 0 auto;
   position: relative;
@@ -28,6 +29,7 @@ h1.example-app-name {
   vertical-align: middle;
   transition: .3s all ease-in-out;
 }
+
 .header span {
   color: white;
   font-size: 1rem;
@@ -37,28 +39,38 @@ h1.example-app-name {
   transition: .3s all ease-in-out;
 }
 
-.header-main{
+.header-main {
   height: 12rem;
   padding-top: 2rem;
   background-color: transparent;
   box-shadow: none;
 }
 
-.header-main span{
+.header-main span {
   font-size: 2rem;
 }
+
 .header-main img {
   width: 6rem;
   height: 6rem;
 }
-.header a{
+
+.header a {
   text-decoration: none;
 }
+
 .menu {
   position: absolute;
-  top:10px;
+  top: 10px;
   right: 10px;
 }
+
+.username {
+  color: white;
+  padding: 20px;
+  background: rgba(60, 60, 200, .6)
+}
+
 .content {
   flex: 1 1 auto;
 }

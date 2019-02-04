@@ -6,6 +6,9 @@ import {db} from "./db/mysql";
 import {itemsRouter} from "./routers/items";
 import {uploadRouter} from "./routers/upload";
 import { mailerRouter } from "./routers/mail";
+import {errorHandler, sendError} from "./utils/error";
+import {initAuth} from "./routers/authentication";
+
 
 const app = express();
 app.use(cors());
@@ -19,6 +22,8 @@ app.use(function (req, res, next) {
     console.log('REQUEST:', req.method, req.originalUrl);
     next();
 });
+
+initAuth(app);
 
 let dbReady = false;
 db.connect()
@@ -55,9 +60,7 @@ app.get('/*', (req, res) => {
 });
 
 //error handler
-app.use(function (err, req, res, next) {
-    sendError(res, 500, 'Runtime error', err);
-});
+app.use(errorHandler);
 
 const port = process.env.PORT || 3000;
 console.log(`Listening on ${port}`);

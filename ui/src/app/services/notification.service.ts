@@ -20,6 +20,7 @@ export class NotificationService {
   }
 
   error( message: string ) {
-    this.snackBar.open( '(!)' +message, null, this.config);
+    //TODO
+    this.snackBar.open( message, null, this.config);
   }
 }

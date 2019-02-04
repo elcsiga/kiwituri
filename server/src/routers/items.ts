@@ -2,6 +2,8 @@
 import * as express from 'express';
 import {db} from "../db/mysql";
 import {DbItemRecord, fromDb, ItemRecord, toDb} from "../common/interfaces/item";
+import {sendError} from "../utils/error";
+import {expectLoggedInUser} from "./authentication";
 
 export const itemsRouter = express.Router();
 
@@ -47,6 +49,8 @@ itemsRouter.get('/:id', (req, res) => {
 
 itemsRouter.post('/', (req, res) => {
 
+    expectLoggedInUser(req);
+
     const dbItemBody: string = toDb(req.body);
     if (dbItemBody) {
         db.query<any, ItemPayload>('INSERT INTO items SET ?', {data: dbItemBody})
@@ -62,13 +66,14 @@ itemsRouter.post('/', (req, res) => {
 
 itemsRouter.put('/:id', (req, res) => {
 
+    expectLoggedInUser(req);
+
     const id: number = +req.params.id;
     const dbItemBody: string = toDb(req.body);
 
     if (id && dbItemBody) {
         db.query<any, [ItemPayload, number]>('UPDATE items SET ? WHERE id = ?', [{data: dbItemBody}, id])
             .then(result => {
-                console.log(result);
                 return getItem(id);
             })
             .then(item => res.json(item))
@@ -81,6 +86,8 @@ itemsRouter.put('/:id', (req, res) => {
 });
 
 itemsRouter.delete('/:id', (req, res) => {
+
+    expectLoggedInUser(req);
 
     const id: number = +req.params.id;
     if (id) {

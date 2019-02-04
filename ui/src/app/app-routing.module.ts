@@ -7,10 +7,10 @@ import {ItemEditViewComponent} from "./views/item-edit-view/item-edit-view.compo
 import {ItemCreateViewComponent} from "./views/item-create-view/item-create-view.component";
 import {ShoppingCartViewComponent} from "./views/shopping-cart-view/shopping-cart-view.component";
 import {ItemGalleryComponent} from "./components/item-gallery/item-gallery.component";
+import {LoginViewComponent} from "./views/login-view/login-view.component";
 
 export class CustomReuseStrategy implements RouteReuseStrategy {
 
-  private handlers: {[key: string]: DetachedRouteHandle} = {};
   constructor() {
   }
   shouldDetach(route: ActivatedRouteSnapshot): boolean {
@@ -44,7 +44,8 @@ const routes: Routes = [
   {path: 'about', component: AboutViewComponent},
   {path: 'edit/:id', component: ItemEditViewComponent},
   {path: 'create', component: ItemCreateViewComponent},
-  {path: 'cart', component: ShoppingCartViewComponent}
+  {path: 'cart', component: ShoppingCartViewComponent},
+  {path: 'login', component: LoginViewComponent}
 ];
 
 @NgModule({

@@ -1,0 +1,21 @@
+.row {
+  margin: 10px 10px;
+  padding: 10px 20px;
+  background-color: #ffffff;
+}
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.buttons {
+  text-align: right;
+}
+.buttons a {
+  margin: 0 20px;
+}
