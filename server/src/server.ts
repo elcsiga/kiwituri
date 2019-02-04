@@ -5,6 +5,7 @@ import * as cors from 'cors';
 import {db} from "./db/mysql";
 import {itemsRouter} from "./routers/items";
 import {uploadRouter} from "./routers/upload";
+import { mailerRouter } from "./routers/mail";
 
 const app = express();
 app.use(cors());
@@ -46,6 +47,7 @@ app.get('/api/db', (req, res) => {
 //modiles
 app.use('/api/upload', uploadRouter);
 app.use('/api/items', itemsRouter);
+app.use('/api/mail', mailerRouter);
 
 //ui
 app.get('/*', (req, res) => {
