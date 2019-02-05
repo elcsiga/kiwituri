@@ -4,6 +4,10 @@ import { Connection } from "mysql";
 export class mysqlDb {
 
     private connection: Connection;
+    isConnected(): boolean {
+        return !!this.connection;
+    }
+
     connect(): Promise<void> {
         //this.connection = mysql.createConnection({
         //    host     : process.env.RDS_HOSTNAME || 'localhost',

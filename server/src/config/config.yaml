@@ -1,0 +1,38 @@
+--- KIWITURI config ----
+
+CATEGORIES:
+  - nadrág
+  - szoknya
+  - rövid ujjú póló
+  - hosszú ujjú póló
+  - pulóver/kardigán/meleg felső
+  - euritmia cipő
+  - ruha/tunika
+  - sál/sapka/kesztyű
+  - kabát/overál/susinadrág
+  - kiegészítők
+
+TAGS:
+  Anyag:
+    - pamut(os)
+    - kord
+    - farmer
+    - műszál(as)
+    - gyapjú(s)
+  Minőség:
+    - újszerű
+    - használt
+    - kishibás
+  Évszak:
+    - téli
+    - nyári
+    - őszi/tavaszi
+
+SIZES:
+  - 86-92
+  - 98-104
+  - 110-116
+  - 122-128
+  - 134-140
+  - 146-152
+  - 158-164
