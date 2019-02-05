@@ -1,6 +1,26 @@
-<div>
-  <div ngFor="let config of (config$ | async | keyvalue)">
-    <h3>{{config.key}}</h3>
-    <p>{{config.value}}</p>
-  </div>
+<div class="kw-content">
+
+  <h1>
+    Beállítások [{{title}}]
+  </h1>
+
+  <form [formGroup]="configForm" (ngSubmit)="onSubmit()">
+
+    <input type= hidden formControlName="key" />
+
+    <div class="kw-row">
+      <mat-form-field class="kw-full-width">
+        <textarea matInput cdkTextareaAutosize formControlName="value"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="kw-row kw-row-buttons">
+      <a href="#" (click)="navigateBack($event)">Vissza</a>
+      <button mat-raised-button color="primary"
+              [disabled]="!configForm.valid"
+              type="submit">MODOSÍTÁS
+      </button>
+    </div>
+
+  </form>
 </div>

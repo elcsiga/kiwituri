@@ -1,36 +1,33 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable} from "rxjs";
-import {map} from "rxjs/operators";
+import {BehaviorSubject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 
 
-interface Config {
-  categories: string[];
-  sizes: string[];
-  tags: string[];
+export interface Config {
+  key: string;
+  value: string;
 }
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConfigService {
 
-  private config: BehaviorSubject<Config> = new BehaviorSubject<Config>(null);
-  config$ = this.config.asObservable();
+  private configs: BehaviorSubject<Config[]> = new BehaviorSubject<Config[]>([]);
+  configs$ = this.configs.asObservable();
 
   constructor(
     private http: HttpClient
   ) {
-    this.http.get<Config>('/api/config')
-      .subscribe(config => {
-        this.setConfig(config);
+    this.load();
+  }
+
+  load() {
+    this.http.get<Config[]>('/api/config')
+      .subscribe(configs => {
+        this.configs.next(configs);
       }, error => {
         console.error(error);
       })
-  }
-
-  setConfig(config: Config) {
-    this.config.next(config);
   }
 }

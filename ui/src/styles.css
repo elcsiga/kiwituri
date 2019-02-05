@@ -48,3 +48,26 @@ a:hover {
     margin: 10px;
   }
 }
+
+
+.kw-row {
+  margin: 10px 10px;
+  padding: 10px 20px;
+  background-color: #ffffff;
+}
+.kw-row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.kw-full-width {
+  width: 100%;
+}
+
+.kw-row-buttons {
+  text-align: right;
+}
+.kw-row-buttons a {
+  margin: 0 20px;
+}

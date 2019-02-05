@@ -5,11 +5,11 @@ import * as cors from 'cors';
 import {db} from "./db/mysql";
 import {itemsRouter} from "./routers/items";
 import {uploadRouter} from "./routers/upload";
-import { mailerRouter } from "./routers/mail";
+import {mailerRouter} from "./routers/mail";
 import {errorHandler, sendError} from "./utils/error";
 import {initAuth} from "./routers/authentication";
-import { testRouter } from "./routers/test";
-import { loadConfig } from "./routers/config";
+import {testRouter} from "./routers/test";
+import {configRouter} from "./routers/config";
 
 async function main() {
     const app = express();
@@ -30,10 +30,8 @@ async function main() {
     //db
     await db.connect();
 
-    //config
-    await loadConfig();
-
     //modules
+    app.use('/api/config', configRouter);
     app.use('/api/test', testRouter);
     app.use('/api/upload', uploadRouter);
     app.use('/api/items', itemsRouter);
