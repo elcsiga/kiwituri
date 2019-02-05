@@ -4,6 +4,7 @@ import {filter} from "rxjs/internal/operators";
 import {UserService} from "./services/user.service";
 import {User} from "../../../server/src/common/interfaces/user";
 import {HttpClient} from "@angular/common/http";
+import { ConfigService } from "./services/config.service";
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,8 @@ export class AppComponent implements OnInit {
   constructor(
     public router: Router,
     private http: HttpClient,
-    private userService: UserService
+    private userService: UserService,
+    private configService: ConfigService
   ) {
     this.router.events.pipe(filter(event => event instanceof NavigationStart))
       .subscribe(event => {

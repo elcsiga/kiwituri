@@ -40,6 +40,7 @@ import { CartItemComponent } from './components/cart-item/cart-item.component';
 import { CarouselModule } from "./carousel/carousel.module";
 import { ItemGalleryComponent } from './components/item-gallery/item-gallery.component';
 import { LoginViewComponent } from './views/login-view/login-view.component';
+import { ConfigViewComponent } from './views/config-view/config-view.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { LoginViewComponent } from './views/login-view/login-view.component';
     ShoppingCartViewComponent,
     CartItemComponent,
     ItemGalleryComponent,
-    LoginViewComponent
+    LoginViewComponent,
+    ConfigViewComponent
   ],
   imports: [
     FormsModule,

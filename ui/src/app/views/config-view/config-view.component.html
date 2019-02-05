@@ -1,0 +1,6 @@
+<div>
+  <div ngFor="let config of (config$ | async | keyvalue)">
+    <h3>{{config.key}}</h3>
+    <p>{{config.value}}</p>
+  </div>
+</div>
