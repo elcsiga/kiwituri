@@ -3,6 +3,7 @@ import {UploadedFile} from "./upload";
 export interface ItemBody {
     thumbnail: UploadedFile;
     images: UploadedFile[];
+    category: string;
     tags: string[];
     sex: string;
     size: string;

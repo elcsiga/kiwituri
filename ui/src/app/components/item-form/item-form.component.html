@@ -1,28 +1,40 @@
 <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
   <div class="kw-row">
+    <p>Fő kép</p>
     <app-attachment-control
       formControlName="thumbnail"
     ></app-attachment-control>
   </div>
 
   <div class="kw-row">
+    <p>További képek</p>
     <app-multiple-attachment-control
       formControlName="images"
     ></app-multiple-attachment-control>
   </div>
 
   <div class="kw-row">
+    <mat-form-field class="kw-full-width">
+      <mat-select placeholder="Fő kategória" formControlName="category">
+        <mat-option *ngFor="let category of (setting$ | async).CATEGORIES" [value]="category">
+          {{category}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="kw-row">
     <app-tag-control
       formControlName="tags"
-      [placeholder]="'Kategóriák'"
-      [hint]="'Válassz egy vagy több kategóriát vagy írj be újat.'"
-      [allTags]="allTags"
+      [placeholder]="'Tag-ek'"
+      [hint]="'Válassz egy vagy több tag-et vagy írj be újat.'"
+      [categorizedTags]="(setting$ | async).TAGS"
     ></app-tag-control>
   </div>
 
   <div class="kw-row">
     <mat-radio-group class="radio-group" formControlName="sex">
-      <mat-radio-button class="radio-button" *ngFor="let sex of sexes" [value]="sex">
+      <mat-radio-button class="radio-button" *ngFor="let sex of (setting$ | async).SEXES" [value]="sex">
         {{sex}}
       </mat-radio-button>
     </mat-radio-group>
@@ -31,7 +43,7 @@
   <div class="kw-row">
     <mat-form-field class="kw-full-width">
       <mat-select placeholder="Méret" formControlName="size">
-        <mat-option *ngFor="let size of sizes" [value]="size">
+        <mat-option *ngFor="let size of (setting$ | async).SIZES" [value]="size">
           {{size}}
         </mat-option>
       </mat-select>
@@ -43,7 +55,7 @@
   </div>
 
   <div class="kw-row">
-    <mat-form-field class="full-width">
+    <mat-form-field class="kw-full-width">
       <textarea matInput placeholder="Részletek" cdkTextareaAutosize formControlName="description"></textarea>
       <mat-hint>Bármi, amit még tudni érdemes. Nem kötelező kitölteni,</mat-hint>
     </mat-form-field>

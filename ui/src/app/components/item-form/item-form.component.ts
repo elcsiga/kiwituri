@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {allTags, sexes, sizes} from "../../../../../server/src/common/attributes";
 import {ItemBody} from "../../../../../server/src/common/interfaces/item";
 import {Location} from "@angular/common";
+import {ConfigService} from "../../services/config.service";
 
 @Component({
   selector: 'app-item-form',
@@ -15,23 +15,23 @@ export class ItemFormComponent implements OnInit {
   @Input() submitLabel: string;
   @Output() submitForm: EventEmitter<ItemBody> = new EventEmitter();
 
-  allTags = allTags;
-  sexes = sexes;
-  sizes = sizes;
-
   uploadForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
-    private location: Location
+    private location: Location,
+    private configService: ConfigService
   ) {
 
   }
+
+  setting$ = this.configService.settings$;
 
   ngOnInit(): void {
     this.uploadForm = this.fb.group({
       thumbnail: [this.item.thumbnail, [Validators.required]],
       images: [this.item.images],
+      category: [this.item.category, [Validators.required]],
       tags: [this.item.tags],
       sex: [this.item.sex, [Validators.required]],
       size: [this.item.size, [Validators.required]],

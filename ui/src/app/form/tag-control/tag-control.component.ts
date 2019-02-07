@@ -19,7 +19,7 @@ import { MatAutocomplete, MatAutocompleteSelectedEvent, MatChipInputEvent } from
 })
 export class TagControlComponent implements ControlValueAccessor {
 
-  @Input() allTags = [];
+  @Input() categorizedTags: object = {};
   @Input() placeholder: string = '';
   @Input() hint: string = '';
 
@@ -34,9 +34,11 @@ export class TagControlComponent implements ControlValueAccessor {
   filteredTags: Observable<string[]>;
 
   constructor() {
+
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
       startWith(null),
-      map((tag: string | null) => tag ? this._filter(tag) : this.allTags.slice()));
+      map((tag: string | null) => tag ? this._filter(tag) : this._allTags())
+    );
   }
 
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
@@ -123,9 +125,13 @@ export class TagControlComponent implements ControlValueAccessor {
     this.tagCtrl.setValue(null);
   }
 
+  private _allTags(): string[] {
+    return [].concat( ...Object.values(this.categorizedTags) );
+  }
+
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.allTags.filter(zag => zag.toLowerCase().indexOf(filterValue) === 0);
+    return this._allTags().filter(zag => zag.toLowerCase().indexOf(filterValue) === 0);
   }
 
 }

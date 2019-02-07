@@ -27,8 +27,14 @@
 </mat-form-field>
 
 <div class="tag-link-container">
-      <span class="tag-link"
-            [class.tag-link-selected]="isTagSelected(tag)"
-            (click)="addTag(tag)"
-            href='#' *ngFor="let tag of allTags"> {{tag}} </span>
-</div>
+  <div *ngFor="let tagCategory of (categorizedTags | keyvalue) ">
+    {{tagCategory.key}}:
+
+    <span class="tag-link"
+          [class.tag-link-selected]="isTagSelected(tag)"
+          (click)="addTag(tag)"
+          href='#' *ngFor="let tag of tagCategory.value"> {{tag}} </span>
+
+
+  </div>
+ </div>

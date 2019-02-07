@@ -10,11 +10,11 @@ import {ActivatedRoute} from "@angular/router";
 import {map} from "rxjs/operators";
 
 @Component({
-  selector: 'app-config-view',
+  selector: 'app-config-edit-view',
   templateUrl: './config-view.component.html',
   styleUrls: ['./config-view.component.css']
 })
-export class ConfigViewComponent implements OnInit, OnDestroy {
+export class ConfigEditViewComponent implements OnInit, OnDestroy {
 
   config$ = combineLatest(
     this.configService.configs$,

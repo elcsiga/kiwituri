@@ -8,7 +8,8 @@ import {ItemCreateViewComponent} from "./views/item-create-view/item-create-view
 import {ShoppingCartViewComponent} from "./views/shopping-cart-view/shopping-cart-view.component";
 import {ItemGalleryComponent} from "./components/item-gallery/item-gallery.component";
 import {LoginViewComponent} from "./views/login-view/login-view.component";
-import {ConfigViewComponent} from "./views/config-view/config-view.component";
+import {ConfigEditViewComponent} from "./views/config-edit-view/config-edit-view.component";
+import {ConfigListViewComponent} from "./views/config-list-view/config-list-view.component";
 
 export class CustomReuseStrategy implements RouteReuseStrategy {
 
@@ -47,7 +48,8 @@ const routes: Routes = [
   {path: 'create', component: ItemCreateViewComponent},
   {path: 'cart', component: ShoppingCartViewComponent},
   {path: 'login', component: LoginViewComponent},
-  {path: 'config/:key', component: ConfigViewComponent}
+  {path: 'config', component: ConfigListViewComponent},
+  {path: 'config/:key', component: ConfigEditViewComponent}
 ];
 
 @NgModule({

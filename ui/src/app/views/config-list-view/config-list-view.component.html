@@ -1,0 +1,10 @@
+<div class="kw-content">
+
+  <h1>
+    Beállítások
+  </h1>
+
+  <div class="kw-row" *ngFor="let config of (configs$ | async)">
+    <a [routerLink]="'/config/'+config.key"> {{config.key}} </a>
+  </div>
+</div>

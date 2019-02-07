@@ -44,6 +44,13 @@
             <span>Belépés szerkesztőknek</span>
           </button>
         </a>
+        <a *ngIf="(user$ | async)" routerLink="/config">
+          <button mat-menu-item>
+            <mat-icon>settings</mat-icon>
+            <span>Beállítások</span>
+          </button>
+        </a>
+
         <button *ngIf="(user$ | async)" mat-menu-item (click)="logout()">
           <mat-icon>lock</mat-icon>
           <span>Kilépés</span>

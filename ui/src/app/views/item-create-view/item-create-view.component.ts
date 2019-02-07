@@ -16,6 +16,7 @@ export class ItemCreateViewComponent {
   emptyItem: ItemBody = {
     thumbnail: null,
     images: [],
+    category: null,
     tags: [],
     sex: null,
     size: null,
@@ -34,7 +35,6 @@ export class ItemCreateViewComponent {
   onSubmit(item: ItemBody) {
     this.http.post<ItemRecord>('/api/items', item)
       .subscribe( createdItem => {
-        console.log(createdItem);
         this.notificationService.info('Sikeresen elmentve: #'+createdItem.id);
         this.itemService.add(createdItem);
         this.router.navigate(['/shop']);
