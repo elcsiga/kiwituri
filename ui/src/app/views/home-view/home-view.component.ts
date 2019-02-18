@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ConfigService} from "../../services/config.service";
 
 @Component({
   selector: 'app-home-view',
@@ -7,7 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeViewComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private configService: ConfigService
+  ) { }
+
+  tldr$ = this.configService.getText('tldr');
+  tab1$ = this.configService.getText('tab1');
+  tab2$ = this.configService.getText('tab2');
+  tab3$ = this.configService.getText('tab3');
 
   ngOnInit() {
   }

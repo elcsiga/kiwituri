@@ -14,7 +14,6 @@ export function sendError(res, status: number, message: string, error?: any) {
     });
 }
 
-
 export const errorHandler = (err, req, res, next) => {
     if (err instanceof ServerError) {
         const error = err as ServerError;

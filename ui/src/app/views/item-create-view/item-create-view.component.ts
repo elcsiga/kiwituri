@@ -2,8 +2,17 @@ import {Component} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {NotificationService} from "../../services/notification.service";
-import {ItemBody, ItemRecord} from "../../../../../server/src/common/interfaces/item";
+import {
+  ItemBody,
+  ItemRecord,
+  ItemStatus,
+  TimeStampData,
+  UserId
+} from "../../../../../server/src/common/interfaces/item";
 import {ItemService} from "../../services/item.service";
+import {UserService} from "../../services/user.service";
+import {filter, map} from "rxjs/operators";
+import {User} from "../../../../../server/src/common/interfaces/user";
 
 
 @Component({
@@ -13,7 +22,7 @@ import {ItemService} from "../../services/item.service";
 })
 export class ItemCreateViewComponent {
 
-  emptyItem: ItemBody = {
+  getEmptyItem = (userId: UserId, timestamp: number): ItemBody => ({
     thumbnail: null,
     images: [],
     category: null,
@@ -21,21 +30,31 @@ export class ItemCreateViewComponent {
     sex: null,
     size: null,
     sizeEstimated: false,
-    description: ''
-  };
+    description: '',
+    status: 'active',
+    store: userId,
+    created: {userId, timestamp},
+    updated: {userId, timestamp}
+  });
+
+  emptyItem$ = this.userService.user$.pipe(
+    filter( user => !!user),
+    map( user => this.getEmptyItem(user.email, 0))
+  );
 
   constructor(
     private http: HttpClient,
     private itemService: ItemService,
     private router: Router,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private userService: UserService
   ) {
   }
 
   onSubmit(item: ItemBody) {
     this.http.post<ItemRecord>('/api/items', item)
-      .subscribe( createdItem => {
-        this.notificationService.info('Sikeresen elmentve: #'+createdItem.id);
+      .subscribe(createdItem => {
+        this.notificationService.info('Sikeresen elmentve: #' + createdItem.id);
         this.itemService.add(createdItem);
         this.router.navigate(['/shop']);
       }, error => {

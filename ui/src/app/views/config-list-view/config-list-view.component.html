@@ -5,6 +5,6 @@
   </h1>
 
   <div class="kw-row" *ngFor="let config of (configs$ | async)">
-    <a [routerLink]="'/config/'+config.key"> {{config.key}} </a>
+    <a [routerLink]="'/config/'+config.key"> {{config.title}} </a>
   </div>
 </div>

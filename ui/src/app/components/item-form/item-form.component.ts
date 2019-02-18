@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ItemBody} from "../../../../../server/src/common/interfaces/item";
 import {Location} from "@angular/common";
 import {ConfigService} from "../../services/config.service";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-item-form',
@@ -20,12 +21,14 @@ export class ItemFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private location: Location,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private userService: UserService
   ) {
 
   }
 
   setting$ = this.configService.settings$;
+  users$ = this.userService.getUserList();
 
   ngOnInit(): void {
     this.uploadForm = this.fb.group({
@@ -36,7 +39,8 @@ export class ItemFormComponent implements OnInit {
       sex: [this.item.sex, [Validators.required]],
       size: [this.item.size, [Validators.required]],
       sizeEstimated: [this.item.sizeEstimated],
-      description: [this.item.description]
+      description: [this.item.description],
+      store: [this.item.store]
     });
   }
 

@@ -1,5 +1,13 @@
 import {UploadedFile} from "./upload";
 
+export type ItemStatus = 'incactive' | 'active' | 'sold';
+export type UserId = string; //email
+
+export interface TimeStampData {
+    timestamp: number;
+    userId: UserId;
+}
+
 export interface ItemBody {
     thumbnail: UploadedFile;
     images: UploadedFile[];
@@ -9,6 +17,10 @@ export interface ItemBody {
     size: string;
     sizeEstimated: boolean;
     description: string;
+    status: ItemStatus;
+    store: UserId;
+    created: TimeStampData;
+    updated: TimeStampData;
 }
 
 export interface ItemRecord {

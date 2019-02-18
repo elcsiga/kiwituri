@@ -5,7 +5,7 @@
   </h1>
 
   <div>
-    <app-item-form
+    <app-item-form *ngIf="emptyItem$ | async as emptyItem"
       [item]="emptyItem"
       [submitLabel]="'LÉTREHOZ'"
       (submitForm)="onSubmit($event)"

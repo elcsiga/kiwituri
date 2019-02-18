@@ -61,6 +61,16 @@
     </mat-form-field>
   </div>
 
+  <div class="kw-row">
+    <mat-form-field class="kw-full-width">
+      <mat-select placeholder="Aki tárolja" formControlName="store">
+        <mat-option *ngFor="let user of (users$ | async)" [value]="user.email">
+          {{user.fullName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
   <div class="kw-row kw-row-buttons">
     <a href="#" (click)="navigateBack($event)">Vissza</a>
     <button mat-raised-button color="primary"

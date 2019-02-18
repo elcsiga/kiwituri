@@ -1,10 +1,12 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import * as yaml from 'js-yaml';
+import {map} from "rxjs/operators";
 
 export interface Config {
   key: string;
+  title: string;
   value: string;
 }
 
@@ -14,6 +16,7 @@ export interface Settings {
   SIZES: string[];
   SEXES: string[];
 }
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,14 +25,22 @@ export class ConfigService {
   private configs: BehaviorSubject<Config[]> = new BehaviorSubject<Config[]>([]);
   configs$ = this.configs.asObservable();
 
-  private settings: BehaviorSubject<Settings> = new BehaviorSubject<Settings>({
-    CATEGORIES: [],
-    TAGS: {},
-    SIZES: [],
-    SEXES:[]
-  });
+  getText(key): Observable<string> {
+    return this.configs$.pipe(
+      map(configs => configs.find(c => c.key === key)),
+      map( config => config ? config.value : '')
+    )
+  }
 
-  settings$ = this.settings.asObservable();
+  settings$: Observable<Settings> = this.configs$.pipe(
+    map(configs => configs.find(c => c.key === 'settings')),
+    map(config => config ? yaml.safeLoad(config.value): {
+      CATEGORIES: [],
+      TAGS: {},
+      SIZES: [],
+      SEXES: []
+    })
+  );
 
   constructor(
     private http: HttpClient
@@ -41,10 +52,6 @@ export class ConfigService {
     this.http.get<Config[]>('/api/config')
       .subscribe(configs => {
         this.configs.next(configs);
-
-        const settings = yaml.safeLoad(configs.find(c => c.key === 'settings').value);
-        this.settings.next(settings);
-
       }, error => {
         console.error(error);
       })

@@ -10,6 +10,7 @@ import {ItemGalleryComponent} from "./components/item-gallery/item-gallery.compo
 import {LoginViewComponent} from "./views/login-view/login-view.component";
 import {ConfigEditViewComponent} from "./views/config-edit-view/config-edit-view.component";
 import {ConfigListViewComponent} from "./views/config-list-view/config-list-view.component";
+import {ChangePasswordViewComponent} from "./views/change-password-view/change-password-view.component";
 
 export class CustomReuseStrategy implements RouteReuseStrategy {
 
@@ -48,6 +49,7 @@ const routes: Routes = [
   {path: 'create', component: ItemCreateViewComponent},
   {path: 'cart', component: ShoppingCartViewComponent},
   {path: 'login', component: LoginViewComponent},
+  {path: 'change-password', component: ChangePasswordViewComponent},
   {path: 'config', component: ConfigListViewComponent},
   {path: 'config/:key', component: ConfigEditViewComponent}
 ];

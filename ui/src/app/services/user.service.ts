@@ -31,4 +31,8 @@ export class UserService {
   setUser(user: User) {
     this.user.next(user);
   }
+
+  getUserList(): Observable<User[]> {
+    return this.http.get<User[]>('/api/user');
+  }
 }

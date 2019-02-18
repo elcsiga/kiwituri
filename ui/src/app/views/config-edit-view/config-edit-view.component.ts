@@ -45,7 +45,7 @@ export class ConfigEditViewComponent implements OnInit, OnDestroy {
     this.sub = this.config$.subscribe(config => {
       this.configForm.controls['key'].setValue( config ? config.key : '');
       this.configForm.controls['value'].setValue( config ? config.value : '');
-      this.title = config ? config.key : '';
+      this.title = config ? config.title : '';
     } );
   }
 

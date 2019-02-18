@@ -32,16 +32,18 @@ import {ItemCardComponent} from './components/item-card/item-card.component';
 import {ItemFormComponent} from './components/item-form/item-form.component';
 import {ItemEditViewComponent} from './views/item-edit-view/item-edit-view.component';
 import {ItemCreateViewComponent} from './views/item-create-view/item-create-view.component';
-import { NgMasonryGridModule } from "ng-masonry-grid";
-import { CartSheetComponent } from './components/cart-sheet/cart-sheet.component';
-import { SearchSheetComponent } from './components/search-sheet/search-sheet.component';
-import { ShoppingCartViewComponent } from './views/shopping-cart-view/shopping-cart-view.component';
-import { CartItemComponent } from './components/cart-item/cart-item.component';
-import { CarouselModule } from "./carousel/carousel.module";
-import { ItemGalleryComponent } from './components/item-gallery/item-gallery.component';
-import { LoginViewComponent } from './views/login-view/login-view.component';
-import { ConfigEditViewComponent } from './views/config-edit-view/config-edit-view.component';
-import { ConfigListViewComponent } from './views/config-list-view/config-list-view.component';
+import {NgMasonryGridModule} from "ng-masonry-grid";
+import {CartSheetComponent} from './components/cart-sheet/cart-sheet.component';
+import {SearchSheetComponent} from './components/search-sheet/search-sheet.component';
+import {ShoppingCartViewComponent} from './views/shopping-cart-view/shopping-cart-view.component';
+import {CartItemComponent} from './components/cart-item/cart-item.component';
+import {CarouselModule} from "./carousel/carousel.module";
+import {ItemGalleryComponent} from './components/item-gallery/item-gallery.component';
+import {LoginViewComponent} from './views/login-view/login-view.component';
+import {ConfigEditViewComponent} from './views/config-edit-view/config-edit-view.component';
+import {ConfigListViewComponent} from './views/config-list-view/config-list-view.component';
+import {ChangePasswordViewComponent} from './views/change-password-view/change-password-view.component';
+import {NgxMdModule} from 'ngx-md';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,8 @@ import { ConfigListViewComponent } from './views/config-list-view/config-list-vi
     ItemGalleryComponent,
     LoginViewComponent,
     ConfigEditViewComponent,
-    ConfigListViewComponent
+    ConfigListViewComponent,
+    ChangePasswordViewComponent
   ],
   imports: [
     FormsModule,
@@ -89,7 +92,8 @@ import { ConfigListViewComponent } from './views/config-list-view/config-list-vi
     MatMenuModule,
     MatBottomSheetModule,
     MatTableModule,
-    CarouselModule
+    CarouselModule,
+    NgxMdModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent],

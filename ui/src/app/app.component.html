@@ -51,6 +51,13 @@
           </button>
         </a>
 
+        <a *ngIf="(user$ | async)" routerLink="/change-password">
+          <button mat-menu-item>
+            <mat-icon>autorenew</mat-icon>
+            <span>Jelszócsere</span>
+          </button>
+        </a>
+
         <button *ngIf="(user$ | async)" mat-menu-item (click)="logout()">
           <mat-icon>lock</mat-icon>
           <span>Kilépés</span>

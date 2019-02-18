@@ -5,6 +5,9 @@
        [src]="item.data.thumbnail.thumbnail.url"
        (click)="openCarousel.emit({id: item.id, index:0})" />
   <mat-card-content>
+    <p *ngIf="item.data.category">
+      {{item.data.category}}
+    </p>
     <mat-chip-list>
       <mat-chip *ngFor="let tag of item.data.tags">{{tag}}</mat-chip>
     </mat-chip-list>

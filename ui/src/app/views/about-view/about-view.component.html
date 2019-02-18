@@ -1,20 +1,7 @@
 <div class="content">
-  <h1>A Kiwituriról</h1>
-  <p>Proin sagittis augue magna, et porttitor lectus tempor ac. Vivamus tristique odio ut tristique consequat. Vestibulum ornare pulvinar tortor, sit amet interdum erat imperdiet id. Cras vel elementum ex, at luctus mauris. Curabitur sagittis sit amet purus eu consequat. Sed dui elit, consequat at consequat id, finibus et libero. Nullam ac arcu eros. Sed sit amet dapibus sapien, ac venenatis velit. Aliquam nisi felis, suscipit eu risus quis, egestas hendrerit ligula. Phasellus faucibus accumsan finibus. Mauris ornare iaculis dui non tempus.</p>
-
-  <a name="buy">&nbsp;</a>
-  <h1> Hogyan vásárolhatok? </h1>
-
-  <p>Proin sagittis augue magna, et porttitor lectus tempor ac. Vivamus tristique odio ut tristique consequat. Vestibulum ornare pulvinar tortor, sit amet interdum erat imperdiet id. Cras vel elementum ex, at luctus mauris. Curabitur sagittis sit amet purus eu consequat. Sed dui elit, consequat at consequat id, finibus et libero. Nullam ac arcu eros. Sed sit amet dapibus sapien, ac venenatis velit. Aliquam nisi felis, suscipit eu risus quis, egestas hendrerit ligula. Phasellus faucibus accumsan finibus. Mauris ornare iaculis dui non tempus.</p>
-
-  <a name="sell">&nbsp;</a>
-  <h1> Hová vigyem a felesleges használt ruhákat?</h1>
-
-  <p>Proin sagittis augue magna, et porttitor lectus tempor ac. Vivamus tristique odio ut tristique consequat. Vestibulum ornare pulvinar tortor, sit amet interdum erat imperdiet id. Cras vel elementum ex, at luctus mauris. Curabitur sagittis sit amet purus eu consequat. Sed dui elit, consequat at consequat id, finibus et libero. Nullam ac arcu eros. Sed sit amet dapibus sapien, ac venenatis velit. Aliquam nisi felis, suscipit eu risus quis, egestas hendrerit ligula. Phasellus faucibus accumsan finibus. Mauris ornare iaculis dui non tempus.</p>
-
-  <a name="contacts">&nbsp;</a>
-  <h1> Kapcsolat </h1>
-
-  <p>Proin sagittis augue magna, et porttitor lectus tempor ac. Vivamus tristique odio ut tristique consequat. Vestibulum ornare pulvinar tortor, sit amet interdum erat imperdiet id. Cras vel elementum ex, at luctus mauris. Curabitur sagittis sit amet purus eu consequat. Sed dui elit, consequat at consequat id, finibus et libero. Nullam ac arcu eros. Sed sit amet dapibus sapien, ac venenatis velit. Aliquam nisi felis, suscipit eu risus quis, egestas hendrerit ligula. Phasellus faucibus accumsan finibus. Mauris ornare iaculis dui non tempus.</p>
-
+  <div *ngIf="content$ | async as content">
+    <ngx-md>
+      {{content}}
+    </ngx-md>
+  </div>
 </div>
