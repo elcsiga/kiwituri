@@ -35,12 +35,28 @@ export class ConfigService {
   settings$: Observable<Settings> = this.configs$.pipe(
     map(configs => configs.find(c => c.key === 'settings')),
     map(config => config ? yaml.safeLoad(config.value): {
-      CATEGORIES: [],
+      CATEGORIES: {},
       TAGS: {},
-      SIZES: [],
-      SEXES: []
+      SIZES: {},
+      SEXES: {}
     })
   );
+
+  getCategory(key): Observable<string> {
+    return this.settings$.pipe(
+      map(settings$ => settings$.CATEGORIES[key] || ' ??? ')
+    )
+  }
+  getSize(key): Observable<string> {
+    return this.settings$.pipe(
+      map(settings$ => settings$.SIZES[key] || ' ??? ')
+    )
+  }
+  getSex(key): Observable<string> {
+    return this.settings$.pipe(
+      map(settings$ => settings$.SEXES[key] || ' ??? ')
+    )
+  }
 
   constructor(
     private http: HttpClient

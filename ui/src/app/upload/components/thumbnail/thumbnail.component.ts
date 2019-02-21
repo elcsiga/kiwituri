@@ -7,7 +7,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class ThumbnailComponent implements OnInit {
 
-  @Input() url: string
+  @Input() url: string;
+  @Input() removable: boolean = true;
   constructor() { }
 
   @Output() onRemove: EventEmitter<void> = new EventEmitter();

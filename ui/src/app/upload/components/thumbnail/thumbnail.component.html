@@ -1,5 +1,12 @@
 <img class="mat-elevation-z2" [src]="url" />
 
-<button type="button" mat-mini-fab class="removeButton" color="warn" (click)="onRemove.emit()">
+<button
+  *ngIf="removable"
+  type="button"
+  mat-mini-fab
+  class="removeButton"
+  color="warn"
+  (click)="onRemove.emit()"
+>
   <mat-icon aria-label="Remove">delete_forever</mat-icon>
 </button>

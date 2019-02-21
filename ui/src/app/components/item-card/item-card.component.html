@@ -6,14 +6,14 @@
        (click)="openCarousel.emit({id: item.id, index:0})" />
   <mat-card-content>
     <p *ngIf="item.data.category">
-      {{item.data.category}}
+      {{getCategory() | async}}
     </p>
     <mat-chip-list>
       <mat-chip *ngFor="let tag of item.data.tags">{{tag}}</mat-chip>
     </mat-chip-list>
     <h4>
       <small>#{{item.id}}</small><br/>
-      {{item.data.sex}} - {{item.data.size}}
+      {{getSex() | async}} - {{getSize() | async}}
       <span *ngIf="item.data.sizeEstimated">* <br/><small> * Becsült méret</small></span>
     </h4>
 

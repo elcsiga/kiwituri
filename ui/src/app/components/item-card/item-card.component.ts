@@ -5,6 +5,8 @@ import {ShoppingCartService} from "../../services/shopping-cart.service";
 import {ItemService} from "../../services/item.service";
 import {NotificationService} from "../../services/notification.service";
 import {HttpClient} from "@angular/common/http";
+import {ConfigService} from "../../services/config.service";
+import {Observable} from "rxjs";
 
 export interface CarouselPosition {
   id: number,
@@ -24,6 +26,7 @@ export class ItemCardComponent implements OnInit {
   constructor(
     public userService: UserService,
     private http: HttpClient,
+    private configService: ConfigService,
     private itemService: ItemService,
     private notificationService: NotificationService,
     private shoppingCartService: ShoppingCartService,
@@ -35,7 +38,16 @@ export class ItemCardComponent implements OnInit {
 
   isInCart() {
     return this.shoppingCartService.isInCart(this.item);
+  }
 
+  getCategory(): Observable<string> {
+    return this.configService.getCategory(this.item.data.category);
+  }
+  getSize(): Observable<string> {
+    return this.configService.getSize(this.item.data.size);
+  }
+  getSex(): Observable<string> {
+    return this.configService.getSex(this.item.data.sex);
   }
 
   addToCart() {

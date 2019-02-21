@@ -1,12 +1,13 @@
 <mat-card>
   <div class="container">
     <div class="image">
-      <app-thumbnail [url]="item.data.thumbnail.thumbnail.url" (onRemove)="removeFromCart(item)"></app-thumbnail>
+      <app-thumbnail [url]="item.data.thumbnail.thumbnail.url" [removable]="false"></app-thumbnail>
     </div>
     <div class="content">
       <p>
-        <small>#{{item.id}}</small><br/>
-        {{item.data.sex}} - {{item.data.size}}
+        <small>#{{item.id}}</small><br />
+        {{getCategory() | async}}<br />
+        {{getSex() | async}} - {{getSize() | async}}
         <span *ngIf="item.data.sizeEstimated">* <br/><small> * Becsült méret</small></span>
       </p>
       <p *ngIf="item.data.description">

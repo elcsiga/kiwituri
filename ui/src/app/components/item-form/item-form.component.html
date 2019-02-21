@@ -16,8 +16,8 @@
   <div class="kw-row">
     <mat-form-field class="kw-full-width">
       <mat-select placeholder="Fő kategória" formControlName="category">
-        <mat-option *ngFor="let category of (setting$ | async).CATEGORIES" [value]="category">
-          {{category}}
+        <mat-option *ngFor="let category of (setting$ | async).CATEGORIES | keyvalue" [value]="category.key">
+          {{category.value}}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -34,8 +34,8 @@
 
   <div class="kw-row">
     <mat-radio-group class="radio-group" formControlName="sex">
-      <mat-radio-button class="radio-button" *ngFor="let sex of (setting$ | async).SEXES" [value]="sex">
-        {{sex}}
+      <mat-radio-button class="radio-button" *ngFor="let sex of (setting$ | async).SEXES | keyvalue" [value]="sex.key">
+        {{sex.value}}
       </mat-radio-button>
     </mat-radio-group>
   </div>
@@ -43,8 +43,8 @@
   <div class="kw-row">
     <mat-form-field class="kw-full-width">
       <mat-select placeholder="Méret" formControlName="size">
-        <mat-option *ngFor="let size of (setting$ | async).SIZES" [value]="size">
-          {{size}}
+        <mat-option *ngFor="let size of (setting$ | async).SIZES | keyvalue" [value]="size.key">
+          {{size.value}}
         </mat-option>
       </mat-select>
 
