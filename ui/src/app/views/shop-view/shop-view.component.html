@@ -1,3 +1,13 @@
+<div>
+  <button mat-button
+          *ngFor="let category of (settings$ | async).CATEGORIES"
+          [routerLink]="'/shop/'+category"
+          [disabled]="(activeCategory$ | async) === category"
+  >
+    {{category}}
+  </button>
+</div>
+
 <ng-masonry-grid class="grid"
                  [masonryOptions]="{ transitionDuration: '0.3s', gutter: 10 }"
                  [useAnimation]="false"

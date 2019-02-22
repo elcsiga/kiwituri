@@ -40,7 +40,7 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
 
 const routes: Routes = [
   {path: '', component: HomeViewComponent, pathMatch: 'full'},
-  {path: 'shop', component: ShopViewComponent},
+  {path: 'shop/:category', component: ShopViewComponent},
   {path: 'shop', component: ShopViewComponent, children: [
       {path: ':id/image/:index',  component: ItemGalleryComponent}
     ]},

@@ -18,7 +18,7 @@ import {
   MatFormFieldModule,
   MatCheckboxModule,
   MatAutocompleteModule,
-  MatMenuModule, MatBottomSheetModule, MatTableModule
+  MatMenuModule, MatBottomSheetModule, MatTableModule, MatTabsModule
 } from "@angular/material";
 import {AppRoutingModule} from './app-routing.module';
 import {HomeViewComponent} from './views/home-view/home-view.component';
@@ -92,6 +92,7 @@ import {NgxMdModule} from 'ngx-md';
     MatMenuModule,
     MatBottomSheetModule,
     MatTableModule,
+    MatTabsModule,
     CarouselModule,
     NgxMdModule.forRoot()
   ],

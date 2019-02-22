@@ -6,8 +6,10 @@ import {UserService} from "../../services/user.service";
 import {SearchService} from "../../services/search.service";
 import {ShoppingCartService} from "../../services/shopping-cart.service";
 import {ItemService} from "../../services/item.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {CarouselPosition} from "../../components/item-card/item-card.component";
+import {ConfigService} from "../../services/config.service";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-shop-view',
@@ -21,12 +23,19 @@ export class ShopViewComponent implements OnInit {
     private userService: UserService,
     private cartService: ShoppingCartService,
     private searchService: SearchService,
-    private router: Router
+    private router: Router,
+    private configService: ConfigService,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   items$: Observable<ItemRecord[]> = this.itemService.item$;
+  settings$ = this.configService.settings$;
+  activeCategory$ : Observable<string> = this.activatedRoute.params.pipe(
+    map(params => params['category'] ? params['category'] : '' )
+  );
 
   ngOnInit() {
+    this.activatedRoute.params.subscribe( params => console.log(params));
   }
 
   openCartSheet() {
