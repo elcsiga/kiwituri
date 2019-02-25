@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {Component, ViewChild} from '@angular/core';
 import {ItemRecord} from "../../../../../server/src/common/interfaces/item";
-import {Observable} from "rxjs";
+import {combineLatest, Observable} from "rxjs";
 import {UserService} from "../../services/user.service";
 import {SearchService} from "../../services/search.service";
 import {ShoppingCartService} from "../../services/shopping-cart.service";
@@ -9,14 +8,16 @@ import {ItemService} from "../../services/item.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CarouselPosition} from "../../components/item-card/item-card.component";
 import {ConfigService} from "../../services/config.service";
-import {map} from "rxjs/operators";
+import {map, tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-shop-view',
   templateUrl: './shop-view.component.html',
   styleUrls: ['./shop-view.component.css']
 })
-export class ShopViewComponent implements OnInit {
+export class ShopViewComponent {
+
+  @ViewChild('grid') grid;
 
   constructor(
     private itemService: ItemService,
@@ -26,17 +27,37 @@ export class ShopViewComponent implements OnInit {
     private router: Router,
     private configService: ConfigService,
     private activatedRoute: ActivatedRoute
-  ) { }
+  ) {
+  }
 
-  items$: Observable<ItemRecord[]> = this.itemService.item$;
-  settings$ = this.configService.settings$;
-  activeCategory$ : Observable<string> = this.activatedRoute.params.pipe(
-    map(params => params['category'] ? params['category'] : '' )
+  activeCategory$: Observable<string> = this.activatedRoute.params.pipe(
+    map(params => params['category'] ? params['category'] : '')
   );
 
-  ngOnInit() {
-    this.activatedRoute.params.subscribe( params => console.log(params));
-  }
+  search$ = this.searchService.search$;
+
+  items$: Observable<ItemRecord[]> = combineLatest([
+    this.itemService.item$,
+    this.activeCategory$,
+    this.search$
+  ]).pipe(
+    map(([items, category, search]) => {
+      return (category ? items.filter(item => item.data.category === category) : items)
+        .filter(item => search.sex === 'ALL' || search.sex === item.data.sex)
+        .filter(item => search.size === 'ALL' || search.size === item.data.size);
+    }),
+    tap((items) => setTimeout(() => this.grid._msnry.layout(), 0))
+  );
+
+  categories$: Observable<{key: string, value: string}[]> = combineLatest([
+    this.itemService.item$,
+    this.configService.settings$
+  ]).pipe(
+    map(([items, settings]) => Object.keys(settings.CATEGORIES)
+      .filter(key => items.find(item => item.data.category === key))
+      .map(key => ({key, value: settings.CATEGORIES[key]}))
+    )
+  );
 
   openCartSheet() {
     this.cartService.openCartSheet();
@@ -51,6 +72,10 @@ export class ShopViewComponent implements OnInit {
   }
 
   openCarousel(pos: CarouselPosition) {
-    this.router.navigate(['/','shop', pos.id,'image', pos.index]);
+    this.router.navigate(['/', 'shop', pos.id, 'image', pos.index]);
+  }
+
+  isFiltering() {
+    return this.searchService.isFiltering()
   }
 }

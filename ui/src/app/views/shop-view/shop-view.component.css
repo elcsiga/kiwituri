@@ -4,9 +4,11 @@
 
 }
 
+
 .card {
   width: calc( 100% - 10px);
 }
+
 @media screen and (min-width: 300px) {
   .card {
     width: calc( 50% - 10px);
@@ -49,4 +51,8 @@
   left: 30px;
   display: flex;
   justify-content: space-between;;
+}
+
+.categories {
+  padding: 0 5px;
 }

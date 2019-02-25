@@ -2,3 +2,10 @@
   margin: 20px;
   text-align: center;
 }
+.radio-group {
+  padding: 20px 0;
+}
+
+.radio-button {
+  margin-right: 30px;
+}

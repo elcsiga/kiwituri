@@ -1,8 +1,29 @@
 <div class="container">
+
+  <form [formGroup]="searchForm">
+      <mat-radio-group class="radio-group" formControlName="sex">
+        <mat-radio-button class="radio-button" *ngFor="let sex of (setting$ | async).SEXES | keyvalue"
+                          [value]="sex.key">
+          {{sex.value}}
+        </mat-radio-button>
+      </mat-radio-group>
+      <mat-form-field class="kw-full-width">
+        <mat-select placeholder="Méret" formControlName="size">
+          <mat-option [value]="'ALL'">
+            MINDEN MÉRET
+          </mat-option>
+          <mat-option *ngFor="let size of (setting$ | async).SIZES | keyvalue" [value]="size.key">
+            {{size.value}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+  </form>
+
   <p>
-    Itt lehet majd méretre, stb keresni, de most még nem...
-  </p>
-  <p>
-    <button (click)="close()" mat-stroked-button>Vissza</button>
+    <button (click)="reset()"
+            mat-stroked-button
+            [disabled]="!(isFiltering() | async)"
+    >Visszaállít</button> &nbsp;
+    <button (click)="close()" mat-raised-button color="primary">Kész</button>
   </p>
 </div>

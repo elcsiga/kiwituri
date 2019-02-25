@@ -1,20 +1,32 @@
-<div>
-  <button mat-button
-          *ngFor="let category of (settings$ | async).CATEGORIES"
-          [routerLink]="'/shop/'+category"
-          [disabled]="(activeCategory$ | async) === category"
-  >
-    {{category}}
-  </button>
+
+<div class="categories">
+  <mat-chip-list class="kw-centered-chips">
+
+    <mat-chip color="primary" selected
+              *ngFor="let category of (categories$ | async)"
+              [routerLink]="'/shop/'+category.key"
+              [disabled]="(activeCategory$ | async) === category.key"
+    >
+      {{category.value}}
+    </mat-chip>
+    <mat-chip color="warn" selected
+              [routerLink]="'/shop'"
+              [disabled]="!(activeCategory$ | async)"
+    >
+      TELJES VÁLASZTÉK
+    </mat-chip>
+  </mat-chip-list>
 </div>
 
-<ng-masonry-grid class="grid"
-                 [masonryOptions]="{ transitionDuration: '0.3s', gutter: 10 }"
+
+<ng-masonry-grid #grid
+                 class="grid"
+                 [masonryOptions]="{ columnWidth: '.card', transitionDuration: '0.3s', gutter: 10 }"
                  [useAnimation]="false"
                  [useImagesLoaded]="true">
 
   <ng-masonry-grid-item
-    *ngFor="let item of items$ | async"
+    *ngFor="let item of (items$ | async)"
     [id]="item.id"
     class="card"
   >
@@ -25,8 +37,9 @@
   </ng-masonry-grid-item>
 </ng-masonry-grid>
 
+
 <div class="floating-buttons">
-  <button mat-fab color="primary" (click)="openSearchSeet()">
+  <button mat-fab [color]="(isFiltering() | async) ? 'warn' : 'primary'" (click)="openSearchSeet()">
     <mat-icon aria-label="Új cucc">search</mat-icon>
   </button>
 
