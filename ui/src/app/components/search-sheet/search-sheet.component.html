@@ -1,12 +1,15 @@
 <div class="container">
 
   <form [formGroup]="searchForm">
+    <p>
       <mat-radio-group class="radio-group" formControlName="sex">
         <mat-radio-button class="radio-button" *ngFor="let sex of (setting$ | async).SEXES | keyvalue"
                           [value]="sex.key">
           {{sex.value}}
         </mat-radio-button>
       </mat-radio-group>
+    </p>
+    <p>
       <mat-form-field class="kw-full-width">
         <mat-select placeholder="Méret" formControlName="size">
           <mat-option [value]="'ALL'">
@@ -17,6 +20,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+    </p>
   </form>
 
   <p>

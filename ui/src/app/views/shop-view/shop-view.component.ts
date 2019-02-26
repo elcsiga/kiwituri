@@ -43,7 +43,7 @@ export class ShopViewComponent {
   ]).pipe(
     map(([items, category, search]) => {
       return (category ? items.filter(item => item.data.category === category) : items)
-        .filter(item => search.sex === 'ALL' || search.sex === item.data.sex)
+        .filter(item => search.sex === 'ALL' || search.sex === item.data.sex || item.data.sex === 'ALL' )
         .filter(item => search.size === 'ALL' || search.size === item.data.size);
     }),
     tap((items) => setTimeout(() => this.grid._msnry.layout(), 0))
