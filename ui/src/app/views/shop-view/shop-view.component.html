@@ -19,24 +19,19 @@
 </div>
 
 
-<ng-masonry-grid #grid
-                 class="grid"
-                 [masonryOptions]="{ columnWidth: '.card', transitionDuration: '0.3s', gutter: 10 }"
-                 [useAnimation]="false"
-                 [useImagesLoaded]="true">
-
-  <ng-masonry-grid-item
+<div class="grid">
+  <div
     *ngFor="let item of (items$ | async)"
     [id]="item.id"
     class="card"
+    @fadeIn
   >
     <app-item-card
       [item]="item"
       (openCarousel)="openCarousel($event)"
     ></app-item-card>
-  </ng-masonry-grid-item>
-</ng-masonry-grid>
-
+  </div>
+</div>
 
 <div class="floating-buttons">
   <button mat-fab [color]="(isFiltering() | async) ? 'warn' : 'primary'" (click)="openSearchSeet()">

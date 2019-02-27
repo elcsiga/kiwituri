@@ -44,7 +44,6 @@
         "mysql": "^2.16.0",
         "passport": "^0.4.0",
         "passport-local": "^1.0.0",
-        "sharp": "^0.21.3",
         "uuid": "^3.3.2",
         "aws-sdk": "^2.382.0"
     },

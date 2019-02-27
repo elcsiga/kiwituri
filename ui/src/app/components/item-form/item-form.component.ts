@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ItemBody} from "../../../../../server/src/common/interfaces/item";
-import {Location} from "@angular/common";
 import {ConfigService} from "../../services/config.service";
 import {UserService} from "../../services/user.service";
+import {RouterUtilsService} from "../../services/router-utils.service";
 
 @Component({
   selector: 'app-item-form',
@@ -20,7 +20,7 @@ export class ItemFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private location: Location,
+    private routerUtilsService: RouterUtilsService,
     private configService: ConfigService,
     private userService: UserService
   ) {
@@ -54,6 +54,6 @@ export class ItemFormComponent implements OnInit {
 
   navigateBack(event) {
     event.preventDefault();
-    this.location.back();
+    this.routerUtilsService.goBack('/shop');
   }
 }

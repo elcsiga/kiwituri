@@ -5,17 +5,18 @@
        [src]="item.data.thumbnail.thumbnail.url"
        (click)="openCarousel.emit({id: item.id, index:0})" />
   <mat-card-content>
-    <p *ngIf="item.data.category">
-      {{getCategory() | async}}
+    <p>
+      {{getSex() | async}} - {{getSize() | async}}
+      <span *ngIf="item.data.sizeEstimated"> * </span>
+      <br>
+      <small> {{getCategory() | async}} </small>
+      <span *ngIf="item.data.sizeEstimated">
+        <br /><small> * Becsült méret</small>
+      </span>
     </p>
     <mat-chip-list>
       <mat-chip *ngFor="let tag of item.data.tags">{{tag}}</mat-chip>
     </mat-chip-list>
-    <h4>
-      <small>#{{item.id}}</small><br/>
-      {{getSex() | async}} - {{getSize() | async}}
-      <span *ngIf="item.data.sizeEstimated">* <br/><small> * Becsült méret</small></span>
-    </h4>
 
     <div class="images" *ngIf="item.data.images.length">
       <img alt="{{item.id}}/{{i}}"

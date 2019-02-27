@@ -16,19 +16,24 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
 
   constructor() {
   }
+
   shouldDetach(route: ActivatedRouteSnapshot): boolean {
     return false;
   }
+
   store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle): void {
   }
+
   shouldAttach(route: ActivatedRouteSnapshot): boolean {
     return false;
   }
+
   retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle {
     return null;
   }
+
   shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
-    try{
+    try {
       const a = future.component;
       const b = curr.component;
       return a && b && a === b;
@@ -40,10 +45,16 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
 
 const routes: Routes = [
   {path: '', component: HomeViewComponent, pathMatch: 'full'},
-  {path: 'shop/:category', component: ShopViewComponent},
-  {path: 'shop', component: ShopViewComponent, children: [
-      {path: ':id/image/:index',  component: ItemGalleryComponent}
-    ]},
+  {
+    path: 'shop/:category', component: ShopViewComponent, children: [
+      {path: ':id/image/:index', component: ItemGalleryComponent}
+    ]
+  },
+  {
+    path: 'shop', component: ShopViewComponent, children: [
+      {path: ':id/image/:index', component: ItemGalleryComponent}
+    ]
+  },
   {path: 'about', component: AboutViewComponent},
   {path: 'edit/:id', component: ItemEditViewComponent},
   {path: 'create', component: ItemCreateViewComponent},

@@ -2,9 +2,9 @@ import {Component} from '@angular/core';
 import {ItemService} from "../../services/item.service";
 import {filter, map} from "rxjs/operators";
 import {combineLatest, Observable} from "rxjs";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {CarouselImage} from "../../carousel/components/carousel/carousel.component";
-import {Location} from '@angular/common';
+import {RouterUtilsService} from "../../services/router-utils.service";
 
 @Component({
   selector: 'app-item-gallery',
@@ -16,7 +16,8 @@ export class ItemGalleryComponent {
   constructor(
     private itemService: ItemService,
     private activatedRoute: ActivatedRoute,
-    private location: Location
+    private router: Router,
+    private routerUtilsService: RouterUtilsService,
   ) {
   }
 
@@ -42,7 +43,8 @@ export class ItemGalleryComponent {
   );
 
   close() {
-    this.location.back();
+    const baseUrl = this.router.url.replace('/' + this.activatedRoute.snapshot.url.join('/'), '');
+    this.routerUtilsService.goBack(baseUrl === this.router.url ? '/shop' : baseUrl);
   }
 
 }

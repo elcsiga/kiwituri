@@ -32,7 +32,6 @@ import {ItemCardComponent} from './components/item-card/item-card.component';
 import {ItemFormComponent} from './components/item-form/item-form.component';
 import {ItemEditViewComponent} from './views/item-edit-view/item-edit-view.component';
 import {ItemCreateViewComponent} from './views/item-create-view/item-create-view.component';
-import {NgMasonryGridModule} from "ng-masonry-grid";
 import {CartSheetComponent} from './components/cart-sheet/cart-sheet.component';
 import {SearchSheetComponent} from './components/search-sheet/search-sheet.component';
 import {ShoppingCartViewComponent} from './views/shopping-cart-view/shopping-cart-view.component';
@@ -88,7 +87,6 @@ import {NgxMdModule} from 'ngx-md';
     MatButtonModule,
     MatCardModule,
     MatSnackBarModule,
-    NgMasonryGridModule,
     MatMenuModule,
     MatBottomSheetModule,
     MatTableModule,

@@ -2,12 +2,12 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import { ConfigService } from "../../services/config.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
-import {Location} from "@angular/common";
 import {UserService} from "../../services/user.service";
 import {NotificationService} from "../../services/notification.service";
 import {combineLatest, Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {map} from "rxjs/operators";
+import {RouterUtilsService} from "../../services/router-utils.service";
 
 @Component({
   selector: 'app-config-edit-view',
@@ -30,7 +30,7 @@ export class ConfigEditViewComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
     private http: HttpClient,
-    private location: Location,
+    private routerUtilsService: RouterUtilsService,
     private userService: UserService,
     private notificationService: NotificationService
   ) {
@@ -60,7 +60,7 @@ export class ConfigEditViewComponent implements OnInit, OnDestroy {
       this.http.put('/api/config/'+key, { config: value } )
         .subscribe(user => {
           this.configService.load();
-          this.location.back();
+          this.routerUtilsService.goBack('/config');
         }, error => {
           this.notificationService.error('Nem sikerült a mentés');
           console.error(error);
@@ -72,6 +72,6 @@ export class ConfigEditViewComponent implements OnInit, OnDestroy {
 
   navigateBack(event) {
     event.preventDefault();
-    this.location.back();
+    this.routerUtilsService.goBack('/config');
   }
 }

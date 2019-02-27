@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
-import {Location} from "@angular/common";
 import {UserService} from "../../services/user.service";
 import {NotificationService} from "../../services/notification.service";
 import {ChangePasswordData, User} from "../../../../../server/src/common/interfaces/user";
+import {RouterUtilsService} from "../../services/router-utils.service";
 
 @Component({
   selector: 'app-change-password-view',
@@ -19,7 +19,7 @@ export class ChangePasswordViewComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private location: Location,
+    private routerUtilsService: RouterUtilsService,
     private userService: UserService,
     private notificationService: NotificationService
   ) {
@@ -40,7 +40,7 @@ export class ChangePasswordViewComponent implements OnInit {
       this.http.post<User>('/api/auth/change-password', changePasswordData)
         .subscribe(user => {
           this.notificationService.info('Sikeres jelszóváltoztatás.');
-          this.location.back();
+          this.routerUtilsService.goBack('/');
         }, error => {
           const errorCode = error && error.error && error.error.error;
           if (errorCode === 'WRONG_OLD_PASSWORD') {
@@ -64,7 +64,7 @@ export class ChangePasswordViewComponent implements OnInit {
 
   navigateBack(event) {
     event.preventDefault();
-    this.location.back();
+    this.routerUtilsService.goBack('/');
   }
 
 }

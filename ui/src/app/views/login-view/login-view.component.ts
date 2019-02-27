@@ -1,10 +1,10 @@
 import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Location} from "@angular/common";
 import {UserService} from "../../services/user.service";
 import {NotificationService} from "../../services/notification.service";
 import {User} from '../../../../../server/src/common/interfaces/user';
 import {HttpClient} from "@angular/common/http";
+import {RouterUtilsService} from "../../services/router-utils.service";
 
 
 @Component({
@@ -19,7 +19,7 @@ export class LoginViewComponent {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private location: Location,
+    private routerUtilsService: RouterUtilsService,
     private userService: UserService,
     private notificationService: NotificationService
   ) {
@@ -39,7 +39,7 @@ export class LoginViewComponent {
       this.http.post<User>('/api/auth/login', credentials)
         .subscribe(user => {
           this.userService.setUser(user);
-          this.location.back();
+          this.routerUtilsService.goBack('/');
         }, error => {
           this.notificationService.error('Nem jó az e-mail vagy a jelszó!');
           console.error(error);
@@ -51,7 +51,7 @@ export class LoginViewComponent {
 
   navigateBack(event) {
     event.preventDefault();
-    this.location.back();
+    this.routerUtilsService.goBack('/');
   }
 
 }

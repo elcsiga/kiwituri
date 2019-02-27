@@ -5,6 +5,7 @@ import {UserService} from "./services/user.service";
 import {User} from "../../../server/src/common/interfaces/user";
 import {HttpClient} from "@angular/common/http";
 import { ConfigService } from "./services/config.service";
+import {RouterUtilsService} from "./services/router-utils.service";
 
 @Component({
   selector: 'app-root',
@@ -20,8 +21,10 @@ export class AppComponent implements OnInit {
     public router: Router,
     private http: HttpClient,
     private userService: UserService,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private routerUtilsService: RouterUtilsService
   ) {
+    this.routerUtilsService.init();
     this.router.events.pipe(filter(event => event instanceof NavigationStart))
       .subscribe(event => {
         this.showMainHeader = (event as NavigationStart).url === '/';

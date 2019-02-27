@@ -9,15 +9,27 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {CarouselPosition} from "../../components/item-card/item-card.component";
 import {ConfigService} from "../../services/config.service";
 import {map, tap} from "rxjs/operators";
+import {animate, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-shop-view',
   templateUrl: './shop-view.component.html',
-  styleUrls: ['./shop-view.component.css']
+  styleUrls: ['./shop-view.component.css'],
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({opacity: '0'}),
+        animate('.3s ease-out', style({opacity: '1'})),
+      ]),
+      transition(':leave', [
+        style({opacity: '1'}),
+        animate('.3s ease-out', style({opacity: '0'})),
+      ]),
+    ]),
+  ],
 })
 export class ShopViewComponent {
 
-  @ViewChild('grid') grid;
 
   constructor(
     private itemService: ItemService,
@@ -43,13 +55,12 @@ export class ShopViewComponent {
   ]).pipe(
     map(([items, category, search]) => {
       return (category ? items.filter(item => item.data.category === category) : items)
-        .filter(item => search.sex === 'ALL' || search.sex === item.data.sex || item.data.sex === 'ALL' )
+        .filter(item => search.sex === 'ALL' || search.sex === item.data.sex || item.data.sex === 'ALL')
         .filter(item => search.size === 'ALL' || search.size === item.data.size);
-    }),
-    tap((items) => setTimeout(() => this.grid._msnry.layout(), 0))
+    })
   );
 
-  categories$: Observable<{key: string, value: string}[]> = combineLatest([
+  categories$: Observable<{ key: string, value: string }[]> = combineLatest([
     this.itemService.item$,
     this.configService.settings$
   ]).pipe(
@@ -72,7 +83,8 @@ export class ShopViewComponent {
   }
 
   openCarousel(pos: CarouselPosition) {
-    this.router.navigate(['/', 'shop', pos.id, 'image', pos.index]);
+
+    this.router.navigate([ pos.id, 'image', pos.index], {relativeTo: this.activatedRoute});
   }
 
   isFiltering() {
