@@ -1,51 +1,5 @@
 .grid {
-  margin: 30px 5px;
-  box-sizing: border-box;
-
-  display: flex;
-  flex-wrap: wrap;
-
-  justify-items: stretch;
-}
-
-.card {
-  width: calc( 100% - 10px);
-  margin: 5px;
-}
-
-@media screen and (min-width: 300px) {
-  .card {
-    width: calc( 50% - 10px);
-  }
-}
-
-@media screen and (min-width: 600px) {
-  .card {
-    width: calc( 33.3333% - 10px);
-  }
-}
-@media screen and (min-width: 800px) {
-  .card {
-    width: calc( 25% - 10px);
-  }
-}
-
-@media screen and (min-width: 1000px) {
-  .card {
-    width: calc( 20% - 10px);
-  }
-}
-
-@media screen and (min-width: 1200px) {
-  .card {
-    width: calc( 16.666% - 10px);
-  }
-}
-
-@media screen and (min-width: 1600px) {
-  .card {
-    width: calc( 12.5% - 10px);
-  }
+  margin: 30px 15px;
 }
 
 .floating-buttons {
@@ -54,7 +8,7 @@
   right: 30px;
   left: 30px;
   display: flex;
-  justify-content: space-between;;
+  justify-content: space-between;
 }
 
 .categories {

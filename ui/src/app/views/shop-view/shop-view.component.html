@@ -18,19 +18,20 @@
   </mat-chip-list>
 </div>
 
-
 <div class="grid">
-  <div
-    *ngFor="let item of (items$ | async)"
-    [id]="item.id"
-    class="card"
-    @fadeIn
+  <animated-list
+    [items]="items$ | async"
+    [itemTemplate]="itemTemplate"
+    (progress)="reportProgress($event)"
   >
-    <app-item-card
-      [item]="item"
-      (openCarousel)="openCarousel($event)"
-    ></app-item-card>
-  </div>
+    <ng-template #itemTemplate let-item='item'>
+      <app-item-card
+        [item]="item"
+        (openCarousel)="openCarousel($event)"
+      ></app-item-card>
+    </ng-template>
+
+  </animated-list>
 </div>
 
 <div class="floating-buttons">

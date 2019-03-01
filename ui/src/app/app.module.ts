@@ -18,7 +18,7 @@ import {
   MatFormFieldModule,
   MatCheckboxModule,
   MatAutocompleteModule,
-  MatMenuModule, MatBottomSheetModule, MatTableModule, MatTabsModule
+  MatMenuModule, MatBottomSheetModule, MatTableModule, MatTabsModule, MatProgressBarModule
 } from "@angular/material";
 import {AppRoutingModule} from './app-routing.module';
 import {HomeViewComponent} from './views/home-view/home-view.component';
@@ -43,6 +43,7 @@ import {ConfigEditViewComponent} from './views/config-edit-view/config-edit-view
 import {ConfigListViewComponent} from './views/config-list-view/config-list-view.component';
 import {ChangePasswordViewComponent} from './views/change-password-view/change-password-view.component';
 import {NgxMdModule} from 'ngx-md';
+import {KitAnimatedListModule} from "./grid/animated-list.module";
 
 @NgModule({
   declarations: [
@@ -91,8 +92,10 @@ import {NgxMdModule} from 'ngx-md';
     MatBottomSheetModule,
     MatTableModule,
     MatTabsModule,
+    MatProgressBarModule,
     CarouselModule,
-    NgxMdModule.forRoot()
+    NgxMdModule.forRoot(),
+    KitAnimatedListModule
   ],
   providers: [],
   bootstrap: [AppComponent],

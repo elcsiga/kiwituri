@@ -1,0 +1,27 @@
+<div class='container' #container
+     [style.height.px] = "containerHeight"
+>
+    <div class="itemContainer" #itemContainer
+         *ngFor="let arrangedItem of arrangedItems; trackBy: trackByArrangedItemId"
+         [@flyInOut]
+
+         [style.transform] = "'translate( ' + arrangedItem.x +'px, ' +  arrangedItem.y +'px )'"
+         [style.width.px] = "arrangedItem.w"
+         [style.height.px] = "arrangedItem.h"
+    >
+            <div class="transformer">
+                <div class="item">
+                    <ng-container *ngTemplateOutlet="itemTemplate; context: {item: arrangedItem.item}"></ng-container>
+                </div>
+            </div>
+    </div>
+</div>
+
+<div class="ghostItem"
+     *ngFor="let measuredItem of measuredItems;
+     trackBy: trackByMeasuredItemId"
+     #ghostItem
+     [style.width.px] = "realColumnWidth"
+>
+  <ng-container *ngTemplateOutlet="itemTemplate; context: {item: measuredItem}"></ng-container>
+</div>

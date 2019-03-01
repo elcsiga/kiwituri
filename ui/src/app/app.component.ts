@@ -6,6 +6,7 @@ import {User} from "../../../server/src/common/interfaces/user";
 import {HttpClient} from "@angular/common/http";
 import { ConfigService } from "./services/config.service";
 import {RouterUtilsService} from "./services/router-utils.service";
+import {ProgressService} from "./services/progress.service";
 
 @Component({
   selector: 'app-root',
@@ -16,13 +17,15 @@ export class AppComponent implements OnInit {
 
   showMainHeader = true;
   user$ = this.userService.user$;
+  progress$ = this.progressService.progress$;
 
   constructor(
     public router: Router,
     private http: HttpClient,
     private userService: UserService,
     private configService: ConfigService,
-    private routerUtilsService: RouterUtilsService
+    private routerUtilsService: RouterUtilsService,
+    private progressService: ProgressService
   ) {
     this.routerUtilsService.init();
     this.router.events.pipe(filter(event => event instanceof NavigationStart))

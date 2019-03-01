@@ -10,6 +10,7 @@ import {CarouselPosition} from "../../components/item-card/item-card.component";
 import {ConfigService} from "../../services/config.service";
 import {map, tap} from "rxjs/operators";
 import {animate, style, transition, trigger} from "@angular/animations";
+import {ProgressService} from "../../services/progress.service";
 
 @Component({
   selector: 'app-shop-view',
@@ -38,7 +39,8 @@ export class ShopViewComponent {
     private searchService: SearchService,
     private router: Router,
     private configService: ConfigService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private progressService: ProgressService
   ) {
   }
 
@@ -47,6 +49,10 @@ export class ShopViewComponent {
   );
 
   search$ = this.searchService.search$;
+
+  reportProgress(p: number | null) {
+    this.progressService.set(p);
+  }
 
   items$: Observable<ItemRecord[]> = combineLatest([
     this.itemService.item$,
