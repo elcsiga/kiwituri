@@ -41,16 +41,11 @@ export class SearchService {
   }
 
   openCartSheet() {
-
     const data: SearchSheetData = {
       service: this
     };
 
     this.searchSheetRef = this.bottomSheet.open(SearchSheetComponent, { data });
-
-    this.searchSheetRef.afterDismissed().subscribe(() => {
-      console.log('Bottom sheet has been dismissed.');
-    });
   }
 
   closeCartSheet() {

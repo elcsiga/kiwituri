@@ -15,11 +15,6 @@ export interface CartSheetData {
 
 export type CartItem = number;
 
-export interface Order {
-  id: number;
-  items: CartItem[];
-}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -31,6 +26,10 @@ export class ShoppingCartService {
   cartItems$: Observable<ItemRecord[]> = combineLatest( this.itemService.item$, this.cart.value$ ).pipe(
     map( ([items, cart]) => items.filter( item => cart.includes(item.id)))
   );
+
+  getCartSnapshot() {
+    return this.cart.snapshot();
+  }
 
   cartSheetRef: MatBottomSheetRef;
 
@@ -46,10 +45,6 @@ export class ShoppingCartService {
     };
 
     this.cartSheetRef = this.bottomSheet.open(CartSheetComponent, { data });
-
-    this.cartSheetRef.afterDismissed().subscribe(() => {
-      console.log('Bottom sheet has been dismissed.');
-    });
   }
 
   closeCartSheet() {

@@ -1,0 +1,26 @@
+<div *ngIf="orderId$ | async as orderId" class="kw-content">
+  <h1>
+    Megrendelés
+  </h1>
+
+  <p>
+    A megrendelésed száma: <b>{{orderId}}</b>.
+  </p>
+
+  <p>
+    {{postBuyText$ | async}}
+  </p>
+  <div *ngIf="orderedItems$ | async as orderedItems">
+
+    <div class="item" *ngFor="let item of orderedItems">
+      <app-item-card
+        [item]="item"
+        (openCarousel)="openCarousel($event)"
+        [horizontal]="true"
+      >
+      </app-item-card>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

@@ -22,6 +22,8 @@ export class ItemCardComponent implements OnInit {
 
   @Input() item: ItemRecord;
   @Output() openCarousel = new EventEmitter<CarouselPosition>();
+  @Input() action: string;
+  @Input() horizontal = false;
 
   constructor(
     public userService: UserService,
@@ -30,6 +32,7 @@ export class ItemCardComponent implements OnInit {
     private itemService: ItemService,
     private notificationService: NotificationService,
     private shoppingCartService: ShoppingCartService,
+    private cartService: ShoppingCartService
   ) {
   }
 
@@ -40,23 +43,13 @@ export class ItemCardComponent implements OnInit {
     return this.shoppingCartService.isInCart(this.item);
   }
 
-  getCategory(): Observable<string> {
-    return this.configService.getCategory(this.item.data.category);
-  }
-  getSize(): Observable<string> {
-    return this.configService.getSize(this.item.data.size);
-  }
-  getSex(): Observable<string> {
-    return this.configService.getSex(this.item.data.sex);
-  }
-
   addToCart() {
     this.shoppingCartService.addToCart(this.item);
     this.shoppingCartService.openCartSheet();
   }
 
   deleteItem() {
-    if (confirm('Boztosan törlöd ezt? #'+ this.item.id )) {
+    if (confirm('Boztosan törlöd ezt? #' + this.item.id)) {
       this.http.delete<ItemRecord>('/api/items/' + this.item.id)
         .subscribe(deletedItem => {
           this.notificationService.info('Sikeresen törölve: #' + deletedItem.id);
@@ -66,7 +59,10 @@ export class ItemCardComponent implements OnInit {
           console.error(error);
         })
     }
+  }
 
+  removeFromCart(item: ItemRecord) {
+    this.cartService.removeFromCart(item);
   }
 
 }

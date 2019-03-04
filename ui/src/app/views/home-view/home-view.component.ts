@@ -13,9 +13,6 @@ export class HomeViewComponent implements OnInit {
   ) { }
 
   tldr$ = this.configService.getText('tldr');
-  tab1$ = this.configService.getText('tab1');
-  tab2$ = this.configService.getText('tab2');
-  tab3$ = this.configService.getText('tab3');
 
   ngOnInit() {
   }

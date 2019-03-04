@@ -15,6 +15,7 @@ export interface Settings {
   TAGS: object;
   SIZES: string[];
   SEXES: string[];
+  STATUSES:  string[];
 }
 
 @Injectable({
@@ -38,7 +39,8 @@ export class ConfigService {
       CATEGORIES: {},
       TAGS: {},
       SIZES: {},
-      SEXES: {}
+      SEXES: {},
+      STATUSES: {}
     })
   );
 

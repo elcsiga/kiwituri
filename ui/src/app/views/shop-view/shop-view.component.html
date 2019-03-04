@@ -27,6 +27,7 @@
     <ng-template #itemTemplate let-item='item'>
       <app-item-card
         [item]="item"
+        [action]="'add'"
         (openCarousel)="openCarousel($event)"
       ></app-item-card>
     </ng-template>
@@ -35,7 +36,7 @@
 </div>
 
 <div class="floating-buttons">
-  <button mat-fab [color]="(isFiltering() | async) ? 'warn' : 'primary'" (click)="openSearchSeet()">
+  <button mat-fab [color]="(isFiltering() | async) ? 'warn' : 'primary'" (click)="openSearchSheet()">
     <mat-icon aria-label="Új cucc">search</mat-icon>
   </button>
 

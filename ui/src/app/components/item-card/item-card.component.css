@@ -11,7 +11,9 @@
   bottom: 5px;
   right: 5px;
 }
-
+.content {
+  margin: -26px -6px -6px -6px
+}
 .card-image {
   cursor: pointer;
 }
@@ -24,4 +26,23 @@
   object-fit: cover;
   margin: 1px;
   cursor: pointer;
+}
+
+.horizontal .content {
+  margin: -10px 0 0 90px;
+}
+.item-id {
+  box-sizing: border-box;
+  background-color: #3f51b5;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  font-weight: lighter;
+  width: 90px;
+  color: white;
+  text-align: right;
+  font-size: 24px;
+  padding-top: 15px;
+  padding-right: 15px;
 }

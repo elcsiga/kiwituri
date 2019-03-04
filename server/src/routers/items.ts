@@ -1,7 +1,6 @@
-
 import * as express from 'express';
 import {db} from "../db/mysql";
-import {DbItemRecord, fromDb, ItemRecord, toDb} from "../common/interfaces/item";
+import {BuyData, DbItemRecord, fromDb, ItemRecord, toDb} from "../common/interfaces/item";
 import {sendError} from "../utils/error";
 import {expectLoggedInUser} from "./authentication";
 
@@ -61,6 +60,53 @@ itemsRouter.post('/', (req, res) => {
             });
     } else {
         sendError(res, 400, 'Could not insert item.');
+    }
+});
+
+itemsRouter.post('/buy', (req, res) => {
+
+    const orderId = Math.floor(Math.random() * 10000);
+
+    const buyData = req.body as BuyData;
+    if (buyData && buyData.email && buyData.email.length && buyData.itemIds && buyData.itemIds.length) {
+        db.query<DbItemRecord[], [number[]]>(
+            "SELECT * FROM items WHERE id IN (?)", [buyData.itemIds])
+            .then(dbItemsRecords => {
+                const itemRecords: ItemRecord[] = dbItemsRecords.map(dbItemsRecord => ({
+                    id: dbItemsRecord.id,
+                    data: fromDb(dbItemsRecord.data)
+                }));
+                console.log(itemRecords);
+                if (itemRecords.length !== buyData.itemIds.length) {
+                    sendError(res, 400, 'Not found all items to buy.');
+                } else if (!itemRecords.every(i => !i.data.status || i.data.status === 'STATUS2_ACTIVE')) {
+                    sendError(res, 400, 'Not all items are active.');
+                } else {
+                    const updates = itemRecords.map(i => {
+                        i.data.status = 'STATUS3_ORDERED';
+                        i.data.contactEmail = buyData.email;
+                        i.data.orderId = orderId;
+
+                        const dbItemBody: string = toDb(i.data);
+
+                        return db.query<any, [ItemPayload, number]>('UPDATE items SET ? WHERE id = ?', [{data: dbItemBody}, i.id])
+                            .then(result => {
+                                return getItem(i.id);
+                            })
+                    });
+
+                    Promise.all(updates).then(result => {
+                        res.json(result);
+                    }).catch(err => {
+                        sendError(res, 400, 'Could not update item.', err);
+                    });
+                }
+            })
+            .catch(err => {
+                sendError(res, 400, 'Not found items to buy.', err);
+            });
+    } else {
+        sendError(res, 400, 'Could not buy items.');
     }
 });
 

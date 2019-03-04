@@ -80,7 +80,7 @@ export class ShopViewComponent {
     this.cartService.openCartSheet();
   }
 
-  openSearchSeet() {
+  openSearchSheet() {
     this.searchService.openCartSheet();
   }
 
@@ -89,7 +89,6 @@ export class ShopViewComponent {
   }
 
   openCarousel(pos: CarouselPosition) {
-
     this.router.navigate([ pos.id, 'image', pos.index], {relativeTo: this.activatedRoute});
   }
 

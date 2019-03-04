@@ -1,9 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ItemBody} from "../../../../../server/src/common/interfaces/item";
+import {ItemBody, ItemStatus} from "../../../../../server/src/common/interfaces/item";
 import {ConfigService} from "../../services/config.service";
 import {UserService} from "../../services/user.service";
 import {RouterUtilsService} from "../../services/router-utils.service";
+import {ItemService} from "../../services/item.service";
 
 @Component({
   selector: 'app-item-form',
@@ -40,8 +41,14 @@ export class ItemFormComponent implements OnInit {
       size: [this.item.size, [Validators.required]],
       sizeEstimated: [this.item.sizeEstimated],
       description: [this.item.description],
-      store: [this.item.store]
+      status: [this.item.status || 'STATUS2_ACTIVE'],
+      store: [this.item.store],
+      orderId: [this.item.orderId],
+      contactEmail: [this.item.contactEmail]
     });
+
+    this.uploadForm.controls['orderId'].disable();
+    this.uploadForm.controls['contactEmail'].disable();
   }
 
   onSubmit() {
@@ -55,5 +62,31 @@ export class ItemFormComponent implements OnInit {
   navigateBack(event) {
     event.preventDefault();
     this.routerUtilsService.goBack('/shop');
+  }
+
+  isStoreAplicable() {
+    switch ( this.uploadForm.controls['status'].value as ItemStatus) {
+      case 'STATUS4_SHIPPED':
+      case 'STATUS5_SOLD':
+        return false;
+      case 'STATUS1_HIDDEN':
+      case 'STATUS2_ACTIVE':
+      case 'STATUS3_ORDERED':
+      default:
+        return true;
+    }
+  }
+
+  isOrderAplicable() {
+    switch ( this.uploadForm.controls['status'].value as ItemStatus) {
+      case 'STATUS3_ORDERED':
+      case 'STATUS4_SHIPPED':
+      case 'STATUS5_SOLD':
+        return true;
+      case 'STATUS1_HIDDEN':
+      case 'STATUS2_ACTIVE':
+      default:
+       return false;
+    }
   }
 }

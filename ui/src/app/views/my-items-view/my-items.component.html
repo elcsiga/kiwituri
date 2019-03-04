@@ -1,0 +1,18 @@
+
+<div *ngIf="myItems$ | async as myItems" class="kw-content">
+
+  <h1>
+    Ezek vannak nálam
+  </h1>
+
+  <div class="item" *ngFor="let item of myItems">
+    <app-item-card
+      [item]="item"
+      [action]="'remove'"
+      (openCarousel)="openCarousel($event)"
+      [horizontal]="true"
+    >
+    </app-item-card>
+  </div>
+</div>
+

@@ -35,7 +35,6 @@ import {ItemCreateViewComponent} from './views/item-create-view/item-create-view
 import {CartSheetComponent} from './components/cart-sheet/cart-sheet.component';
 import {SearchSheetComponent} from './components/search-sheet/search-sheet.component';
 import {ShoppingCartViewComponent} from './views/shopping-cart-view/shopping-cart-view.component';
-import {CartItemComponent} from './components/cart-item/cart-item.component';
 import {CarouselModule} from "./carousel/carousel.module";
 import {ItemGalleryComponent} from './components/item-gallery/item-gallery.component';
 import {LoginViewComponent} from './views/login-view/login-view.component';
@@ -44,6 +43,10 @@ import {ConfigListViewComponent} from './views/config-list-view/config-list-view
 import {ChangePasswordViewComponent} from './views/change-password-view/change-password-view.component';
 import {NgxMdModule} from 'ngx-md';
 import {KitAnimatedListModule} from "./grid/animated-list.module";
+import {ItemInfoComponent} from './components/item-info/item-info.component';
+import {MyItemsViewComponent} from './views/my-items-view/my-items.component';
+import {OrderViewComponent} from './views/order-view/order.component';
+import { ErrorViewComponent } from './views/error-view/error-view.component';
 
 @NgModule({
   declarations: [
@@ -58,12 +61,15 @@ import {KitAnimatedListModule} from "./grid/animated-list.module";
     CartSheetComponent,
     SearchSheetComponent,
     ShoppingCartViewComponent,
-    CartItemComponent,
     ItemGalleryComponent,
     LoginViewComponent,
     ConfigEditViewComponent,
     ConfigListViewComponent,
-    ChangePasswordViewComponent
+    ChangePasswordViewComponent,
+    ItemInfoComponent,
+    MyItemsViewComponent,
+    OrderViewComponent,
+    ErrorViewComponent
   ],
   imports: [
     FormsModule,

@@ -22,7 +22,7 @@ import {User} from "../../../../../server/src/common/interfaces/user";
 })
 export class ItemCreateViewComponent {
 
-  getEmptyItem = (userId: UserId, timestamp: number): ItemBody => ({
+  getEmptyItem = (userId: UserId): ItemBody => ({
     thumbnail: null,
     images: [],
     category: null,
@@ -31,15 +31,15 @@ export class ItemCreateViewComponent {
     size: null,
     sizeEstimated: false,
     description: '',
-    status: 'active',
+    status: 'STATUS2_ACTIVE',
     store: userId,
-    created: {userId, timestamp},
-    updated: {userId, timestamp}
+    orderId: 0,
+    contactEmail: ''
   });
 
   emptyItem$ = this.userService.user$.pipe(
     filter( user => !!user),
-    map( user => this.getEmptyItem(user.email, 0))
+    map( user => this.getEmptyItem(user.email))
   );
 
   constructor(

@@ -1,24 +1,28 @@
-<mat-card>
+<mat-card [class.horizontal]="horizontal">
+  <div class="item-id"
+       *ngIf="horizontal"
+  >
+    #{{item.id}}
+  </div>
   <img mat-card-image
+       *ngIf="!horizontal"
        alt="{{item.id}}"
        class="card-image"
        [src]="item.data.thumbnail.thumbnail.url"
        (click)="openCarousel.emit({id: item.id, index:0})" />
-  <mat-card-content>
-    <p>
-      {{getSex() | async}} - {{getSize() | async}}
-      <span *ngIf="item.data.sizeEstimated"> * </span>
-      <br>
-      <small> {{getCategory() | async}} </small>
-      <span *ngIf="item.data.sizeEstimated">
-        <br /><small> * Becsült méret</small>
-      </span>
-    </p>
+  <div class="content">
+    <app-item-info [item]="item">
+    </app-item-info>
     <mat-chip-list>
       <mat-chip *ngFor="let tag of item.data.tags">{{tag}}</mat-chip>
     </mat-chip-list>
 
-    <div class="images" *ngIf="item.data.images.length">
+    <div class="images">
+      <img *ngIf="horizontal"
+           [src]="item.data.thumbnail.thumbnail.url"
+           (click)="openCarousel.emit({id: item.id, index:0})"
+      />
+
       <img alt="{{item.id}}/{{i}}"
            *ngFor="let image of item.data.images; let i = index"
            [src]="image.thumbnail.url"
@@ -29,10 +33,13 @@
     <p *ngIf="item.data.description">
       {{item.data.description}}
     </p>
-  </mat-card-content>
+  </div>
   <div class="shopping-cart">
-    <button mat-icon-button [disabled]="isInCart()" (click)="addToCart()">
+    <button *ngIf="action === 'add'" mat-icon-button [disabled]="isInCart()" (click)="addToCart()">
       <mat-icon aria-label="Kosárba">shopping_cart</mat-icon>
+    </button>
+    <button *ngIf="action === 'remove'" mat-icon-button (click)="removeFromCart(item)">
+      <mat-icon aria-label="Kosárba">delete_forever</mat-icon>
     </button>
   </div>
   <div class="editor" *ngIf="userService.isAdmin() | async">

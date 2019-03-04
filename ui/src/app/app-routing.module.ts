@@ -11,6 +11,9 @@ import {LoginViewComponent} from "./views/login-view/login-view.component";
 import {ConfigEditViewComponent} from "./views/config-edit-view/config-edit-view.component";
 import {ConfigListViewComponent} from "./views/config-list-view/config-list-view.component";
 import {ChangePasswordViewComponent} from "./views/change-password-view/change-password-view.component";
+import {OrderViewComponent} from "./views/order-view/order.component";
+import {MyItemsViewComponent} from "./views/my-items-view/my-items.component";
+import {ErrorViewComponent} from "./views/error-view/error-view.component";
 
 export class CustomReuseStrategy implements RouteReuseStrategy {
 
@@ -58,11 +61,26 @@ const routes: Routes = [
   {path: 'about', component: AboutViewComponent},
   {path: 'edit/:id', component: ItemEditViewComponent},
   {path: 'create', component: ItemCreateViewComponent},
-  {path: 'cart', component: ShoppingCartViewComponent},
+  {
+    path: 'cart', component: ShoppingCartViewComponent, children: [
+      {path: ':id/image/:index', component: ItemGalleryComponent}
+    ]
+  },
+  {
+    path: 'order/:orderId', component: OrderViewComponent, children: [
+      {path: ':id/image/:index', component: ItemGalleryComponent}
+    ]
+  },
+  {
+    path: 'my/:email', component: MyItemsViewComponent, children: [
+      {path: ':id/image/:index', component: ItemGalleryComponent}
+    ]
+  },
   {path: 'login', component: LoginViewComponent},
   {path: 'change-password', component: ChangePasswordViewComponent},
   {path: 'config', component: ConfigListViewComponent},
-  {path: 'config/:key', component: ConfigEditViewComponent}
+  {path: 'config/:key', component: ConfigEditViewComponent},
+  {path: '**', component: ErrorViewComponent}
 ];
 
 @NgModule({

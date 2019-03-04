@@ -9,7 +9,13 @@
   left: 30px;
   display: flex;
   justify-content: space-between;
+
+  pointer-events: none;
 }
+.floating-buttons > * {
+  pointer-events: auto
+}
+
 
 .categories {
   padding: 0 5px;

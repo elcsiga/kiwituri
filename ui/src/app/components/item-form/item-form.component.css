@@ -10,3 +10,7 @@ p {
   color: rgba(0,0,0,.54);
   font-size: 75%;
 }
+
+.subGroup {
+  margin-top: 20px;
+}

@@ -1,0 +1,9 @@
+<p>
+  {{getSex() | async}} - {{getSize() | async}}
+  <span *ngIf="item.data.sizeEstimated"> * </span>
+  <br>
+  <small> {{getCategory() | async}} </small>
+  <span *ngIf="item.data.sizeEstimated">
+        <br /><small> * Becsült méret</small>
+      </span>
+</p>

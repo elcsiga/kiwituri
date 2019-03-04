@@ -1,6 +1,6 @@
 import {UploadedFile} from "./upload";
 
-export type ItemStatus = 'incactive' | 'active' | 'sold';
+export type ItemStatus =  'STATUS1_HIDDEN' | 'STATUS2_ACTIVE' | 'STATUS3_ORDERED' | 'STATUS4_SHIPPED' | 'STATUS5_SOLD'
 export type UserId = string; //email
 
 export interface TimeStampData {
@@ -19,8 +19,8 @@ export interface ItemBody {
     description: string;
     status: ItemStatus;
     store: UserId;
-    created: TimeStampData;
-    updated: TimeStampData;
+    orderId: number;
+    contactEmail: string;
 }
 
 export interface ItemRecord {
@@ -48,3 +48,8 @@ export const toDb: (ItemBodys) => string = itemBody => {
         return null;
     }
 };
+
+export interface BuyData {
+    email: string;
+    itemIds: number[]
+}

@@ -14,8 +14,6 @@ export class CartSheetComponent implements OnInit {
 
   cartItems$: Observable<ItemRecord[]>;
 
-  //private cartService: ShoppingCartService;
-
   constructor(
     private router: Router,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: CartSheetData

@@ -64,7 +64,7 @@ export class AnimatedListComponent implements OnInit, OnChanges {
   measuredItems: ArrangedItem[];
   private itemHeights: number[];
   arrangedItems: ArrangedItem[];
-  containerHeight: number;
+  containerHeight: number = 0;
 
   private sub: Subscription;
 
@@ -78,10 +78,14 @@ export class AnimatedListComponent implements OnInit, OnChanges {
   ngOnInit() {
     const resize$ = fromEvent(window, 'resize')
       .pipe(debounceTime(300));
-
     this.sub = resize$.subscribe(() => {
       this.arrange(this.version);
     });
+
+    const scroll$ = fromEvent(window, 'scroll');
+    this.sub.add( scroll$.subscribe(() => {
+      this.checkFroItems(this.version);
+    }));
 
     this.update();
   }
@@ -94,6 +98,7 @@ export class AnimatedListComponent implements OnInit, OnChanges {
     this.version ++;
     this.arrangedItems = [];
     this.itemHeights = [];
+    this.containerHeight = 0;
 
     this.checkFroItems(this.version);
   }
@@ -111,26 +116,44 @@ export class AnimatedListComponent implements OnInit, OnChanges {
     return arrangedItem.item.id;
   }
 
+  private measuring = false;
+
   checkFroItems(version) {
 
-    const containerWidth = this.container.nativeElement.clientWidth;
-    this.realColumnWidth = (containerWidth < this.fluidMaxWidth) ? (containerWidth - this.gutter) / 2 -.1 : this.columnWidth;
+    if (this.measuring) {
+      return;
+    }
 
-    const sectionCount = 1;
-    if (this.items.length > this.itemHeights.length ) {
+    const elementBottom = getOffsetY(this.container.nativeElement) + this.containerHeight;
+    const screenBottom = window.scrollY + window.innerHeight *2;
 
-      this.measuredItems = this.items.slice(this.itemHeights.length, this.itemHeights.length + sectionCount);
-      setTimeout(() => {
+    if ( elementBottom < screenBottom ) {
+      const containerWidth = this.container.nativeElement.clientWidth;
+      this.realColumnWidth = (containerWidth < this.fluidMaxWidth) ? (containerWidth - this.gutter) / 2 -.1 : this.columnWidth;
+
+      const numOfColumns = Math.floor((containerWidth + this.gutter) / (this.realColumnWidth + this.gutter));
+
+      const sectionCount = 1;
+      if (this.items.length > this.itemHeights.length ) {
+
+        this.measuring = true;
+        const t1 = new Date().valueOf();
+        this.measuredItems = this.items.slice(this.itemHeights.length, this.itemHeights.length + sectionCount);
+        setTimeout(() => {
           imagesLoaded('.ghostItem', () => {
             if (version === this.version) {
               const itemHeights = this.ghostItems.toArray()
                 .map(item => item.nativeElement.clientHeight);
               this.itemHeights = this.itemHeights.concat(itemHeights);
+              this.measuring = false;
+              this.measuredItems = [];
+              const t2 = new Date().valueOf();
+              console.log('T:', t2-t1);
               this.arrange(version);
             }
           });
-      }, 0);
-
+        }, 0);
+      }
     }
   }
 
@@ -168,9 +191,19 @@ export class AnimatedListComponent implements OnInit, OnChanges {
       this.containerHeight = Math.max(...colTops) - this.gutter;
     }
     this.arrangedItems = arrangedItems;
+
     this.checkFroItems(version);
   }
 }
 
+
+function getOffsetY( el ) {
+  let y = 0;
+  while( el && !isNaN( el.offsetTop ) ) {
+    y += el.offsetTop;
+    el = el.offsetParent;
+  }
+  return y;
+}
 
 

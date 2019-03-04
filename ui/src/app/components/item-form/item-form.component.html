@@ -62,13 +62,29 @@
   </div>
 
   <div class="kw-row">
-    <mat-form-field class="kw-full-width">
-      <mat-select placeholder="Aki tárolja" formControlName="store">
-        <mat-option *ngFor="let user of (users$ | async)" [value]="user.email">
-          {{user.fullName}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <mat-radio-group class="radio-group" formControlName="status">
+      <mat-radio-button class="radio-button" *ngFor="let status of (setting$ | async).STATUSES | keyvalue"
+                        [value]="status.key">
+        {{status.value}}
+      </mat-radio-button>
+    </mat-radio-group>
+
+    <div class="subGroup">
+      <mat-form-field class="kw-full-width" *ngIf="isStoreAplicable()">
+        <mat-select placeholder="Akinél van" formControlName="store">
+          <mat-option *ngFor="let user of (users$ | async)" [value]="user.email">
+            {{user.fullName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="kw-full-width" *ngIf="isOrderAplicable()">
+        <input matInput placeholder="Rendelés száma" formControlName="orderId">
+      </mat-form-field>
+      <mat-form-field class="kw-full-width" *ngIf="isOrderAplicable()">
+        <input matInput placeholder="Rendelésnél megadott kontakt email cím" formControlName="contactEmail"/>
+      </mat-form-field>
+    </div>
   </div>
 
   <div class="kw-row kw-row-buttons">
