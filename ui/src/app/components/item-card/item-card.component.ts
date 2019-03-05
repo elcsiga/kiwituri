@@ -65,4 +65,7 @@ export class ItemCardComponent implements OnInit {
     this.cartService.removeFromCart(item);
   }
 
+  getPlaceholder(x) {
+    return '/assets/p' + ( 1 + x%6) + '.jpg';
+  }
 }

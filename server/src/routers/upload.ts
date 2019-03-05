@@ -20,6 +20,8 @@ const upload = multer({
         s3: s3,
         bucket: bucketName,
         acl: 'public-read',
+        cacheControl: 'public, max-age=31536000',
+        contentType: multerS3.AUTO_CONTENT_TYPE,
         shouldTransform: function (req, file, cb) {
             cb(null, /^image/i.test(file.mimetype));
         },

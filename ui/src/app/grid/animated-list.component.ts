@@ -116,11 +116,11 @@ export class AnimatedListComponent implements OnInit, OnChanges {
     return arrangedItem.item.id;
   }
 
-  private measuring = false;
+  private measuringVersion = -1;
 
   checkFroItems(version) {
 
-    if (this.measuring) {
+    if (this.version === version && this.measuringVersion === this.version) {
       return;
     }
 
@@ -134,18 +134,19 @@ export class AnimatedListComponent implements OnInit, OnChanges {
       const numOfColumns = Math.floor((containerWidth + this.gutter) / (this.realColumnWidth + this.gutter));
 
       const sectionCount = 1;
-      if (this.items.length > this.itemHeights.length ) {
+      if (this.items.length > this.itemHeights.length && version === this.version) {
 
-        this.measuring = true;
+        this.measuringVersion = this.version;
         const t1 = new Date().valueOf();
         this.measuredItems = this.items.slice(this.itemHeights.length, this.itemHeights.length + sectionCount);
         setTimeout(() => {
           imagesLoaded('.ghostItem', () => {
+            this.measuringVersion = -1;
             if (version === this.version) {
               const itemHeights = this.ghostItems.toArray()
                 .map(item => item.nativeElement.clientHeight);
               this.itemHeights = this.itemHeights.concat(itemHeights);
-              this.measuring = false;
+
               this.measuredItems = [];
               const t2 = new Date().valueOf();
               console.log('T:', t2-t1);

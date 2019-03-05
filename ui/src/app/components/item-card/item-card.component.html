@@ -1,15 +1,15 @@
 <mat-card [class.horizontal]="horizontal">
-  <div class="item-id"
-       *ngIf="horizontal"
-  >
-    #{{item.id}}
-  </div>
   <img mat-card-image
        *ngIf="!horizontal"
        alt="{{item.id}}"
        class="card-image"
        [src]="item.data.thumbnail.thumbnail.url"
        (click)="openCarousel.emit({id: item.id, index:0})" />
+  <img class="horizontal-card-image"
+       *ngIf="horizontal"
+       [src]="item.data.thumbnail.thumbnail.url"
+       (click)="openCarousel.emit({id: item.id, index:0})" />
+
   <div class="content">
     <app-item-info [item]="item">
     </app-item-info>
@@ -17,18 +17,13 @@
       <mat-chip *ngFor="let tag of item.data.tags">{{tag}}</mat-chip>
     </mat-chip-list>
 
-    <div class="images">
-      <img *ngIf="horizontal"
-           [src]="item.data.thumbnail.thumbnail.url"
-           (click)="openCarousel.emit({id: item.id, index:0})"
-      />
-
-      <img alt="{{item.id}}/{{i}}"
-           *ngFor="let image of item.data.images; let i = index"
-           [src]="image.thumbnail.url"
-           (click)="openCarousel.emit({id: item.id, index:1+i})"
-      />
-    </div>
+    <!--<div class="images">-->
+      <!--<img alt="{{item.id}}/{{i}}"-->
+           <!--*ngFor="let image of item.data.images; let i = index"-->
+           <!--[src]="image.thumbnail.url"-->
+           <!--(click)="openCarousel.emit({id: item.id, index:1+i})"-->
+      <!--/>-->
+    <!--</div>-->
 
     <p *ngIf="item.data.description">
       {{item.data.description}}

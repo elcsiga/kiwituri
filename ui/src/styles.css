@@ -13,6 +13,7 @@ h1 {
   color: #999999;
   margin: 8px;
   font-weight: normal;
+  text-align: center;
 }
 
 a, a:visited, a:hover, a:active {

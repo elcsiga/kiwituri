@@ -6,3 +6,11 @@
 .transparent {
   background: transparent;
 }
+
+.buttons {
+  text-align: center;
+}
+
+.container {
+  margin: 20px;
+}

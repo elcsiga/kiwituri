@@ -4,7 +4,7 @@
     Kosár
   </h1>
 
-  <div *ngIf="cart.length">
+  <div *ngIf="cart.length" class="container">
 
     <div class="item" *ngFor="let item of cart">
       <app-item-card
@@ -15,7 +15,6 @@
       >
       </app-item-card>
     </div>
-
 
     <form [formGroup]="buyForm" (ngSubmit)="onSubmit()">
       <div class="kw-row transparent">
