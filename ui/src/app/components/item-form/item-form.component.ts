@@ -42,18 +42,17 @@ export class ItemFormComponent implements OnInit {
       sizeEstimated: [this.item.sizeEstimated],
       description: [this.item.description],
       status: [this.item.status || 'STATUS2_ACTIVE'],
-      store: [this.item.store],
-      orderId: [this.item.orderId],
-      contactEmail: [this.item.contactEmail]
+      store: [this.item.store]
     });
-
-    this.uploadForm.controls['orderId'].disable();
-    this.uploadForm.controls['contactEmail'].disable();
   }
 
   onSubmit() {
     if (this.uploadForm.valid) {
-      this.submitForm.emit(this.uploadForm.value);
+      const modifiedItem: ItemBody = this.uploadForm.value;
+      if (this.item.order && this.isOrderAplicable()) {
+        modifiedItem.order = this.item.order;
+      }
+      this.submitForm.emit();
     } else {
       console.error('Trying to submit an invalid form...');
     }
@@ -62,19 +61,6 @@ export class ItemFormComponent implements OnInit {
   navigateBack(event) {
     event.preventDefault();
     this.routerUtilsService.goBack('/shop');
-  }
-
-  isStoreAplicable() {
-    switch ( this.uploadForm.controls['status'].value as ItemStatus) {
-      case 'STATUS4_SHIPPED':
-      case 'STATUS5_SOLD':
-        return false;
-      case 'STATUS1_HIDDEN':
-      case 'STATUS2_ACTIVE':
-      case 'STATUS3_ORDERED':
-      default:
-        return true;
-    }
   }
 
   isOrderAplicable() {

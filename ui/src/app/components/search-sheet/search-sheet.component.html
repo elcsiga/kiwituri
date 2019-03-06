@@ -21,6 +21,33 @@
         </mat-select>
       </mat-form-field>
     </p>
+
+    <p *ngIf="isAdmin() | async">
+      <mat-radio-group class="radio-group" formControlName="status">
+        <mat-radio-button [value]="'ALL'">
+          MINDEN
+        </mat-radio-button>
+
+        <mat-radio-button class="radio-button" *ngFor="let status of (setting$ | async).STATUSES | keyvalue"
+                          [value]="status.key">
+          {{status.value}}
+        </mat-radio-button>
+      </mat-radio-group>
+    </p>
+
+    <p *ngIf="isAdmin() | async">
+      <mat-form-field class="kw-full-width">
+        <mat-select placeholder="Akinél van" formControlName="store">
+          <mat-option [value]="'ALL'">
+            BÁRKINÉL
+          </mat-option>
+          <mat-option *ngFor="let user of (users$ | async)" [value]="user.email">
+            {{user.fullName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </p>
+
   </form>
 
   <p>

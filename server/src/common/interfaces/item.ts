@@ -8,6 +8,13 @@ export interface TimeStampData {
     userId: UserId;
 }
 
+export interface Order {
+    id: number
+    email: string;
+    date: number;
+}
+
+
 export interface ItemBody {
     thumbnail: UploadedFile;
     images: UploadedFile[];
@@ -19,8 +26,7 @@ export interface ItemBody {
     description: string;
     status: ItemStatus;
     store: UserId;
-    orderId: number;
-    contactEmail: string;
+    order: Order;
 }
 
 export interface ItemRecord {

@@ -70,7 +70,7 @@
     </mat-radio-group>
 
     <div class="subGroup">
-      <mat-form-field class="kw-full-width" *ngIf="isStoreAplicable()">
+      <mat-form-field class="kw-full-width" >
         <mat-select placeholder="Akinél van" formControlName="store">
           <mat-option *ngFor="let user of (users$ | async)" [value]="user.email">
             {{user.fullName}}
@@ -78,12 +78,11 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field class="kw-full-width" *ngIf="isOrderAplicable()">
-        <input matInput placeholder="Rendelés száma" formControlName="orderId">
-      </mat-form-field>
-      <mat-form-field class="kw-full-width" *ngIf="isOrderAplicable()">
-        <input matInput placeholder="Rendelésnél megadott kontakt email cím" formControlName="contactEmail"/>
-      </mat-form-field>
+      <div *ngIf="item.order && isOrderAplicable()" class="order">
+        <div>Rendelés száma: <b>{{item.order.id}}</b></div>
+        <div>E-mail: <b>{{item.order.email}}</b></div>
+        <div>Dátum: <b>{{item.order.date | date:'medium'}}</b></div>
+      </div>
     </div>
   </div>
 

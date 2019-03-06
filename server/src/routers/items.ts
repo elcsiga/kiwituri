@@ -65,49 +65,70 @@ itemsRouter.post('/', (req, res) => {
 
 itemsRouter.post('/buy', (req, res) => {
 
-    const orderId = Math.floor(Math.random() * 10000);
+    db.query<DbItemRecord[]>('SELECT * FROM items')
+        .then(dbItemsRecords => {
+            const itemRecords: ItemRecord[] = dbItemsRecords.map(dbItemsRecord => ({
+                id: dbItemsRecord.id,
+                data: fromDb(dbItemsRecord.data)
+            }));
 
-    const buyData = req.body as BuyData;
-    if (buyData && buyData.email && buyData.email.length && buyData.itemIds && buyData.itemIds.length) {
-        db.query<DbItemRecord[], [number[]]>(
-            "SELECT * FROM items WHERE id IN (?)", [buyData.itemIds])
-            .then(dbItemsRecords => {
-                const itemRecords: ItemRecord[] = dbItemsRecords.map(dbItemsRecord => ({
-                    id: dbItemsRecord.id,
-                    data: fromDb(dbItemsRecord.data)
-                }));
-                console.log(itemRecords);
-                if (itemRecords.length !== buyData.itemIds.length) {
-                    sendError(res, 400, 'Not found all items to buy.');
-                } else if (!itemRecords.every(i => !i.data.status || i.data.status === 'STATUS2_ACTIVE')) {
-                    sendError(res, 400, 'Not all items are active.');
-                } else {
-                    const updates = itemRecords.map(i => {
-                        i.data.status = 'STATUS3_ORDERED';
-                        i.data.contactEmail = buyData.email;
-                        i.data.orderId = orderId;
-
-                        const dbItemBody: string = toDb(i.data);
-
-                        return db.query<any, [ItemPayload, number]>('UPDATE items SET ? WHERE id = ?', [{data: dbItemBody}, i.id])
-                            .then(result => {
-                                return getItem(i.id);
-                            })
-                    });
-
-                    Promise.all(updates).then(result => {
-                        res.json(result);
-                    }).catch(err => {
-                        sendError(res, 400, 'Could not update item.', err);
-                    });
+            let lastOrderId = 0;
+            itemRecords.forEach(item => {
+                if (item.data.order && item.data.order.id > lastOrderId) {
+                    lastOrderId = item.data.order.id;
                 }
-            })
-            .catch(err => {
-                sendError(res, 400, 'Not found items to buy.', err);
             });
-    } else {
-        sendError(res, 400, 'Could not buy items.');
-    }
+
+            const orderId = lastOrderId + 1;
+            const buyData = req.body as BuyData;
+            if (buyData && buyData.email && buyData.email.length && buyData.itemIds && buyData.itemIds.length) {
+                db.query<DbItemRecord[], [number[]]>(
+                    "SELECT * FROM items WHERE id IN (?)", [buyData.itemIds])
+                    .then(dbItemsRecords => {
+                        const itemRecords: ItemRecord[] = dbItemsRecords.map(dbItemsRecord => ({
+                            id: dbItemsRecord.id,
+                            data: fromDb(dbItemsRecord.data)
+                        }));
+                        console.log(itemRecords);
+                        if (itemRecords.length !== buyData.itemIds.length) {
+                            sendError(res, 400, 'Not found all items to buy.');
+                        } else if (!itemRecords.every(i => !i.data.status || i.data.status === 'STATUS2_ACTIVE')) {
+                            sendError(res, 400, 'Not all items are active.');
+                        } else {
+                            const updates = itemRecords.map(i => {
+                                i.data.status = 'STATUS3_ORDERED';
+                                i.data.order = {
+                                    id: orderId,
+                                    email: buyData.email,
+                                    date: Date.now()
+                                };
+
+                                const dbItemBody: string = toDb(i.data);
+
+                                return db.query<any, [ItemPayload, number]>('UPDATE items SET ? WHERE id = ?', [{data: dbItemBody}, i.id])
+                                    .then(result => {
+                                        return getItem(i.id);
+                                    })
+                            });
+
+                            Promise.all(updates).then(result => {
+                                res.json(result);
+                            }).catch(err => {
+                                sendError(res, 400, 'Could not update item.', err);
+                            });
+                        }
+                    })
+                    .catch(err => {
+                        sendError(res, 400, 'Not found items to buy.', err);
+                    });
+            } else {
+                sendError(res, 400, 'Could not buy items.');
+            }
+
+        })
+        .catch(err => {
+            sendError(res, 400, 'Could not retrieve items.', err);
+        });
 });
 
 itemsRouter.put('/:id', (req, res) => {

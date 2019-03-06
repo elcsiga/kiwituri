@@ -47,6 +47,7 @@ import {ItemInfoComponent} from './components/item-info/item-info.component';
 import {MyItemsViewComponent} from './views/my-items-view/my-items.component';
 import {OrderViewComponent} from './views/order-view/order.component';
 import { ErrorViewComponent } from './views/error-view/error-view.component';
+import { AdminViewComponent } from './views/admin-view/admin-view.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { ErrorViewComponent } from './views/error-view/error-view.component';
     ItemInfoComponent,
     MyItemsViewComponent,
     OrderViewComponent,
-    ErrorViewComponent
+    ErrorViewComponent,
+    AdminViewComponent
   ],
   imports: [
     FormsModule,

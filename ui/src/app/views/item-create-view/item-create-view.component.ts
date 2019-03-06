@@ -33,8 +33,7 @@ export class ItemCreateViewComponent {
     description: '',
     status: 'STATUS2_ACTIVE',
     store: userId,
-    orderId: 0,
-    contactEmail: ''
+    order: null
   });
 
   emptyItem$ = this.userService.user$.pipe(
