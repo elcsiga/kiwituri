@@ -25,10 +25,8 @@ export function initAuth(app: Express) {
                     console.log(users);
 
                     if (users.length === 1) {
-                        console.log('ok');
                         return done(null, users[0]);
                     } else {
-                        console.log('nem');
                         return done(null, false, {message: 'Invalid username or password'});
                     }
                 })

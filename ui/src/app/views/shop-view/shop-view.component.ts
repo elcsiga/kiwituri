@@ -62,7 +62,10 @@ export class ShopViewComponent {
     map(([items, category, search]) => {
       return (category ? items.filter(item => item.data.category === category) : items)
         .filter(item => search.sex === 'ALL' || search.sex === item.data.sex || item.data.sex === 'ALL')
-        .filter(item => search.size === 'ALL' || search.size === item.data.size);
+        .filter(item => search.size === 'ALL' || search.size === item.data.size)
+        .filter(item => search.store === 'ALL' || search.store === item.data.store)
+        .filter(item => search.status === 'ALL' || search.status === item.data.status
+          || (search.status === 'STATUS2_ACTIVE' && !item.data.status));
     })
   );
 

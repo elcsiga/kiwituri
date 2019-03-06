@@ -25,7 +25,7 @@ export class SearchSheetComponent implements OnInit {
   searchForm;
 
   setting$ = this.configService.settings$;
-  users$ = this.userService.user$;
+  users$ = this.userService.users$;
 
   isAdmin() {
     return this.userService.isAdmin();
@@ -38,11 +38,13 @@ export class SearchSheetComponent implements OnInit {
       sex: [searchSnapshot.sex],
       size: [searchSnapshot.size],
       store:  [searchSnapshot.store],
-      status:  [searchSnapshot.store]
+      status:  [searchSnapshot.status]
     });
 
     this.searchForm.get('sex').valueChanges.subscribe(sex => this.searchService.setSex(sex));
     this.searchForm.get('size').valueChanges.subscribe(size => this.searchService.setSize(size));
+    this.searchForm.get('store').valueChanges.subscribe(store => this.searchService.setStore(store));
+    this.searchForm.get('status').valueChanges.subscribe(status => this.searchService.setStatus(status));
 
   }
 

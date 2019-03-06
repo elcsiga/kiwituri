@@ -137,7 +137,7 @@ export class AnimatedListComponent implements OnInit, OnChanges {
       if (this.items.length > this.itemHeights.length && version === this.version) {
 
         this.measuringVersion = this.version;
-        const t1 = new Date().valueOf();
+        //const t1 = new Date().valueOf();
         this.measuredItems = this.items.slice(this.itemHeights.length, this.itemHeights.length + sectionCount);
         setTimeout(() => {
           imagesLoaded('.ghostItem', () => {
@@ -148,8 +148,8 @@ export class AnimatedListComponent implements OnInit, OnChanges {
               this.itemHeights = this.itemHeights.concat(itemHeights);
 
               this.measuredItems = [];
-              const t2 = new Date().valueOf();
-              console.log('T:', t2-t1);
+              //const t2 = new Date().valueOf();
+              //console.log('T:', t2-t1);
               this.arrange(version);
             }
           });

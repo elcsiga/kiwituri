@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ItemBody, ItemRecord} from "../../../../../server/src/common/interfaces/item";
+import {ItemBody, ItemRecord, ItemStatus} from "../../../../../server/src/common/interfaces/item";
 import {UserService} from "../../services/user.service";
 import {ShoppingCartService} from "../../services/shopping-cart.service";
 import {ItemService} from "../../services/item.service";
@@ -39,6 +39,18 @@ export class ItemCardComponent implements OnInit {
   ngOnInit() {
   }
 
+  getBackgroundColor() {
+    switch (this.item.data.status as ItemStatus) {
+      case 'STATUS1_HIDDEN' : return '#aaaaaa';
+      case 'STATUS3_ORDERED' : return '#ffaaaa';
+      case 'STATUS4_SHIPPED' : return '#aaffaa';
+      case 'STATUS5_SOLD' : return '#aaaaff';
+
+      case 'STATUS2_ACTIVE':
+      default:
+        return '#ffffff';
+    }
+  }
   isInCart() {
     return this.shoppingCartService.isInCart(this.item);
   }

@@ -8,6 +8,7 @@ import {HttpClient} from "@angular/common/http";
 import {NotificationService} from "../../services/notification.service";
 import {ConfigService} from "../../services/config.service";
 import {ShoppingCartService} from "../../services/shopping-cart.service";
+import {ItemService} from "../../services/item.service";
 
 @Component({
   selector: 'app-shopping-cart-view',
@@ -25,6 +26,7 @@ export class ShoppingCartViewComponent implements OnInit {
     private fb: FormBuilder,
     private http: HttpClient,
     private cartService: ShoppingCartService,
+    private itemService: ItemService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private notificationService: NotificationService,
@@ -57,10 +59,12 @@ export class ShoppingCartViewComponent implements OnInit {
       };
 
       this.http.post<any>('/api/items/buy', buyData)
-        .subscribe(items => {
-          console.log(items);
+        .subscribe(({orderId, items}) => {
+          console.log('SUCCESFUL ORDER: ', orderId, items);
+          items.forEach( item => this.itemService.update(item));
+          this.router.navigate(['/order', orderId]);
         }, error => {
-          this.notificationService.error('Nem jó az e-mail vagy a jelszó!');
+          this.notificationService.error('Nem sikerült a rendelés!');
           console.error(error);
         })
     } else {

@@ -29,7 +29,7 @@ export class ItemFormComponent implements OnInit {
   }
 
   setting$ = this.configService.settings$;
-  users$ = this.userService.getUserList();
+  users$ = this.userService.users$;
 
   ngOnInit(): void {
     this.uploadForm = this.fb.group({
@@ -52,7 +52,7 @@ export class ItemFormComponent implements OnInit {
       if (this.item.order && this.isOrderAplicable()) {
         modifiedItem.order = this.item.order;
       }
-      this.submitForm.emit();
+      this.submitForm.emit(modifiedItem);
     } else {
       console.error('Trying to submit an invalid form...');
     }

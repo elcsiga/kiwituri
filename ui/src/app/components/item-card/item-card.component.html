@@ -1,4 +1,4 @@
-<mat-card [class.horizontal]="horizontal">
+<mat-card [class.horizontal]="horizontal" [style.background-color]="getBackgroundColor()">
   <img mat-card-image
        *ngIf="!horizontal"
        alt="{{item.id}}"
