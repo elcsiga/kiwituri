@@ -29,7 +29,7 @@
 }
 
 .horizontal .content {
-  margin: -10px 0 0 150px;
+  margin: -10px 0 0 200px;
 }
 .horizontal-card-image
 {
@@ -37,7 +37,7 @@
   top: 0;
   left: 0;
   bottom: 0;
-  width: 150px;
+  width: 200px;
   height: 100%;
   object-fit: cover;
 }
@@ -51,6 +51,21 @@
   padding: 20px;
   background: rgba(60, 60, 200, .6)
 }
+
+.info-ordered {
+  background-color: #ff6666;
+}
+.info-shipped {
+  background-color: #22aa22;
+}
+
+.info-shipped, .info-ordered {
+  color: white;
+  padding: 4px;
+  border-radius: 4px;
+  text-align: center;
+}
+
 .mat-menu-item {
   height: 35px;
   line-height: 35px;
