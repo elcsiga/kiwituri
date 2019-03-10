@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {ItemRecord} from "../../../../../server/src/common/interfaces/item";
 import {combineLatest, Observable} from "rxjs";
 import {UserService} from "../../services/user.service";
@@ -8,7 +8,7 @@ import {ItemService} from "../../services/item.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CarouselPosition} from "../../components/item-card/item-card.component";
 import {ConfigService} from "../../services/config.service";
-import {map, tap} from "rxjs/operators";
+import {map} from "rxjs/operators";
 import {animate, style, transition, trigger} from "@angular/animations";
 import {ProgressService} from "../../services/progress.service";
 
@@ -49,6 +49,7 @@ export class ShopViewComponent {
   );
 
   search$ = this.searchService.search$;
+  user$ = this.userService.user$;
 
   reportProgress(p: number | null) {
     this.progressService.set(p);
@@ -57,15 +58,24 @@ export class ShopViewComponent {
   items$: Observable<ItemRecord[]> = combineLatest([
     this.itemService.item$,
     this.activeCategory$,
-    this.search$
+    this.search$,
+    this.userService.user$
   ]).pipe(
-    map(([items, category, search]) => {
-      return (category ? items.filter(item => item.data.category === category) : items)
+    map(([items, category, search, user]) => {
+
+      const result = (category ? items.filter(item => item.data.category === category) : items)
         .filter(item => search.sex === 'ALL' || search.sex === item.data.sex || item.data.sex === 'ALL')
-        .filter(item => search.size === 'ALL' || search.size === item.data.size)
-        .filter(item => search.store === 'ALL' || search.store === item.data.store)
-        .filter(item => search.status === 'ALL' || search.status === item.data.status
-          || (search.status === 'STATUS2_ACTIVE' && !item.data.status));
+        .filter(item => search.size === 'ALL' || search.size === item.data.size);
+
+      if (user) {
+        return result
+          .filter(item => search.store === 'ALL' || search.store === item.data.store)
+          .filter(item => search.status === 'ALL' || search.status === item.status
+            || (search.status === 'STATUS2_ACTIVE' && !item.status));
+      } else {
+        return result
+          .filter(item => item.status === 'STATUS2_ACTIVE' || !item.status);
+      }
     })
   );
 
@@ -87,12 +97,8 @@ export class ShopViewComponent {
     this.searchService.openCartSheet();
   }
 
-  isAdmin() {
-    return this.userService.isAdmin();
-  }
-
   openCarousel(pos: CarouselPosition) {
-    this.router.navigate([ pos.id, 'image', pos.index], {relativeTo: this.activatedRoute});
+    this.router.navigate([pos.id, 'image', pos.index], {relativeTo: this.activatedRoute});
   }
 
   isFiltering() {

@@ -12,8 +12,8 @@ import {ConfigEditViewComponent} from "./views/config-edit-view/config-edit-view
 import {ConfigListViewComponent} from "./views/config-list-view/config-list-view.component";
 import {ChangePasswordViewComponent} from "./views/change-password-view/change-password-view.component";
 import {OrderViewComponent} from "./views/order-view/order.component";
-import {MyItemsViewComponent} from "./views/my-items-view/my-items.component";
 import {ErrorViewComponent} from "./views/error-view/error-view.component";
+import {OrdersViewComponent} from "./views/orders-view/orders-view.component";
 
 export class CustomReuseStrategy implements RouteReuseStrategy {
 
@@ -72,7 +72,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'my/:email', component: MyItemsViewComponent, children: [
+    path: 'orders', component: OrdersViewComponent, children: [
       {path: ':id/image/:index', component: ItemGalleryComponent}
     ]
   },

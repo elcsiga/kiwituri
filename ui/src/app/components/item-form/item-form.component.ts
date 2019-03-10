@@ -1,10 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ItemBody, ItemStatus} from "../../../../../server/src/common/interfaces/item";
+import {ItemBody} from "../../../../../server/src/common/interfaces/item";
 import {ConfigService} from "../../services/config.service";
 import {UserService} from "../../services/user.service";
 import {RouterUtilsService} from "../../services/router-utils.service";
-import {ItemService} from "../../services/item.service";
 
 @Component({
   selector: 'app-item-form',
@@ -41,18 +40,13 @@ export class ItemFormComponent implements OnInit {
       size: [this.item.size, [Validators.required]],
       sizeEstimated: [this.item.sizeEstimated],
       description: [this.item.description],
-      status: [this.item.status || 'STATUS2_ACTIVE'],
       store: [this.item.store]
     });
   }
 
   onSubmit() {
     if (this.uploadForm.valid) {
-      const modifiedItem: ItemBody = this.uploadForm.value;
-      if (this.item.order && this.isOrderAplicable()) {
-        modifiedItem.order = this.item.order;
-      }
-      this.submitForm.emit(modifiedItem);
+      this.submitForm.emit(this.uploadForm.value);
     } else {
       console.error('Trying to submit an invalid form...');
     }
@@ -61,18 +55,5 @@ export class ItemFormComponent implements OnInit {
   navigateBack(event) {
     event.preventDefault();
     this.routerUtilsService.goBack('/shop');
-  }
-
-  isOrderAplicable() {
-    switch ( this.uploadForm.controls['status'].value as ItemStatus) {
-      case 'STATUS3_ORDERED':
-      case 'STATUS4_SHIPPED':
-      case 'STATUS5_SOLD':
-        return true;
-      case 'STATUS1_HIDDEN':
-      case 'STATUS2_ACTIVE':
-      default:
-       return false;
-    }
   }
 }

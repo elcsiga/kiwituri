@@ -7,6 +7,7 @@ import {HttpClient} from "@angular/common/http";
 import { ConfigService } from "./services/config.service";
 import {RouterUtilsService} from "./services/router-utils.service";
 import {ProgressService} from "./services/progress.service";
+import {ShoppingCartService} from "./services/shopping-cart.service";
 
 @Component({
   selector: 'app-root',
@@ -25,13 +26,16 @@ export class AppComponent implements OnInit {
     private userService: UserService,
     private configService: ConfigService,
     private routerUtilsService: RouterUtilsService,
-    private progressService: ProgressService
+    private progressService: ProgressService,
+    private cartService: ShoppingCartService
   ) {
     this.routerUtilsService.init();
     this.router.events.pipe(filter(event => event instanceof NavigationStart))
       .subscribe(event => {
         this.showMainHeader = (event as NavigationStart).url === '/';
       });
+
+    this.cartService.init();
   }
 
   ngOnInit() {

@@ -62,28 +62,13 @@
   </div>
 
   <div class="kw-row">
-    <mat-radio-group class="radio-group" formControlName="status">
-      <mat-radio-button class="radio-button" *ngFor="let status of (setting$ | async).STATUSES | keyvalue"
-                        [value]="status.key">
-        {{status.value}}
-      </mat-radio-button>
-    </mat-radio-group>
-
-    <div class="subGroup">
-      <mat-form-field class="kw-full-width" >
-        <mat-select placeholder="Akinél van" formControlName="store">
-          <mat-option *ngFor="let user of (users$ | async)" [value]="user.email">
-            {{user.fullName}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <div *ngIf="item.order && isOrderAplicable()" class="order">
-        <div>Rendelés száma: <b>{{item.order.id}}</b></div>
-        <div>E-mail: <b>{{item.order.email}}</b></div>
-        <div>Dátum: <b>{{item.order.date | date:'medium'}}</b></div>
-      </div>
-    </div>
+    <mat-form-field class="kw-full-width">
+      <mat-select placeholder="Akinél van" formControlName="store">
+        <mat-option *ngFor="let user of (users$ | async)" [value]="user.email">
+          {{user.fullName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 
   <div class="kw-row kw-row-buttons">

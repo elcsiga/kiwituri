@@ -1,0 +1,30 @@
+<div class="kw-content">
+  <h1>
+    Rendelések
+  </h1>
+
+  <div *ngFor="let order of orderMap$ | async | keyvalue">
+
+    <div class="centered">
+      <span class="orderId"> {{order.key}}</span>
+    </div>
+
+    <div class="centered" *ngIf="order.value[0] as item">
+        <div>E-mail: <b>{{item.order.email}}</b></div>
+      <div>Dátum: <b>{{item.order.date | date:'medium'}}</b></div>
+    </div>
+
+    <div>
+      <div class="item" *ngFor="let item of order.value">
+        <app-item-card
+          [item]="item"
+          (openCarousel)="openCarousel($event)"
+          [horizontal]="true"
+        >
+        </app-item-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

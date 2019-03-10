@@ -60,8 +60,12 @@ export class ShoppingCartViewComponent implements OnInit {
 
       this.http.post<any>('/api/items/buy', buyData)
         .subscribe(({orderId, items}) => {
-          console.log('SUCCESFUL ORDER: ', orderId, items);
-          items.forEach( item => this.itemService.update(item));
+          console.log('SUCCESFUL ORDER: ', orderId);
+          items.forEach(item => {
+            this.itemService.update(item);
+            this.cartService.removeFromCart(item);
+          });
+
           this.router.navigate(['/order', orderId]);
         }, error => {
           this.notificationService.error('Nem sikerült a rendelés!');

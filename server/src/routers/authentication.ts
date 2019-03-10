@@ -21,9 +21,6 @@ export function initAuth(app: Express) {
         }, (email, password, done) => {
             db.query<User[], [string, string]>('SELECT email, fullName FROM users WHERE email = ? AND password = ?', [email, password])
                 .then(users => {
-
-                    console.log(users);
-
                     if (users.length === 1) {
                         return done(null, users[0]);
                     } else {
@@ -37,7 +34,7 @@ export function initAuth(app: Express) {
     ));
 
 
-    app.use(session({secret: "kwtscrt"}));
+    app.use(session({secret: "kwtscrt", maxAge : 30 * 24 * 3600 * 1000 }));
     app.use(passport.initialize());
     app.use(passport.session());
 

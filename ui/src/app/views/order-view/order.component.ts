@@ -33,7 +33,7 @@ export class OrderViewComponent implements OnInit {
     this.itemService.item$,
     this.orderId$
   ]).pipe(
-    map(([items, orderId]) => items.filter(item => item.data.order && item.data.order.id === orderId))
+    map(([items, orderId]) => items.filter(item => item.order && item.order.id === orderId))
   );
 
   ngOnInit() {

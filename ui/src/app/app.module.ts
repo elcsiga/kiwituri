@@ -44,10 +44,9 @@ import {ChangePasswordViewComponent} from './views/change-password-view/change-p
 import {NgxMdModule} from 'ngx-md';
 import {KitAnimatedListModule} from "./grid/animated-list.module";
 import {ItemInfoComponent} from './components/item-info/item-info.component';
-import {MyItemsViewComponent} from './views/my-items-view/my-items.component';
 import {OrderViewComponent} from './views/order-view/order.component';
-import { ErrorViewComponent } from './views/error-view/error-view.component';
-import { AdminViewComponent } from './views/admin-view/admin-view.component';
+import {ErrorViewComponent} from './views/error-view/error-view.component';
+import { OrdersViewComponent } from './views/orders-view/orders-view.component';
 
 @NgModule({
   declarations: [
@@ -68,10 +67,9 @@ import { AdminViewComponent } from './views/admin-view/admin-view.component';
     ConfigListViewComponent,
     ChangePasswordViewComponent,
     ItemInfoComponent,
-    MyItemsViewComponent,
     OrderViewComponent,
     ErrorViewComponent,
-    AdminViewComponent
+    OrdersViewComponent
   ],
   imports: [
     FormsModule,

@@ -1,15 +1,17 @@
 <div *ngIf="orderId$ | async as orderId" class="kw-content">
   <h1>
-    Megrendelés
+    Rendelés
   </h1>
 
-  <p>
-    A megrendelésed száma: <b>{{orderId}}</b>.
-  </p>
+  <div class="centered">
+    <span class="orderId"> {{orderId}}</span>
+  </div>
 
-  <p>
+  <p class="text">
     {{postBuyText$ | async}}
   </p>
+
+
   <div *ngIf="orderedItems$ | async as orderedItems">
 
     <div class="item" *ngFor="let item of orderedItems">
@@ -21,6 +23,11 @@
       </app-item-card>
     </div>
   </div>
+
+  <div class="centered">
+    <img class="image" src="/assets/kavezo.jpg">
+  </div>
+
 </div>
 
 <router-outlet></router-outlet>

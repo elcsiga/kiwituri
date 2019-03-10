@@ -1,12 +1,12 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ItemBody, ItemRecord, ItemStatus} from "../../../../../server/src/common/interfaces/item";
+import {ItemRecord, ItemStatus} from "../../../../../server/src/common/interfaces/item";
 import {UserService} from "../../services/user.service";
 import {ShoppingCartService} from "../../services/shopping-cart.service";
 import {ItemService} from "../../services/item.service";
 import {NotificationService} from "../../services/notification.service";
 import {HttpClient} from "@angular/common/http";
 import {ConfigService} from "../../services/config.service";
-import {Observable} from "rxjs";
+import {allowChangeStatus} from "../../../../../server/src/common/validators/status";
 
 export interface CarouselPosition {
   id: number,
@@ -25,8 +25,11 @@ export class ItemCardComponent implements OnInit {
   @Input() action: string;
   @Input() horizontal = false;
 
+  setting$ = this.configService.settings$;
+  user$ = this.userService.user$;
+
   constructor(
-    public userService: UserService,
+    private userService: UserService,
     private http: HttpClient,
     private configService: ConfigService,
     private itemService: ItemService,
@@ -40,17 +43,24 @@ export class ItemCardComponent implements OnInit {
   }
 
   getBackgroundColor() {
-    switch (this.item.data.status as ItemStatus) {
-      case 'STATUS1_HIDDEN' : return '#aaaaaa';
-      case 'STATUS3_ORDERED' : return '#ffaaaa';
-      case 'STATUS4_SHIPPED' : return '#aaffaa';
-      case 'STATUS5_SOLD' : return '#aaaaff';
+    switch (this.item.status as ItemStatus) {
+      case 'STATUS1_HIDDEN' :
+        return '#ccc';
+      case 'STATUS3_ORDERED' :
+        return '#fcc';
+      case 'STATUS4_SHIPPED' :
+        return '#cfc';
+      case 'STATUS5_SOLD' :
+        return '#ccf';
+      case 'STATUS6_LOST' :
+        return '#cff';
 
       case 'STATUS2_ACTIVE':
       default:
-        return '#ffffff';
+        return '#fff';
     }
   }
+
   isInCart() {
     return this.shoppingCartService.isInCart(this.item);
   }
@@ -61,7 +71,7 @@ export class ItemCardComponent implements OnInit {
   }
 
   deleteItem() {
-    if (confirm('Boztosan törlöd ezt? #' + this.item.id)) {
+    if (confirm('Biztosan törlöd ezt? #' + this.item.id)) {
       this.http.delete<ItemRecord>('/api/items/' + this.item.id)
         .subscribe(deletedItem => {
           this.notificationService.info('Sikeresen törölve: #' + deletedItem.id);
@@ -73,11 +83,27 @@ export class ItemCardComponent implements OnInit {
     }
   }
 
-  removeFromCart(item: ItemRecord) {
-    this.cartService.removeFromCart(item);
+  changeStatus(status: ItemStatus) {
+    this.http.put<ItemRecord>('/api/items/' + this.item.id + '/status/' + status, {})
+      .subscribe(changedItem => {
+        this.notificationService.info('Sikeres állapotváltoztatás: #' + changedItem.id);
+        this.itemService.update(changedItem);
+      }, error => {
+        this.notificationService.info('Nem sikerült az állapotot megváltoztatni');
+        console.error(error);
+      })
+
   }
 
-  getPlaceholder(x) {
-    return '/assets/p' + ( 1 + x%6) + '.jpg';
+  removeFromCart() {
+    this.cartService.removeFromCart(this.item);
+  }
+
+  // getPlaceholder(x) {
+  //   return '/assets/p' + ( 1 + x%6) + '.jpg';
+  // }
+
+  isDisabled(status: ItemStatus) {
+    return !allowChangeStatus(this.item, status);
   }
 }

@@ -1,6 +1,8 @@
 import {UploadedFile} from "./upload";
 
-export type ItemStatus =  'STATUS1_HIDDEN' | 'STATUS2_ACTIVE' | 'STATUS3_ORDERED' | 'STATUS4_SHIPPED' | 'STATUS5_SOLD'
+export type ItemStatus =  'STATUS1_HIDDEN' | 'STATUS2_ACTIVE' | 'STATUS3_ORDERED' | 'STATUS4_SHIPPED'
+    | 'STATUS5_SOLD' | 'STATUS6_LOST'
+
 export type UserId = string; //email
 
 export interface TimeStampData {
@@ -8,12 +10,11 @@ export interface TimeStampData {
     userId: UserId;
 }
 
-export interface Order {
+export interface ItemOrder {
     id: number
     email: string;
     date: number;
 }
-
 
 export interface ItemBody {
     thumbnail: UploadedFile;
@@ -24,14 +25,14 @@ export interface ItemBody {
     size: string;
     sizeEstimated: boolean;
     description: string;
-    status: ItemStatus;
     store: UserId;
-    order: Order;
 }
 
 export interface ItemRecord {
     id: number;
     data: ItemBody;
+    status: ItemStatus;
+    order: ItemOrder;
 }
 
 export interface DbItemRecord {
@@ -39,7 +40,17 @@ export interface DbItemRecord {
     data: string;
 }
 
-export const fromDb: (string) => ItemBody = dbItemBody => {
+export const fromDbItemRecord: (DbItemRecord) => ItemRecord = dbItemRecord => {
+    return {
+        id: dbItemRecord.id,
+        data: fromDb<ItemBody>(dbItemRecord.data),
+        status: dbItemRecord.status,
+        order: fromDb<ItemOrder>(dbItemRecord.order)
+    }
+};
+
+
+export const fromDb: <T>(string) => T = dbItemBody => {
     try {
         return JSON.parse(dbItemBody);
     } catch (e) {
@@ -47,7 +58,7 @@ export const fromDb: (string) => ItemBody = dbItemBody => {
     }
 };
 
-export const toDb: (ItemBodys) => string = itemBody => {
+export const toDb: <T>(T) => string = itemBody => {
     try {
         return JSON.stringify(itemBody);
     } catch (e) {

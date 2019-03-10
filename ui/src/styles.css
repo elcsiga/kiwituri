@@ -81,3 +81,15 @@ a:hover {
 .card  .item-card {
   opacity: 1 !important;
 }
+
+
+.kw-clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.kw-clearfix::before {
+  content: "";
+  clear: both;
+  display: table;
+}

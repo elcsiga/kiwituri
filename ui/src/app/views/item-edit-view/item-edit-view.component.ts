@@ -6,6 +6,7 @@ import {Observable} from "rxjs";
 import {NotificationService} from "../../services/notification.service";
 import {ItemBody, ItemRecord} from "../../../../../server/src/common/interfaces/item";
 import {ItemService} from "../../services/item.service";
+import {RouterUtilsService} from "../../services/router-utils.service";
 
 @Component({
   selector: 'app-item-edit-view',
@@ -17,9 +18,9 @@ export class ItemEditViewComponent {
   constructor(
     private http: HttpClient,
     private itemService: ItemService,
-    private router: Router,
     private activatedRoute: ActivatedRoute,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private routerUtils: RouterUtilsService
   ) {
   }
 
@@ -36,7 +37,7 @@ export class ItemEditViewComponent {
       .subscribe(modifiedItem => {
         this.itemService.update(modifiedItem);
         this.notificationService.info('Sikeresen elmentve: #' + modifiedItem.id);
-        this.router.navigate(['/shop']);
+        this.routerUtils.goBack('/shop');
       }, error => {
         this.notificationService.info('Nem sikerült a mentés');
         console.error(error);

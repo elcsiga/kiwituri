@@ -18,7 +18,6 @@ export class CartSheetComponent implements OnInit {
     private router: Router,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: CartSheetData
   ) {
-    //this.cartService = data.service;
     this.cartItems$ = this.data.service.cartItems$;
   }
 

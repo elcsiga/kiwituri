@@ -26,10 +26,7 @@ export class SearchSheetComponent implements OnInit {
 
   setting$ = this.configService.settings$;
   users$ = this.userService.users$;
-
-  isAdmin() {
-    return this.userService.isAdmin();
-  }
+  user$ = this.userService.user$;
 
   ngOnInit() {
     const searchSnapshot = this.searchService.getSearchSnapshot();

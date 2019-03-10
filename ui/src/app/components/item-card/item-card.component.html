@@ -1,14 +1,15 @@
-<mat-card [class.horizontal]="horizontal" [style.background-color]="getBackgroundColor()">
+<mat-card [class.horizontal]="horizontal"
+          [style.background-color]="(user$ | async) ? getBackgroundColor() : 'white'">
   <img mat-card-image
        *ngIf="!horizontal"
        alt="{{item.id}}"
        class="card-image"
        [src]="item.data.thumbnail.thumbnail.url"
-       (click)="openCarousel.emit({id: item.id, index:0})" />
+       (click)="openCarousel.emit({id: item.id, index:0})"/>
   <img class="horizontal-card-image"
        *ngIf="horizontal"
        [src]="item.data.thumbnail.thumbnail.url"
-       (click)="openCarousel.emit({id: item.id, index:0})" />
+       (click)="openCarousel.emit({id: item.id, index:0})"/>
 
   <div class="content">
     <app-item-info [item]="item">
@@ -17,13 +18,13 @@
       <mat-chip *ngFor="let tag of item.data.tags">{{tag}}</mat-chip>
     </mat-chip-list>
 
-    <!--<div class="images">-->
-      <!--<img alt="{{item.id}}/{{i}}"-->
-           <!--*ngFor="let image of item.data.images; let i = index"-->
-           <!--[src]="image.thumbnail.url"-->
-           <!--(click)="openCarousel.emit({id: item.id, index:1+i})"-->
-      <!--/>-->
-    <!--</div>-->
+    <div class="images">
+      <img alt="{{item.id}}/{{i}}"
+           *ngFor="let image of item.data.images; let i = index"
+           [src]="image.thumbnail.url"
+           (click)="openCarousel.emit({id: item.id, index:1+i})"
+      />
+    </div>
 
     <p *ngIf="item.data.description">
       {{item.data.description}}
@@ -33,16 +34,47 @@
     <button *ngIf="action === 'add'" mat-icon-button [disabled]="isInCart()" (click)="addToCart()">
       <mat-icon aria-label="Kosárba">shopping_cart</mat-icon>
     </button>
-    <button *ngIf="action === 'remove'" mat-icon-button (click)="removeFromCart(item)">
+    <button *ngIf="action === 'remove'" mat-icon-button (click)="removeFromCart()">
       <mat-icon aria-label="Kosárba">delete_forever</mat-icon>
     </button>
   </div>
-  <div class="editor" *ngIf="userService.isAdmin() | async">
-    <button mat-mini-fab color="accent" [routerLink]="'/edit/' + item.id">
-      <mat-icon aria-label="Módosít">edit</mat-icon>
+  <div class="editor" *ngIf="user$ | async">
+
+    <button mat-mini-fab color="accent" [matMenuTriggerFor]="statusMenu">
+      <mat-icon aria-label="Módosítás">edit</mat-icon>
     </button>
-    <button mat-mini-fab color="accent" (click)="deleteItem()">
-      <mat-icon aria-label="Töröl">delete</mat-icon>
-    </button>
+
+    <mat-menu #statusMenu="matMenu">
+
+      <div class="orderData">
+        <div> <b>{{ (setting$ | async).STATUSES[item.status || 'STATUS2_active'] }}</b></div>
+        <div *ngIf="item && item.order">
+          <div>Rendelés száma: <b>{{item.order.id}}</b></div>
+          <div>E-mail: <b>{{item.order.email}}</b></div>
+          <div>Dátum: <b>{{item.order.date | date:'medium'}}</b></div>
+        </div>
+      </div>
+
+      <button mat-menu-item *ngFor="let status of (setting$ | async).STATUSES | keyvalue"
+              (click)="changeStatus(status.key)"
+              [disabled]="isDisabled(status.key)"
+      >
+        <mat-icon>redo</mat-icon>
+        <span>{{status.value}}</span>
+      </button>
+
+      <mat-divider></mat-divider>
+
+      <button mat-menu-item [routerLink]="'/edit/' + item.id">
+        <mat-icon aria-label="Módosít">edit</mat-icon>
+        <span>Módosít</span>
+      </button>
+
+      <button mat-menu-item (click)="deleteItem()">
+        <mat-icon aria-label="Töröl">delete</mat-icon>
+        <span>Töröl</span>
+      </button>
+
+    </mat-menu>
   </div>
 </mat-card>

@@ -17,10 +17,6 @@ export class UserService {
   private users: StoreCollection<User> = new StoreCollection<User>([]);
   users$ = this.users.value$;
 
-  isAdmin(): Observable<boolean> {
-    return this.user$.pipe(map(user => !!user));
-  }
-
   constructor(
     private http: HttpClient
   ) {

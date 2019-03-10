@@ -7,6 +7,7 @@ import {HttpClient} from "@angular/common/http";
 import {ItemService} from "./item.service";
 import {StoreCollection} from "../util/Store";
 import {filter, map} from "rxjs/operators";
+import {stringify} from "@angular/compiler/src/util";
 
 
 export interface CartSheetData {
@@ -39,6 +40,20 @@ export class ShoppingCartService {
   ) {
   }
 
+  init() {
+    try {
+      const cart =  localStorage.getItem('cart');
+      if (cart && cart.length) {
+        this.cart.set(JSON.parse( localStorage.getItem('cart')));
+      }
+    } catch (e) {
+      console.error('Unable to parse locasStorage for cart', e)
+    }
+
+    this.cart.value$.subscribe( cart => {
+      localStorage.setItem('cart', JSON.stringify( cart ));
+    });
+  }
   openCartSheet() {
     const data: CartSheetData = {
       service: this
@@ -55,11 +70,11 @@ export class ShoppingCartService {
 
   addToCart(item: ItemRecord) {
     this.cart.append(item.id);
-  }
+   }
 
   removeFromCart(item: ItemRecord) {
     this.cart.remove(item.id);
-  }
+   }
 
   isInCart(item: ItemRecord) {
     return this.cart.snapshot().includes(item.id);

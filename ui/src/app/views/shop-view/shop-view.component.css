@@ -16,6 +16,10 @@
   pointer-events: auto
 }
 
+.error {
+  text-align: center;
+  margin: 50px;
+}
 
 .categories {
   padding: 0 5px;

@@ -33,6 +33,19 @@
     </ng-template>
 
   </animated-list>
+
+
+</div>
+
+<div class="error" *ngIf="!((items$ | async)?.length)">
+  <p>
+    Nincs találat.
+  </p>
+  <p>
+    Próbáld meg kikapcsolni a szűrőket vagy más kategóriában keresni.
+  </p>
+
+
 </div>
 
 <div class="floating-buttons">
@@ -40,7 +53,7 @@
     <mat-icon aria-label="Új cucc">search</mat-icon>
   </button>
 
-  <button *ngIf="isAdmin() | async" mat-fab [routerLink]="'/create'">
+  <button *ngIf="user$ | async" mat-fab [routerLink]="'/create'">
     <mat-icon aria-label="Új cucc">add</mat-icon>
   </button>
 
