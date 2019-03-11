@@ -29,7 +29,7 @@
 }
 
 .horizontal .content {
-  margin: -10px 0 0 200px;
+  margin: -10px 0 0 180px;
 }
 .horizontal-card-image
 {
@@ -37,7 +37,7 @@
   top: 0;
   left: 0;
   bottom: 0;
-  width: 200px;
+  width: 180px;
   height: 100%;
   object-fit: cover;
 }
