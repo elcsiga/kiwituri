@@ -12,6 +12,7 @@ import {
 import {sendError} from "../utils/error";
 import {expectLoggedInUser} from "./authentication";
 import {allowChangeStatus, hasOrder} from "../common/validators/status";
+import {sendOrderMail} from "./mail";
 
 export const itemsRouter = express.Router();
 
@@ -164,25 +165,27 @@ itemsRouter.post('/buy', (req, res) => {
                 } else if (!itemRecords.every(i => !i.status || i.status === 'STATUS2_ACTIVE')) {
                     sendError(res, 400, 'Not all items are active.');
                 } else {
+
+                    const order: ItemOrder = {
+                        id: orderId,
+                        email: buyData.email,
+                        date: Date.now()
+                    };
+
+                    const itemPayload: ItemBuyPayload = {
+                        status: 'STATUS3_ORDERED',
+                        order: toDb<ItemOrder>(order)
+                    };
+
                     const updates = itemRecords.map(i => {
-
-                        const order: ItemOrder = {
-                            id: orderId,
-                            email: buyData.email,
-                            date: Date.now()
-                        };
-
-                        const itemPayload: ItemBuyPayload = {
-                            status: 'STATUS3_ORDERED',
-                            order: toDb<ItemOrder>(order)
-                        };
-
                         return db.query<DbItemRecord[], [ItemBuyPayload, number]>(
                             'UPDATE items SET ? WHERE id = ?', [itemPayload, i.id])
                             .then(() => getItem(i.id));
                     });
 
                     Promise.all(updates).then(items => {
+                        sendOrderMail(order);
+
                         console.log('SUCCESSFUL ORDER: ', orderId);
                         res.json({orderId, items});
                     }).catch(err => {
