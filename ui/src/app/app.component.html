@@ -57,6 +57,13 @@
           </button>
         </a>
 
+        <button *ngIf="(user$ | async)" mat-menu-item (click)="toggleArchiveMode()">
+          <mat-icon>folder</mat-icon>
+          <span>Archívum (be/ki)</span>
+        </button>
+
+        <mat-divider></mat-divider>
+
         <a *ngIf="(user$ | async)" routerLink="/change-password">
           <button mat-menu-item>
             <mat-icon>autorenew</mat-icon>

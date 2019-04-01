@@ -1,12 +1,13 @@
 import * as express from 'express';
 import {db} from "../db/mysql";
 import {
+    ARCHIVE_STATUSES,
     BuyData,
     DbItemRecord,
     fromDbItemRecord,
     ItemBody,
     ItemOrder,
-    ItemRecord, ItemStatus,
+    ItemRecord, ItemStatus, NORMAL_STATUSES,
     toDb
 } from "../common/interfaces/item";
 import {sendError} from "../utils/error";
@@ -39,7 +40,9 @@ const getItem: (number) => Promise<ItemRecord> = id => db.query<DbItemRecord[], 
 
 itemsRouter.get('/', (req, res) => {
 
-    db.query<DbItemRecord[]>('SELECT * FROM items ORDER BY id DESC')
+    const statuses = NORMAL_STATUSES.map(s => ` '${s}' `).join(',');
+    const query = `SELECT * FROM items WHERE status IS NULL OR status in (${statuses}) ORDER BY id DESC`;
+    db.query<DbItemRecord[]>(query)
         .then(dbItemsRecords => {
             const itemRecords: ItemRecord[] = dbItemsRecords.map(fromDbItemRecord);
             res.json(itemRecords);
@@ -49,6 +52,21 @@ itemsRouter.get('/', (req, res) => {
         });
 });
 
+itemsRouter.get('/archive', (req, res) => {
+
+    const statuses = ARCHIVE_STATUSES.map(s => ` '${s}' `).join(',');
+    const query = `SELECT * FROM items WHERE status in (${statuses}) ORDER BY id DESC`;
+    db.query<DbItemRecord[]>(query)
+        .then(dbItemsRecords => {
+            const itemRecords: ItemRecord[] = dbItemsRecords
+                .map(fromDbItemRecord)
+            ;
+            res.json(itemRecords);
+        })
+        .catch(err => {
+            sendError(res, 400, 'Could not retrieve items.', err);
+        });
+});
 
 itemsRouter.get('/:id', (req, res) => {
 

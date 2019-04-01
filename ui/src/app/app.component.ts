@@ -8,6 +8,7 @@ import { ConfigService } from "./services/config.service";
 import {RouterUtilsService} from "./services/router-utils.service";
 import {ProgressService} from "./services/progress.service";
 import {ShoppingCartService} from "./services/shopping-cart.service";
+import {ItemService} from "./services/item.service";
 
 @Component({
   selector: 'app-root',
@@ -27,6 +28,7 @@ export class AppComponent implements OnInit {
     private configService: ConfigService,
     private routerUtilsService: RouterUtilsService,
     private progressService: ProgressService,
+    private itemService: ItemService,
     private cartService: ShoppingCartService
   ) {
     this.routerUtilsService.init();
@@ -49,5 +51,9 @@ export class AppComponent implements OnInit {
       }, error => {
         console.error(error);
       })
+  }
+
+  toggleArchiveMode() {
+    this.itemService.toggleArchiveMode();
   }
 }

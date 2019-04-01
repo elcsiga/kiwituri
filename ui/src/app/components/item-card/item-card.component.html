@@ -15,7 +15,7 @@
     <app-item-info [item]="item">
     </app-item-info>
     <mat-chip-list>
-      <mat-chip *ngFor="let tag of item.data.tags">{{tag}}</mat-chip>
+      <mat-chip class="small-chip" *ngFor="let tag of item.data.tags">{{tag}}</mat-chip>
     </mat-chip-list>
 
     <div class="images">

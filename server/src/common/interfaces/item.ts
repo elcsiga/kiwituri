@@ -3,6 +3,9 @@ import {UploadedFile} from "./upload";
 export type ItemStatus =  'STATUS1_HIDDEN' | 'STATUS2_ACTIVE' | 'STATUS3_ORDERED' | 'STATUS4_SHIPPED'
     | 'STATUS5_SOLD' | 'STATUS6_LOST'
 
+export const NORMAL_STATUSES: ItemStatus[] = ['STATUS1_HIDDEN' , 'STATUS2_ACTIVE' , 'STATUS3_ORDERED' , 'STATUS4_SHIPPED'];
+export const ARCHIVE_STATUSES: ItemStatus[] = ['STATUS5_SOLD' , 'STATUS6_LOST'];
+
 export type UserId = string; //email
 
 export interface TimeStampData {

@@ -11,9 +11,11 @@ export class ItemService {
 
   private items = new StoreCollection<ItemRecord>([]);
   item$ = this.items.value$;
+  private archiveMode = false;
 
   loadItems() {
-    this.http.get<ItemRecord[]>('/api/items')
+    const url = this.archiveMode ? '/api/items/archive' : '/api/items';
+    this.http.get<ItemRecord[]>(url)
       .subscribe(items => this.items.set(items));
   }
   constructor(
@@ -31,5 +33,10 @@ export class ItemService {
   }
   remove(item: ItemRecord): void {
     this.items.removeById( item );
+  }
+
+  toggleArchiveMode() {
+    this.archiveMode = !this.archiveMode;
+    this.loadItems();
   }
 }

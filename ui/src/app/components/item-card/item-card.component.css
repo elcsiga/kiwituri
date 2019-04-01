@@ -73,3 +73,9 @@
 .mat-divider {
   margin: 10px 0;
 }
+
+.small-chip {
+  min-height: 24px;
+  padding: 8px;
+  font-size: smaller;
+}
