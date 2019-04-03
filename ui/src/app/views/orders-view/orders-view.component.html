@@ -17,7 +17,7 @@
     <div *ngFor="let items of order.value | keyvalue">
 
       <div class="store">
-        <span> {{items.key.fullName}}</span>
+        <span> {{items.key ? items.key.fullName : "-" }}</span>
       </div>
 
       <div class="item" *ngFor="let item of items.value">

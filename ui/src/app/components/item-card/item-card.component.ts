@@ -7,6 +7,8 @@ import {NotificationService} from "../../services/notification.service";
 import {HttpClient} from "@angular/common/http";
 import {ConfigService} from "../../services/config.service";
 import {allowChangeStatus} from "../../../../../server/src/common/validators/status";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
 
 export interface CarouselPosition {
   id: number,
@@ -27,6 +29,7 @@ export class ItemCardComponent implements OnInit {
 
   setting$ = this.configService.settings$;
   user$ = this.userService.user$;
+  users$ = this.userService.users$;
 
   constructor(
     private userService: UserService,
@@ -105,5 +108,12 @@ export class ItemCardComponent implements OnInit {
 
   isDisabled(status: ItemStatus) {
     return !allowChangeStatus(this.item, status);
+  }
+
+  getStoreUserName$(): Observable<string> {
+    return this.users$.pipe(
+      map(users => users.find(u => u.email === this.item.data.store)),
+      map( user => user ? user.fullName : '-')
+    )
   }
 }

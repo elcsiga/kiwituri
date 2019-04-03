@@ -30,7 +30,6 @@
       {{item.data.description}}
     </p>
 
-
     <div *ngIf="horizontal">
       <div class="info-ordered" *ngIf="item.status === 'STATUS3_ORDERED'"> Szállítás alatt...</div>
       <div class="info-shipped" *ngIf="item.status === 'STATUS4_SHIPPED'"> Megérkezett a kávézóba!</div>
@@ -48,13 +47,14 @@
   <div class="editor" *ngIf="user$ | async">
 
     <button mat-mini-fab color="accent" [matMenuTriggerFor]="statusMenu">
-      <mat-icon aria-label="Módosítás">edit</mat-icon>
+      #{{item.id}}
     </button>
 
     <mat-menu #statusMenu="matMenu">
 
       <div class="orderData">
-        <div> <b>{{ (setting$ | async).STATUSES[item.status || 'STATUS2_active'] }}</b></div>
+        <div> <b>#{{ item.id }}</b> ({{ getStoreUserName$() | async }})</div>
+        <div> {{ (setting$ | async).STATUSES[item.status || 'STATUS2_ACTIVE'] }}</div>
         <div *ngIf="item && item.order">
           <div>Rendelés száma: <b>{{item.order.id}}</b></div>
           <div>E-mail: <b>{{item.order.email}}</b></div>
