@@ -29,7 +29,7 @@ export class ItemService {
   }
 
   add(item: ItemRecord): void {
-    this.items.append( item );
+    this.items.prepend( item );
   }
   remove(item: ItemRecord): void {
     this.items.removeById( item );

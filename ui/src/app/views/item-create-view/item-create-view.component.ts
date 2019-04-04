@@ -11,8 +11,10 @@ import {
 } from "../../../../../server/src/common/interfaces/item";
 import {ItemService} from "../../services/item.service";
 import {UserService} from "../../services/user.service";
-import {filter, map} from "rxjs/operators";
+import {filter, map, take} from "rxjs/operators";
 import {User} from "../../../../../server/src/common/interfaces/user";
+import {MatDialog} from "@angular/material";
+import {ItemCreatedComponent} from "../../components/item-created/item-created.component";
 
 
 @Component({
@@ -44,16 +46,31 @@ export class ItemCreateViewComponent {
     private itemService: ItemService,
     private router: Router,
     private notificationService: NotificationService,
-    private userService: UserService
+    private userService: UserService,
+    private dialog: MatDialog
   ) {
   }
 
   onSubmit(item: ItemBody) {
     this.http.post<ItemRecord>('/api/items', item)
       .subscribe(createdItem => {
-        this.notificationService.info('Sikeresen elmentve: #' + createdItem.id);
         this.itemService.add(createdItem);
-        this.router.navigate(['/shop']);
+
+        let storeUser: User;
+        this.userService.users$.pipe( take(1) ).subscribe(
+          users => storeUser = users.find( u => u.email === createdItem.data.store)
+        );
+        const code = (storeUser ? storeUser.initial : '?' ) + createdItem.id;
+
+        const dialogRef = this.dialog.open(ItemCreatedComponent, {
+            width: '250px',
+            data: {item:createdItem, code: code}
+          });
+
+        dialogRef.afterClosed().subscribe(result => {
+          this.router.navigate(['/shop']);
+        });
+
       }, error => {
         this.notificationService.info('Nem sikerült a mentés');
         console.error(error);

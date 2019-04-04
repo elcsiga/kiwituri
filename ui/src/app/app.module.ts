@@ -18,7 +18,7 @@ import {
   MatFormFieldModule,
   MatCheckboxModule,
   MatAutocompleteModule,
-  MatMenuModule, MatBottomSheetModule, MatTableModule, MatTabsModule, MatProgressBarModule
+  MatMenuModule, MatBottomSheetModule, MatTableModule, MatTabsModule, MatProgressBarModule, MatDialogModule
 } from "@angular/material";
 import {AppRoutingModule} from './app-routing.module';
 import {HomeViewComponent} from './views/home-view/home-view.component';
@@ -47,6 +47,7 @@ import {ItemInfoComponent} from './components/item-info/item-info.component';
 import {OrderViewComponent} from './views/order-view/order.component';
 import {ErrorViewComponent} from './views/error-view/error-view.component';
 import { OrdersViewComponent } from './views/orders-view/orders-view.component';
+import { ItemCreatedComponent } from './components/item-created/item-created.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { OrdersViewComponent } from './views/orders-view/orders-view.component';
     ItemInfoComponent,
     OrderViewComponent,
     ErrorViewComponent,
-    OrdersViewComponent
+    OrdersViewComponent,
+    ItemCreatedComponent
   ],
   imports: [
     FormsModule,
@@ -99,6 +101,7 @@ import { OrdersViewComponent } from './views/orders-view/orders-view.component';
     MatTableModule,
     MatTabsModule,
     MatProgressBarModule,
+    MatDialogModule,
     CarouselModule,
     NgxMdModule.forRoot(),
     KitAnimatedListModule
@@ -107,7 +110,8 @@ import { OrdersViewComponent } from './views/orders-view/orders-view.component';
   bootstrap: [AppComponent],
   entryComponents: [
     CartSheetComponent,
-    SearchSheetComponent
+    SearchSheetComponent,
+    ItemCreatedComponent
   ]
 })
 export class AppModule {

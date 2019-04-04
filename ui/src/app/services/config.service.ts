@@ -3,6 +3,7 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import * as yaml from 'js-yaml';
 import {map} from "rxjs/operators";
+import {User} from "../../../../server/src/common/interfaces/user";
 
 export interface Config {
   key: string;
@@ -18,6 +19,11 @@ export interface Settings {
   STATUSES:  string[];
 }
 
+export interface Context {
+  settings: Settings;
+  user: User;
+  users: User[];
+}
 @Injectable({
   providedIn: 'root'
 })

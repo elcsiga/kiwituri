@@ -102,18 +102,14 @@ export class ItemCardComponent implements OnInit {
     this.cartService.removeFromCart(this.item);
   }
 
-  // getPlaceholder(x) {
-  //   return '/assets/p' + ( 1 + x%6) + '.jpg';
-  // }
-
   isDisabled(status: ItemStatus) {
     return !allowChangeStatus(this.item, status);
   }
 
-  getStoreUserName$(): Observable<string> {
+  getStoreUserInitial$(): Observable<string> {
     return this.users$.pipe(
       map(users => users.find(u => u.email === this.item.data.store)),
-      map( user => user ? user.fullName : '-')
+      map( user => user ? user.initial : '-')
     )
   }
 }

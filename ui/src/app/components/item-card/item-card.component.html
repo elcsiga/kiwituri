@@ -44,16 +44,15 @@
       <mat-icon aria-label="Kosárba">delete_forever</mat-icon>
     </button>
   </div>
-  <div class="editor" *ngIf="user$ | async">
+  <div class="editor" *ngIf="user$ | async as user">
 
     <button mat-mini-fab color="accent" [matMenuTriggerFor]="statusMenu">
-      #{{item.id}}
+      {{getStoreUserInitial$() | async}}{{item.id}}
     </button>
 
     <mat-menu #statusMenu="matMenu">
 
       <div class="orderData">
-        <div> <b>#{{ item.id }}</b> ({{ getStoreUserName$() | async }})</div>
         <div> {{ (setting$ | async).STATUSES[item.status || 'STATUS2_ACTIVE'] }}</div>
         <div *ngIf="item && item.order">
           <div>Rendelés száma: <b>{{item.order.id}}</b></div>

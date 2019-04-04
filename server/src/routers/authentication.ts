@@ -135,7 +135,7 @@ export function initAuth(app: Express) {
     app.get('/api/user', function (req, res, next) {
         expectLoggedInUser(req);
 
-        db.query<User[]>('SELECT email, fullName FROM users')
+        db.query<User[]>('SELECT email, fullName, initial FROM users')
             .then(users => {
                 res.json(users);
             })
