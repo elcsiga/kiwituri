@@ -12,8 +12,8 @@
         "build-full": "npm run build-ui && npm run build",
         "start": "node dist/server.js",
         "s": "npm run build && npm start",
-        "deploy": "npm run build && eb deploy",
-        "deploy-full": "npm run build-full && eb deploy",
+        "deploy": "cd .. && git subtree push --prefix server heroku master",
+        "deploy-full": "npm run build-full && npm run deploy",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
@@ -45,6 +45,7 @@
         "mysql": "^2.16.0",
         "passport": "^0.4.0",
         "passport-local": "^1.0.0",
+        "sharp": "^0.21.3",
         "uuid": "^3.3.2"
     },
     "devDependencies": {
