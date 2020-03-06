@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 
-//import {db} from "./db/mysql";
+import {db} from "./db/pg";
 import {itemsRouter} from "./routers/items";
 //import {uploadRouter} from "./routers/upload";
 import {mailerRouter} from "./routers/mail";
@@ -28,7 +28,7 @@ async function main() {
     //initAuth(app);
 
     //db
-    //await db.connect();
+    await db.connect();
 
     //modules
     app.use('/api/config', configRouter);
