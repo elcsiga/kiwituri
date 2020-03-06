@@ -1,5 +1,5 @@
 import * as express from 'express';
-import {db} from "../db/mysql";
+import {db} from "../db/pg";
 import {sendError} from "../utils/error";
 import {expectLoggedInUser} from "./authentication";
 

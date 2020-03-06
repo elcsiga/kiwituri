@@ -9,32 +9,18 @@ export class pgDb {
   }
 
   connect(): Promise<void> {
-
-    console.log('Connecting to database...');
     return new Promise((resolve, reject) => {
-
       this.client = new Client({
         connectionString: process.env.DATABASE_URL,
         ssl: true,
       });
-      console.log('Connecting to database... client created');
-
+      console.log('Connecting to database... ', process.env.DATABASE_URL);
       this.client.connect();
-      console.log('Connecting to database... connected');
-
       this.client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
-        if (err) {
+        if (err || !res) {
           console.error('Database connection failed: ' + err.stack);
           reject(err);
         }
-
-        console.log('Connecting to database... res:', res);
-        if (res && res.rows && res.rows.length) {
-          for (let row of res.rows) {
-            console.log(JSON.stringify(row));
-          }
-        }
-
         console.log('Connected to database.');
         resolve();
       });
@@ -46,17 +32,16 @@ export class pgDb {
 
   query<T, V>(queryString: string, values?: V): Promise<T> {
     return new Promise((resolve, reject) => {
-      // const query = this.connection.query( queryString, values, (err, rows) => {
-      //     if (err) {
-      //         console.error('Query failed: ' + err.stack);
-      //         reject(err);
-      //     } else {
-      //         console.log('Query successfully executed.');
-      //         resolve(rows);
-      //     }
-      // });
-      // console.log('Query: ', query.sql);
-      reject();
+      const query = this.client.query(queryString, values, (err, res) => {
+        if (err || !res) {
+          console.error('Query failed: ' + err.stack);
+          reject(err);
+        } else {
+          console.log('Query successfully executed.');
+          resolve(res.rows);
+        }
+      });
+      console.log('Query: ', query.sql);
     });
   }
 

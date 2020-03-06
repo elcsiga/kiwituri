@@ -1,6 +1,6 @@
 import * as passport from 'passport';
 import {Strategy as LocalStrategy} from 'passport-local';
-import {db} from "../db/mysql";
+import {db} from "../db/pg";
 import {ChangePasswordData, User} from "../common/interfaces/user";
 import {sendError, ServerError} from "../utils/error";
 import {Express} from "express";
