@@ -1,6 +1,6 @@
 
 import * as express from 'express';
-import { db } from "../db/mysql";
+import { db } from "../db/pg";
 import { sendError } from "../utils/error";
 export const testRouter = express.Router();
 

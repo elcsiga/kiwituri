@@ -12,7 +12,7 @@ export class pgDb {
 
     console.log('Connecting to database...');
     return new Promise((resolve, reject) => {
-      
+
       this.client = new Client({
         connectionString: process.env.DATABASE_URL,
         ssl: true,
@@ -27,10 +27,14 @@ export class pgDb {
           console.error('Database connection failed: ' + err.stack);
           reject(err);
         }
-        for (let row of res.rows) {
-          console.log(JSON.stringify(row));
-        } 
-        
+
+        console.log('Connecting to database... res:', res);
+        if (res && res.rows && res.rows.length) {
+          for (let row of res.rows) {
+            console.log(JSON.stringify(row));
+          }
+        }
+
         console.log('Connected to database.');
         resolve();
       });
