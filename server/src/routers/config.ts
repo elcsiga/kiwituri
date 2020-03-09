@@ -27,7 +27,7 @@ configRouter.put('/:key', (req, res) => {
     const value: string = req.body.config;
 
     if (key && value) {
-        db.query<any, [object, object]>('UPDATE config SET ? WHERE ?', [{value}, {key}])
+        db.query<any, [object, object]>('UPDATE config SET $1 WHERE $2', [{value}, {key}])
             .then(result => res.json(result))
             .catch(err => {
                 sendError(res, 400, 'Could not update config.', err);

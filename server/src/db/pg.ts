@@ -28,11 +28,11 @@ export class pgDb {
   }
 
   query<T>(queryString: string): Promise<T>;
-  query<T, V>(queryString: string, values?: V): Promise<T>;
+  query<T, V>(queryString: string, values?: any[]): Promise<T>;
 
-  query<T, V>(queryString: string, values?: V): Promise<T> {
-    return new Promise((resolve, reject) => {
-      const query = this.client.query(queryString, values, (err, res) => {
+  query<T, V>(queryString: string, values?: any[]): Promise<T> {
+    return new Promise((resolve, reject) => {    
+      this.client.query(queryString, values, (err, res) => {
         if (err || !res) {
           console.error('Query failed: ' + err.stack);
           reject(err);
@@ -41,7 +41,6 @@ export class pgDb {
           resolve(res.rows);
         }
       });
-      console.log('Query: ', query.sql);
     });
   }
 

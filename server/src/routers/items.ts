@@ -32,7 +32,7 @@ interface ItemStatusPayload {
     status: ItemStatus;
 }
 
-const getItem: (number) => Promise<ItemRecord> = id => db.query<DbItemRecord[], number>('SELECT * FROM items WHERE id = ?', id)
+const getItem: (number) => Promise<ItemRecord> = id => db.query<DbItemRecord[], [number]>('SELECT * FROM items WHERE id = $1', [id])
     .then(rows => rows.length === 1 ? Promise.resolve(rows[0]) : Promise.reject('Record Not found: #' + id))
     .then(row => fromDbItemRecord(row));
 
@@ -86,7 +86,7 @@ itemsRouter.post('/', (req, res) => {
 
     const dbItemBody: string = toDb<ItemBody>(req.body);
     if (dbItemBody) {
-        db.query<any, ItemDataPayload>('INSERT INTO items SET ?', {data: dbItemBody})
+        db.query<any, ItemDataPayload>('INSERT INTO items SET $1', [{data: dbItemBody}])
             .then(result => getItem(result.insertId))
             .then(item => res.json(item))
             .catch(err => {
@@ -105,7 +105,7 @@ itemsRouter.put('/:id', (req, res) => {
     const dbItemBody: string = toDb<ItemBody>(req.body);
 
     if (id && dbItemBody) {
-        db.query<any, [ItemDataPayload, number]>('UPDATE items SET ? WHERE id = ?', [{data: dbItemBody}, id])
+        db.query<any, [ItemDataPayload, number]>('UPDATE items SET $1 WHERE id = $2', [{data: dbItemBody}, id])
             .then(() => {
                 return getItem(id);
             })
@@ -140,7 +140,7 @@ itemsRouter.put('/:id/status/:status', (req, res) => {
                         };
                     }
                     db.query<any, [ItemStatusPayload | ItemBuyPayload, number]>(
-                        'UPDATE items SET ? WHERE id = ?', [payLoad, id])
+                        'UPDATE items SET $1 WHERE id = $2', [payLoad, id])
                         .then(() => {
                             return getItem(id);
                         })
@@ -197,7 +197,7 @@ itemsRouter.post('/buy', (req, res) => {
 
                     const updates = itemRecords.map(i => {
                         return db.query<DbItemRecord[], [ItemBuyPayload, number]>(
-                            'UPDATE items SET ? WHERE id = ?', [itemPayload, i.id])
+                            'UPDATE items SET $1 WHERE id = $2', [itemPayload, i.id])
                             .then(() => getItem(i.id));
                     });
 
@@ -223,7 +223,7 @@ itemsRouter.delete('/:id', (req, res) => {
     if (id) {
         getItem(id)
             .then(item => {
-                db.query<any, number>('DELETE FROM items WHERE id = ?', id)
+                db.query<any, number>('DELETE FROM items WHERE id = $1', [id])
                     .then(() => res.json(item))
                     .catch(err => {
                         sendError(res, 400, 'Could not delete item.', err);

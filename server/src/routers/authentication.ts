@@ -19,7 +19,7 @@ export function initAuth(app: Express) {
             usernameField: 'email',
             passwordField: 'password'
         }, (email, password, done) => {
-            db.query<User[], [string, string]>('SELECT email, fullName FROM users WHERE email = ? AND password = ?', [email, password])
+            db.query<User[], [string, string]>('SELECT email, fullName FROM users WHERE email = $1 AND password = $2', [email, password])
                 .then(users => {
                     if (users.length === 1) {
                         return done(null, users[0]);
@@ -44,7 +44,7 @@ export function initAuth(app: Express) {
     });
 
     passport.deserializeUser(function (email, cb) {
-        db.query<User[], any>('SELECT email, fullName FROM users WHERE email = ?', email)
+        db.query<User[], any>('SELECT email, fullName FROM users WHERE email = $1', [email])
             .then(users => {
                 if (users.length === 1) {
                     cb(null, users[0]);
@@ -63,7 +63,7 @@ export function initAuth(app: Express) {
         passport.authenticate('local', function (err, user: User, info) {
 
             if (err) {
-                sendError(res, 400, 'Authentucation error', err);
+                sendError(res, 400, 'Authentication error', err);
             } else if (user) {
                 req.logIn(user, function (err) {
                     if (err) {

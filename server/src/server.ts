@@ -6,10 +6,10 @@ import * as cors from 'cors';
 
 import {db} from "./db/pg";
 import {itemsRouter} from "./routers/items";
-//import {uploadRouter} from "./routers/upload";
+import {uploadRouter} from "./routers/upload";
 import {mailerRouter} from "./routers/mail";
 import {errorHandler, sendError} from "./utils/error";
-//import {initAuth} from "./routers/authentication";
+import {initAuth} from "./routers/authentication";
 import {testRouter} from "./routers/test";
 import {configRouter} from "./routers/config";
 
@@ -18,7 +18,7 @@ async function main() {
     app.use(cors());
     app.use(bodyParser.urlencoded({extended: false}));
     app.use(bodyParser.json());
-    app.use(express.static(__dirname + '/../ui'));
+    app.use(express.static(__dirname + '/ui'));
 
     //logger
     app.use(function (req, res, next) {
@@ -27,7 +27,7 @@ async function main() {
         next();
     });
 
-    //initAuth(app);
+    initAuth(app);
 
     //db
     await db.connect();
@@ -35,7 +35,7 @@ async function main() {
     //modules
     app.use('/api/config', configRouter);
     app.use('/api/test', testRouter);
-    //app.use('/api/upload', uploadRouter);
+    app.use('/api/upload', uploadRouter);
     app.use('/api/items', itemsRouter);
     app.use('/api/mail', mailerRouter);
 
